@@ -30,7 +30,7 @@ class MarathonPage extends StatelessWidget {
                 children: [
                   for (var m in mc.marathonList)
                     Container(
-                      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      margin: const EdgeInsets.fromLTRB(18, 14, 18, 0),
                       child: Slidable(
                         endActionPane: ActionPane(
                             motion: const StretchMotion(),
@@ -80,6 +80,7 @@ class MarathonPage extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  // 显示马拉松名称
                                   Text(
                                     "${m["name"]}",
                                     style: const TextStyle(
@@ -90,8 +91,10 @@ class MarathonPage extends StatelessWidget {
                                   const SizedBox(
                                     height: 5,
                                   ),
+                                  // 显示马拉松举办时间和地点
                                   Text(
-                                    "${DateTime.parse(m["date"]).year.toString()}年${DateTime.parse(m["date"]).month.toString().padLeft(2, '0')}月${DateTime.parse(m["date"]).day.toString()}日 | ${m["location"]}",
+                                    "${DateTime.parse(m["date"]).year.toString()}年${DateTime.parse(m["date"]).month.toString()}月${DateTime.parse(m["date"]).day.toString()}日 | ${m["location"]}",
+                                    // .toString().padLeft(2, '0')
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontFamily: "霞鹜文楷",
