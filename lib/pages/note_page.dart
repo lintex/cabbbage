@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/models/note.dart';
 import 'package:xiao_note/models/note_database.dart';
+import 'package:xiao_note/theme/theme.dart';
 
 class NotePage extends StatefulWidget {
   const NotePage({super.key});
@@ -81,6 +82,7 @@ class _NotePageState extends State<NotePage> {
     //final noteDatabase = context.watch<NoteDatabase>();
 
     return Scaffold(
+      backgroundColor: greyBg,
       appBar: const MyAppBar(title: "日记"),
       body: Obx(() => ListView.builder(
             itemCount: ndb.currentNotes.length,

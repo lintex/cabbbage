@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:xiao_note/theme/theme.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -14,10 +15,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: greyBg,
       centerTitle: true,
-      // leading: IconButton(
-      //   icon: const Icon(Icons.arrow_back_ios_new_rounded),
-      //   onPressed: () => Get.back(),
-      // ),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios_new_rounded),
+        onPressed: () => Get.back(),
+      ),
       elevation: 0,
     );
   }

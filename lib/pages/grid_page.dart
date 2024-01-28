@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/components/my_grid_tile.dart';
 import 'package:xiao_note/pages/marathon_page.dart';
 import 'package:xiao_note/pages/note_page.dart';
@@ -14,17 +15,17 @@ class GridPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(title: const Text("全部功能")),
+      backgroundColor: greyBg,
+      appBar: const MyAppBar(title: "全部功能"),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              decoration: BoxDecoration(
-                  color: greyBg,
-                  borderRadius: const BorderRadius.all(Radius.circular(12))),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(12))),
               child: Column(//
                   children: [
                 const Padding(
@@ -68,9 +69,9 @@ class GridPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              decoration: BoxDecoration(
-                  color: greyBg,
-                  borderRadius: const BorderRadius.all(Radius.circular(12))),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(12))),
               child: Column(//
                   children: [
                 const Padding(

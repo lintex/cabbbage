@@ -12,10 +12,15 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: greyBg,
-      appBar: MyAppBar(title: Dashboard.getTitle()),
+      appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            Dashboard.getTitle(),
+            style: const TextStyle(fontSize: 18),
+          )),
       drawer: const MyDrawer(),
       body: ListView(
-        children: [
+        children: const [
           MyDashboardTile(),
           MyDashboardTile(),
           MyDashboardTile(),

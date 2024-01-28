@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xiao_note/components/my_app_bar.dart';
 //import 'package:get/get.dart';
 
 class PaceCalculatePage extends StatefulWidget {
@@ -93,7 +94,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
 
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 245, 247),
-        appBar: AppBar(title: Text("马拉松配速计算器")),
+        appBar: const MyAppBar(title: "马拉松配速计算器"),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(30.0),
