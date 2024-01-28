@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 Color bg = const Color.fromARGB(255, 244, 245, 247);
 Color blue = const Color.fromARGB(255, 52, 131, 252);
 Color blueBg = const Color.fromARGB(255, 222, 239, 255);
-Color greyBg = const Color.fromARGB(255, 248, 248, 248);
+Color greyBg = const Color.fromARGB(255, 247, 247, 247);
 Color yellow = const Color.fromARGB(255, 236, 176, 56);
 Color red = const Color.fromARGB(255, 193, 56, 72);
 Color grey = const Color.fromARGB(255, 159, 159, 159);

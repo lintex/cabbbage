@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:xiao_note/pages/dashboard_page.dart';
 import 'package:xiao_note/pages/grid_page.dart';
 import 'package:xiao_note/pages/note_page.dart';
+import 'package:xiao_note/theme/theme.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -10,7 +11,9 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      //backgroundColor: greyBg,
       child: Container(
+        color: greyBg,
         // 使用Container控制边距
         padding: const EdgeInsets.fromLTRB(10, 60, 10, 10),
         child: Column(
