@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/components/my_dashboard_tile.dart';
 import 'package:xiao_note/components/my_drawer.dart';
 import 'package:xiao_note/models/dashboard.dart';
