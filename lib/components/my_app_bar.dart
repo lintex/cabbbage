@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:xiao_note/theme/theme.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key, required this.title});
@@ -11,12 +13,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: const TextStyle(fontSize: 18),
       ),
-      //backgroundColor: bg,
+      backgroundColor: bg,
       centerTitle: true,
-      // leading: IconButton(
-      //   icon: const Icon(Icons.arrow_back_ios_new_rounded),
-      //   onPressed: () => Get.back(),
-      // ),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios_new_rounded),
+        onPressed: () => Get.back(),
+      ),
       elevation: 0,
     );
   }
