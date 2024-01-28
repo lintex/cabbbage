@@ -100,7 +100,22 @@ class MarathonPage extends StatelessWidget {
                                 ],
                               ),
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.baseline,
+                                textBaseline: TextBaseline.alphabetic,
                                 children: [
+                                  Text(
+                                    DateTime.parse(m["date"])
+                                                .difference(DateTime.now())
+                                                .inDays <
+                                            0
+                                        ? "过了"
+                                        : "还有",
+                                    style: const TextStyle(
+                                        fontSize: 9, color: Colors.grey),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
                                   Text(
                                     DateTime.parse(m["date"])
                                         .difference(DateTime.now())
@@ -112,27 +127,11 @@ class MarathonPage extends StatelessWidget {
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        DateTime.parse(m["date"])
-                                                    .difference(DateTime.now())
-                                                    .inDays <
-                                                0
-                                            ? "过期"
-                                            : "还有",
-                                        style: const TextStyle(
-                                            fontSize: 9, color: Colors.grey),
-                                      ),
-                                      const Text(
-                                        "天",
-                                        style: TextStyle(
-                                            fontSize: 9, color: Colors.grey),
-                                      )
-                                    ],
-                                  )
+                                  const Text(
+                                    "天",
+                                    style: TextStyle(
+                                        fontSize: 9, color: Colors.grey),
+                                  ),
                                 ],
                               ),
                             ],
