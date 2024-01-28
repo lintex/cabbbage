@@ -15,10 +15,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: bg,
       centerTitle: true,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new_rounded),
-        onPressed: () => Get.back(),
-      ),
+      // leading: IconButton(
+      //   icon: const Icon(Icons.arrow_back_ios_new_rounded),
+      //   onPressed: () => Get.back(),
+      // ),
       elevation: 0,
     );
   }

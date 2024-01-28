@@ -1,11 +1,17 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class RulerPage extends StatelessWidget {
   const RulerPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // 下面这段代码用来隐藏顶部信号栏
+    // WidgetsFlutterBinding.ensureInitialized();
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     //获取屏幕尺寸。单位dp
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -17,55 +23,70 @@ class RulerPage extends StatelessWidget {
     double dppmm = sqrt(height * height + width * width) / screenInches / 25.4;
 
     return Scaffold(
-        appBar: AppBar(title: const Text("尺子")),
         body: Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: Stack(
-            children: [
-              // 画刻度
-              CustomPaint(
-                painter: MyCustomPainter(dppinch, dppmm),
-                size: Size.infinite,
-              ),
-              // 旋转 cm 刻度数字
-              Transform.rotate(
-                angle: -pi / 2,
-                child: CustomPaint(
-                  painter: MyNumCustomPainter(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
-                  size: Size.infinite, //size 设置为全屏幕
-                ),
-              ),
-              // 旋转 inch 刻度数字
-              Transform.rotate(
-                angle: pi / 2,
-                child: CustomPaint(
-                  painter: MyNumCustomPainter2(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
-                  size: Size.infinite, //size 设置为全屏幕
-                ),
-              ),
-              // 显示 cm 两个字母
-              Positioned(
-                left: 80,
-                top: (height - 160) / 2,
-                child: const RotatedBox(
-                  quarterTurns: 3,
-                  child: Text("cm",
-                      style: TextStyle(fontSize: 30, color: Colors.black)),
-                ),
-              ),
-              // 显示 inch 字样
-              Positioned(
-                right: 80,
-                top: (height - 160) / 2,
-                child: const RotatedBox(
-                  quarterTurns: 1,
-                  child: Text("inch",
-                      style: TextStyle(fontSize: 30, color: Colors.black)),
-                ),
-              ),
-            ],
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
+      child: Stack(
+        children: [
+          // 画刻度
+          CustomPaint(
+            painter: MyCustomPainter(dppinch, dppmm),
+            size: Size.infinite,
           ),
-        ));
+          // 旋转 cm 刻度数字
+          Transform.rotate(
+            angle: -pi / 2,
+            child: CustomPaint(
+              painter: MyNumCustomPainter(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
+              size: Size.infinite, //size 设置为全屏幕
+            ),
+          ),
+          // 旋转 inch 刻度数字
+          Transform.rotate(
+            angle: pi / 2,
+            child: CustomPaint(
+              painter: MyNumCustomPainter2(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
+              size: Size.infinite, //size 设置为全屏幕
+            ),
+          ),
+          // 显示 cm 两个字母
+          Positioned(
+            left: 90,
+            top: height / 2,
+            child: const RotatedBox(
+              quarterTurns: 3,
+              child: Text("cm",
+                  style: TextStyle(fontSize: 30, color: Colors.black)),
+            ),
+          ),
+          // 显示 inch 字样
+          Positioned(
+            right: 90,
+            top: height / 2,
+            child: const RotatedBox(
+              quarterTurns: 1,
+              child: Text("inch",
+                  style: TextStyle(fontSize: 30, color: Colors.black)),
+            ),
+          ),
+          Positioned(
+            left: width / 2 - 43.5,
+            bottom: 60,
+            child: MaterialButton(
+              elevation: 0,
+              onPressed: () => Get.back(),
+              color: Colors.grey[200],
+              textColor: Colors.grey,
+              padding: const EdgeInsets.all(16),
+              shape: const CircleBorder(),
+              child: const Icon(
+                Icons.close,
+                size: 55,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 }
 
@@ -80,20 +101,29 @@ class MyNumCustomPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     int i = 0;
     while (i * mmGap < size.height) {
-      drawNum(i, canvas, size);
+      TextPainter numPainter = TextPainter(
+          text: TextSpan(
+              text: "${i ~/ 10}",
+              style: const TextStyle(fontSize: 16, color: Colors.black)),
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.center);
+      if (i >= 100) {
+        drawNum2(numPainter, i, canvas, size);
+      } else {
+        drawNum(numPainter, i, canvas, size);
+      }
       i = i + 10;
     }
   }
 
-  void drawNum(int i, Canvas canvas, Size size) {
-    var numPainter = TextPainter(
-        text: TextSpan(
-            text: "${i ~/ 10}",
-            style: const TextStyle(fontSize: 16, color: Colors.black)),
-        textDirection: TextDirection.ltr,
-        textAlign: TextAlign.left);
+  void drawNum(TextPainter numPainter, int i, Canvas canvas, Size size) {
     numPainter.layout();
-    numPainter.paint(canvas, Offset(i * mmGap - 183, size.width - 160));
+    numPainter.paint(canvas, Offset(i * mmGap - 224, size.width - 135));
+  }
+
+  void drawNum2(TextPainter numPainter, int i, Canvas canvas, Size size) {
+    numPainter.layout();
+    numPainter.paint(canvas, Offset(i * mmGap - 228, size.width - 135));
   }
 
   @override
@@ -123,7 +153,7 @@ class MyNumCustomPainter2 extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     numPainter.layout();
-    numPainter.paint(canvas, Offset(i * inchGap - 183, size.width - 160));
+    numPainter.paint(canvas, Offset(i * inchGap - 223, size.width - 135));
   }
 
   @override
