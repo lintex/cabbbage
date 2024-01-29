@@ -7,7 +7,6 @@ import 'package:xiao_note/pages/note_page.dart';
 import 'package:xiao_note/pages/pace_calculate_page.dart';
 import 'package:xiao_note/pages/ruler_page.dart';
 import 'package:xiao_note/pages/timetable_page.dart';
-import 'package:xiao_note/theme/theme.dart';
 
 class GridPage extends StatelessWidget {
   const GridPage({super.key});
@@ -15,7 +14,6 @@ class GridPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const MyAppBar(title: "全部功能"),
       body: SingleChildScrollView(
         child: Column(

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:xiao_note/pages/dashboard_page.dart';
 import 'package:xiao_note/pages/grid_page.dart';
 import 'package:xiao_note/pages/note_page.dart';
+import 'package:xiao_note/pages/ruler_page.dart';
 import 'package:xiao_note/theme/theme.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -71,6 +72,16 @@ class MyDrawer extends StatelessWidget {
                     leading: const Icon(CupertinoIcons.ellipses_bubble),
                     title: const Text("反馈"),
                     onTap: () => Get.to(() => const GridPage()),
+                  ),
+                  ListTile(
+                    leading: Image.asset(
+                      "assets/images/ruler.png",
+                      width: 26,
+                      height: 26,
+                      color: Colors.white,
+                    ),
+                    title: const Text("尺子"),
+                    onTap: () => Get.to(() => const RulerPage()),
                   ),
                 ],
               ),

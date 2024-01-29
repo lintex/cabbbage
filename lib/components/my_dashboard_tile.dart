@@ -10,7 +10,7 @@ class MyDashboardTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         color: Theme.of(context).colorScheme.primary,
       ),
-      padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+      padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.fromLTRB(18, 14, 18, 0),
       child: child,
     );
