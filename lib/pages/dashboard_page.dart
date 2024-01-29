@@ -29,15 +29,18 @@ class DashboardPage extends StatelessWidget {
       body: ListView(
         children: [
           MyDashboardTile(
-              child: MarqueeWidget(
-            //子Item构建器
-            itemBuilder: (BuildContext context, int index) {
-              String itemStr = loopList[index];
-              //通常可以是一个 Text文本
-              return Text(itemStr);
-            },
-            //循环的提示消息数量
-            count: loopList.length,
+              child: SizedBox(
+            height: 20,
+            child: MarqueeWidget(
+              //子Item构建器
+              itemBuilder: (BuildContext context, int index) {
+                String itemStr = loopList[index];
+                //通常可以是一个 Text文本
+                return Text(itemStr);
+              },
+              //循环的提示消息数量
+              count: loopList.length,
+            ),
           )),
           const MyDashboardTile(
             child: Text("Test"),

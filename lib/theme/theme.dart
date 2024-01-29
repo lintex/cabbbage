@@ -14,26 +14,25 @@ Color greyText = const Color.fromARGB(255, 50, 50, 50);
 Color whiteText = const Color.fromARGB(255, 229, 229, 229);
 
 ThemeData lightMode = ThemeData(
-  useMaterial3: true,
-  colorScheme:
-      ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 52, 131, 252)),
-  brightness: Brightness.light,
-  appBarTheme: AppBarTheme(backgroundColor: greyBg),
-  scaffoldBackgroundColor: greyBg,
-  // colorScheme: ColorScheme.light(
-  //   background: Color.fromARGB(255, 244, 245, 247),
-  //   primary: Colors.grey[300]!,
-  //   secondary: Colors.grey[400]!,
-  //   tertiary: Colors.grey[500]!,
-  // )
-);
+    useMaterial3: true,
+    brightness: Brightness.light,
+    appBarTheme: AppBarTheme(backgroundColor: greyBg),
+    scaffoldBackgroundColor: greyBg,
+    colorScheme: ColorScheme.light(
+      background: const Color.fromARGB(255, 247, 247, 247),
+      primary: Colors.grey[300]!,
+      secondary: Colors.grey[400]!,
+      tertiary: Colors.grey[500]!,
+      inversePrimary: Colors.black87,
+    ));
 
 ThemeData darkMode = ThemeData(
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(backgroundColor: Colors.grey.shade900),
     colorScheme: ColorScheme.dark(
-      background: Colors.grey.shade900,
-      primary: Colors.grey[850]!,
+      background: const Color.fromARGB(255, 36, 36, 36),
+      primary: const Color.fromARGB(255, 50, 50, 50),
       secondary: Colors.grey[800]!,
       tertiary: Colors.grey.shade500,
+      inversePrimary: const Color.fromARGB(255, 229, 229, 229),
     ));
