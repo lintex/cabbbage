@@ -3,8 +3,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/components/my_text_divider.dart';
-import 'package:xiao_note/pages/marthonPage/marathon_controller.dart';
-import 'package:xiao_note/pages/marthonPage/my_floating_action_button.dart';
+import 'package:xiao_note/pages/marathonPage/marathon_controller.dart';
+import 'package:xiao_note/pages/marathonPage/my_floating_action_button.dart';
 import 'package:xiao_note/theme/theme.dart';
 
 class MarathonPage extends StatelessWidget {
@@ -20,6 +20,8 @@ class MarathonPage extends StatelessWidget {
     return Obx(() => Scaffold(
         backgroundColor: bg,
         floatingActionButton: const MyFloatingActionButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         appBar: const MyAppBar(title: "马拉松助手"),
         //判断是否有数据
         body: mc.marathonList.isEmpty
@@ -66,6 +68,13 @@ class MarathonPage extends StatelessWidget {
                           width: double.infinity,
                           alignment: Alignment.centerLeft,
                           decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade300,
+                                  blurRadius: 2,
+                                  offset: const Offset(1.0, 1.0),
+                                ),
+                              ],
                               borderRadius: BorderRadius.circular(12),
                               //根据天数改变背景色
                               color: DateTime.parse(m["date"])

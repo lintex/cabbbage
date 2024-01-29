@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
 
 class RulerPage extends StatelessWidget {
@@ -24,68 +24,77 @@ class RulerPage extends StatelessWidget {
     double dppmm = sqrt(height * height + width * width) / screenInches / 25.4;
 
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 8),
-      child: Stack(
-        children: [
-          // 画刻度
-          CustomPaint(
-            painter: MyCustomPainter(dppinch, dppmm),
-            size: Size.infinite,
-          ),
-          // 旋转 cm 刻度数字
-          Transform.rotate(
-            angle: -pi / 2,
-            child: CustomPaint(
-              painter: MyNumCustomPainter(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
-              size: Size.infinite, //size 设置为全屏幕
+        body: SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8, bottom: 8),
+        child: Stack(
+          children: [
+            // 画刻度
+            CustomPaint(
+              painter: MyCustomPainter(dppinch, dppmm),
+              size: Size.infinite,
             ),
-          ),
-          // 旋转 inch 刻度数字
-          Transform.rotate(
-            angle: pi / 2,
-            child: CustomPaint(
-              painter: MyNumCustomPainter2(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
-              size: Size.infinite, //size 设置为全屏幕
-            ),
-          ),
-          // 显示 cm 两个字母
-          Positioned(
-            left: 90,
-            top: height / 2,
-            child: const RotatedBox(
-              quarterTurns: 3,
-              child: Text("cm",
-                  style: TextStyle(fontSize: 30, color: Colors.black)),
-            ),
-          ),
-          // 显示 inch 字样
-          Positioned(
-            right: 90,
-            top: height / 2,
-            child: const RotatedBox(
-              quarterTurns: 1,
-              child: Text("inch",
-                  style: TextStyle(fontSize: 30, color: Colors.black)),
-            ),
-          ),
-          Positioned(
-            left: width / 2 - 43.5,
-            bottom: 60,
-            child: MaterialButton(
-              elevation: 0,
-              onPressed: () => Get.back(),
-              color: Colors.grey[200],
-              textColor: Colors.grey,
-              padding: const EdgeInsets.all(16),
-              shape: const CircleBorder(),
-              child: const Icon(
-                Icons.close,
-                size: 55,
+            // 旋转 cm 刻度数字
+            Transform.rotate(
+              angle: -pi / 2,
+              child: CustomPaint(
+                painter: MyNumCustomPainter(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
+                size: Size.infinite, //size 设置为全屏幕
               ),
             ),
-          ),
-        ],
+            // 旋转 inch 刻度数字
+            Transform.rotate(
+              angle: pi / 2,
+              child: CustomPaint(
+                painter: MyNumCustomPainter2(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
+                size: Size.infinite, //size 设置为全屏幕
+              ),
+            ),
+            // 显示 cm 两个字母
+            Positioned(
+              left: 90,
+              top: height / 2,
+              child: const RotatedBox(
+                quarterTurns: 3,
+                child: Text("cm",
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.black,
+                        fontFamily: "方正大标宋")),
+              ),
+            ),
+            // 显示 inch 字样
+            Positioned(
+              right: 90,
+              top: height / 2,
+              child: const RotatedBox(
+                quarterTurns: 1,
+                child: Text("inch",
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.black,
+                        fontFamily: "方正大标宋")),
+              ),
+            ),
+            // 关闭按钮
+            Positioned(
+              left: width / 2 - 43.5,
+              bottom: 60,
+              child: MaterialButton(
+                elevation: 0,
+                onPressed: () => Get.back(),
+                color: Colors.grey[200],
+                textColor: Colors.grey,
+                padding: const EdgeInsets.all(16),
+                shape: const CircleBorder(),
+                child: const Icon(
+                  Icons.close,
+                  size: 55,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     ));
   }
@@ -105,7 +114,10 @@ class MyNumCustomPainter extends CustomPainter {
       TextPainter numPainter = TextPainter(
           text: TextSpan(
               text: "${i ~/ 10}",
-              style: const TextStyle(fontSize: 16, color: Colors.black)),
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              )),
           textDirection: TextDirection.ltr,
           textAlign: TextAlign.center);
       if (i >= 100) {
@@ -119,12 +131,12 @@ class MyNumCustomPainter extends CustomPainter {
 
   void drawNum(TextPainter numPainter, int i, Canvas canvas, Size size) {
     numPainter.layout();
-    numPainter.paint(canvas, Offset(i * mmGap - 224, size.width - 135));
+    numPainter.paint(canvas, Offset(i * mmGap - 210, size.width - 135));
   }
 
   void drawNum2(TextPainter numPainter, int i, Canvas canvas, Size size) {
     numPainter.layout();
-    numPainter.paint(canvas, Offset(i * mmGap - 228, size.width - 135));
+    numPainter.paint(canvas, Offset(i * mmGap - 214, size.width - 135));
   }
 
   @override
@@ -154,7 +166,7 @@ class MyNumCustomPainter2 extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     numPainter.layout();
-    numPainter.paint(canvas, Offset(i * inchGap - 223, size.width - 135));
+    numPainter.paint(canvas, Offset(i * inchGap - 210, size.width - 135));
   }
 
   @override

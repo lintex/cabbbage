@@ -18,8 +18,8 @@ ThemeData lightMode = ThemeData(
   colorScheme:
       ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 52, 131, 252)),
   brightness: Brightness.light,
-  appBarTheme:
-      const AppBarTheme(backgroundColor: Color.fromARGB(255, 244, 245, 247)),
+  appBarTheme: AppBarTheme(backgroundColor: greyBg),
+  scaffoldBackgroundColor: greyBg,
   // colorScheme: ColorScheme.light(
   //   background: Color.fromARGB(255, 244, 245, 247),
   //   primary: Colors.grey[300]!,

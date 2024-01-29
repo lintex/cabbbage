@@ -60,7 +60,7 @@ class GridPage extends StatelessWidget {
                     MyGridTile(
                       title: '笔记',
                       onPressed: () => Get.to(() => const NotePage()),
-                      icon: Icons.notes_rounded,
+                      icon: Icons.article_outlined,
                     ),
                   ],
                 ),
@@ -112,7 +112,7 @@ class GridPage extends StatelessWidget {
                     MyGridTile(
                       title: '尺子',
                       onPressed: () => Get.to(() => const RulerPage()),
-                      icon: Icons.linear_scale,
+                      icon: Icons.format_align_left,
                     ),
                   ],
                 ),

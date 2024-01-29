@@ -13,7 +13,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: const TextStyle(fontSize: 18),
       ),
-      backgroundColor: greyBg,
       centerTitle: true,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios_new_rounded),
