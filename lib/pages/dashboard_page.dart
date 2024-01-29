@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xiao_note/components/marquee_widget.dart';
 import 'package:xiao_note/components/my_dashboard_tile.dart';
 import 'package:xiao_note/components/my_drawer.dart';
 import 'package:xiao_note/models/dashboard.dart';
@@ -9,6 +10,12 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> loopList = [
+      "第一条消息",
+      "第二条消息",
+      "第三条消息",
+      "第四条消息",
+    ];
     return Scaffold(
       backgroundColor: greyBg,
       appBar: AppBar(
@@ -20,12 +27,30 @@ class DashboardPage extends StatelessWidget {
           )),
       drawer: const MyDrawer(),
       body: ListView(
-        children: const [
-          MyDashboardTile(),
-          MyDashboardTile(),
-          MyDashboardTile(),
-          MyDashboardTile(),
-          MyDashboardTile(),
+        children: [
+          MyDashboardTile(
+              child: MarqueeWidget(
+            //子Item构建器
+            itemBuilder: (BuildContext context, int index) {
+              String itemStr = loopList[index];
+              //通常可以是一个 Text文本
+              return Text(itemStr);
+            },
+            //循环的提示消息数量
+            count: loopList.length,
+          )),
+          const MyDashboardTile(
+            child: Text("Test"),
+          ),
+          const MyDashboardTile(
+            child: Text("Test"),
+          ),
+          const MyDashboardTile(
+            child: Text("Test"),
+          ),
+          const MyDashboardTile(
+            child: Text("Test"),
+          ),
         ],
       ),
     );
