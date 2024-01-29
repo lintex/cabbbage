@@ -15,7 +15,7 @@ class GridPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: greyBg,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const MyAppBar(title: "全部功能"),
       body: SingleChildScrollView(
         child: Column(
@@ -23,9 +23,9 @@ class GridPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(12))),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: const BorderRadius.all(Radius.circular(12))),
               child: Column(//
                   children: [
                 const Padding(
@@ -69,9 +69,9 @@ class GridPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(12))),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: const BorderRadius.all(Radius.circular(12))),
               child: Column(//
                   children: [
                 const Padding(
@@ -106,7 +106,7 @@ class GridPage extends StatelessWidget {
                     ),
                     MyGridTile(
                       title: '课程表',
-                      onPressed: () => Get.to(() => TimetablePage()),
+                      onPressed: () => Get.to(() => const TimetablePage()),
                       icon: Icons.calendar_month_outlined,
                     ),
                     MyGridTile(

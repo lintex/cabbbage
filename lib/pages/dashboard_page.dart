@@ -17,10 +17,9 @@ class DashboardPage extends StatelessWidget {
       "第四条消息",
     ];
     return Scaffold(
-      backgroundColor: greyBg,
       appBar: AppBar(
           centerTitle: true,
-          backgroundColor: greyBg,
+          backgroundColor: Theme.of(context).colorScheme.background,
           title: Text(
             Dashboard.getTitle(),
             style: const TextStyle(fontSize: 18),

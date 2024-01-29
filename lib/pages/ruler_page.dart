@@ -83,7 +83,7 @@ class RulerPage extends StatelessWidget {
               child: MaterialButton(
                 elevation: 0,
                 onPressed: () => Get.back(),
-                color: Colors.grey[200],
+                color: Theme.of(context).colorScheme.primary,
                 textColor: Colors.grey,
                 padding: const EdgeInsets.all(16),
                 shape: const CircleBorder(),

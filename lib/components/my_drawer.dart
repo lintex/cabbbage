@@ -14,7 +14,7 @@ class MyDrawer extends StatelessWidget {
     return Drawer(
       //backgroundColor: greyBg,
       child: Container(
-        color: greyBg,
+        color: Theme.of(context).colorScheme.background,
         // 使用Container控制边距
         padding: const EdgeInsets.fromLTRB(10, 60, 10, 10),
         child: Column(

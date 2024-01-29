@@ -18,7 +18,6 @@ class MarathonPage extends StatelessWidget {
     //mc.readData();
 
     return Obx(() => Scaffold(
-        backgroundColor: bg,
         floatingActionButton: const MyFloatingActionButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
@@ -70,7 +69,7 @@ class MarathonPage extends StatelessWidget {
                           decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.shade300,
+                                  color: Theme.of(context).colorScheme.primary,
                                   blurRadius: 2,
                                   offset: const Offset(1.0, 1.0),
                                 ),
@@ -82,7 +81,7 @@ class MarathonPage extends StatelessWidget {
                                           .inDays <
                                       0
                                   ? Colors.grey[200]
-                                  : blueBg),
+                                  : Theme.of(context).colorScheme.primary),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -107,7 +106,9 @@ class MarathonPage extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontFamily: "霞鹜文楷",
-                                        color: Colors.grey[800]),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .inversePrimary),
                                   ),
                                 ],
                               ),

@@ -94,7 +94,6 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
     paceSecondController.text = "0";
 
     return Scaffold(
-        backgroundColor: greyBg,
         appBar: const MyAppBar(title: "马拉松配速计算器"),
         body: SingleChildScrollView(
           child: Padding(
@@ -198,7 +197,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(12)),
                   padding: const EdgeInsets.all(15),
                   child: Row(
@@ -308,8 +307,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                     MaterialButton(
                       elevation: 0,
                       onPressed: () => timeToPace(),
-                      color: Colors.grey[200],
-                      textColor: Colors.grey,
+                      color: Theme.of(context).colorScheme.primary,
                       padding: const EdgeInsets.all(16),
                       shape: const CircleBorder(),
                       child: Icon(
@@ -321,8 +319,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                     MaterialButton(
                       elevation: 0,
                       onPressed: () => paceToTime(),
-                      color: Colors.grey[200],
-                      textColor: Colors.grey,
+                      color: Theme.of(context).colorScheme.primary,
                       padding: const EdgeInsets.all(16),
                       shape: const CircleBorder(),
                       child: Icon(
@@ -338,7 +335,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(12)),
                   padding: const EdgeInsets.all(15),
                   child: Row(
