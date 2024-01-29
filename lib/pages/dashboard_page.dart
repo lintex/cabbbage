@@ -13,6 +13,7 @@ class DashboardPage extends StatelessWidget {
       backgroundColor: greyBg,
       appBar: AppBar(
           centerTitle: true,
+          backgroundColor: greyBg,
           title: Text(
             Dashboard.getTitle(),
             style: const TextStyle(fontSize: 18),

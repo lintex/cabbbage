@@ -10,17 +10,19 @@ class MyTextDivider extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
               child: Divider(
             thickness: 0.5,
-            color: Colors.grey[400],
+            color: Color.fromARGB(174, 189, 189, 189),
           )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               text,
-              style: TextStyle(
-                  color: Colors.grey[700], fontSize: 14, fontFamily: "干就完事了"),
+              style: const TextStyle(
+                  color: Color.fromARGB(180, 97, 97, 97),
+                  fontSize: 12,
+                  fontFamily: "干就完事了"),
             ),
           ),
           Expanded(

@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class RulerPage extends StatelessWidget {
@@ -11,7 +11,8 @@ class RulerPage extends StatelessWidget {
     // 下面这段代码用来隐藏顶部信号栏
     // WidgetsFlutterBinding.ensureInitialized();
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    // 隐藏后，信号栏是黑色的，晚点要真机测试一下
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     //获取屏幕尺寸。单位dp
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
