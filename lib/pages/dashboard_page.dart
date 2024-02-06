@@ -3,7 +3,6 @@ import 'package:xiao_note/components/marquee_widget.dart';
 import 'package:xiao_note/components/my_dashboard_tile.dart';
 import 'package:xiao_note/components/my_drawer.dart';
 import 'package:xiao_note/models/dashboard.dart';
-import 'package:xiao_note/theme/theme.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});

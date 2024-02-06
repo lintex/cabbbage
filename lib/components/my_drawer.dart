@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/pages/dashboard_page.dart';
 import 'package:xiao_note/pages/grid_page.dart';
 import 'package:xiao_note/pages/note_page.dart';
 import 'package:xiao_note/pages/ruler_page.dart';
-import 'package:xiao_note/theme/theme.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -89,7 +87,7 @@ class MyDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Text(
-                "Version:2024.1.2.8",
+                "Version: 2024.1.2.8",
                 style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
               ),
             ),

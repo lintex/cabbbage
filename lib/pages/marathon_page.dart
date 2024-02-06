@@ -5,7 +5,6 @@ import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/components/my_text_divider.dart';
 import 'package:xiao_note/pages/marathonPage/marathon_controller.dart';
 import 'package:xiao_note/pages/marathonPage/my_floating_action_button.dart';
-import 'package:xiao_note/theme/theme.dart';
 
 class MarathonPage extends StatelessWidget {
   const MarathonPage({
