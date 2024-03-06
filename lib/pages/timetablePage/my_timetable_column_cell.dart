@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 
 class MyTimetableColumnCell extends StatelessWidget {
-  const MyTimetableColumnCell({
+  MyTimetableColumnCell({
     super.key,
     required this.weekday,
   });
   final int weekday;
+  final DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     getDate(int weekday) {
       // DateTime now = DateTime(2024, 3, 11);
-      DateTime now = DateTime.now();
+
       int nowWeekday = now.weekday;
       return "${now.month}/${now.day - (nowWeekday - weekday)}";
     }
 
     getTextColor(int weekday) {
-      DateTime now = DateTime.now();
       int nowWeekday = now.weekday;
       if (weekday == nowWeekday) {
-        return Colors.blue;
+        return const Color.fromARGB(255, 52, 131, 252);
       } else {
-        return Colors.black;
+        return Theme.of(context).colorScheme.inversePrimary;
       }
     }
 
@@ -30,6 +30,9 @@ class MyTimetableColumnCell extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsetsDirectional.symmetric(vertical: 5),
+      color: now.weekday == weekday
+          ? const Color.fromARGB(255, 222, 239, 255)
+          : Theme.of(context).colorScheme.background,
       alignment: Alignment.center,
       child: Column(
         children: [

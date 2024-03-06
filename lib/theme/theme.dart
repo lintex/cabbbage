@@ -24,6 +24,7 @@ ThemeData lightMode = ThemeData(
       secondary: Colors.grey[400]!,
       tertiary: Colors.grey[500]!,
       inversePrimary: Colors.black87,
+      outline: const Color.fromARGB(255, 235, 235, 235),
     ));
 
 ThemeData darkMode = ThemeData(
@@ -36,4 +37,5 @@ ThemeData darkMode = ThemeData(
       secondary: Colors.grey[800]!,
       tertiary: Colors.grey.shade500,
       inversePrimary: const Color.fromARGB(255, 229, 229, 229),
+      outline: const Color.fromARGB(255, 70, 70, 70),
     ));

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/pages/grid_page.dart';
 import 'package:xiao_note/pages/note_page.dart';
-import 'package:xiao_note/pages/ruler_page.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
