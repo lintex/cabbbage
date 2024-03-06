@@ -71,23 +71,13 @@ class MyDrawer extends StatelessWidget {
                     title: const Text("反馈"),
                     onTap: () => Get.to(() => const GridPage()),
                   ),
-                  ListTile(
-                    leading: Image.asset(
-                      "assets/images/ruler.png",
-                      width: 26,
-                      height: 26,
-                      color: Colors.white,
-                    ),
-                    title: const Text("尺子"),
-                    onTap: () => Get.to(() => const RulerPage()),
-                  ),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Text(
-                "Version: 2024.1.2.8",
+                "Version: 2024.3.6.8",
                 style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
               ),
             ),

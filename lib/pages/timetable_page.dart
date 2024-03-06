@@ -45,49 +45,49 @@ class TimetablePage extends StatelessWidget {
                   width: 1,
                   borderRadius: BorderRadius.circular(6)),
               children: [
-                const TableRow(
+                TableRow(
                     // decoration: ShapeDecoration(
                     //     shape: RoundedRectangleBorder(
                     //         borderRadius: BorderRadius.circular(30)),
                     //     color: Colors.blue),
                     children: [
-                      TableCell(
+                      const TableCell(
                         child: Text(""),
                       ),
-                      MyTimetableColumnCell(week: "周一", date: "1/01"),
-                      MyTimetableColumnCell(week: "周二", date: "1/02"),
-                      MyTimetableColumnCell(week: "周三", date: "1/03"),
-                      MyTimetableColumnCell(week: "周四", date: "1/04"),
-                      MyTimetableColumnCell(week: "周五", date: "1/05"),
+                      MyTimetableColumnCell(weekday: 1),
+                      MyTimetableColumnCell(weekday: 2),
+                      MyTimetableColumnCell(weekday: 3),
+                      MyTimetableColumnCell(weekday: 4),
+                      MyTimetableColumnCell(weekday: 5),
                     ]),
                 TableRow(children: [
-                  const MyTimetableRowCell(
+                  MyTimetableRowCell(
                     num: "2",
                     startTime: "8:55",
                     endTime: "9:40",
                   ),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
                   MyTimetableCell(
-                    className: "7班",
-                    bgColor: pinkBg,
-                    textColor: pinkText,
+                    className: "9班",
+                    bgColor: blueBg,
+                    textColor: blueText,
                     location: "三楼",
-                    teacher: "李金玉",
+                    teacher: "王静",
                   ),
                 ]),
                 TableRow(children: [
-                  const MyTimetableRowCell(
+                  MyTimetableRowCell(
                     num: "3",
                     startTime: "10:10",
                     endTime: "10:55",
                   ),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
                   MyTimetableCell(
                     className: "15班",
                     bgColor: blueBg,
@@ -97,33 +97,27 @@ class TimetablePage extends StatelessWidget {
                   ),
                 ]),
                 TableRow(children: [
-                  const MyTimetableRowCell(
+                  MyTimetableRowCell(
                     num: "4",
                     startTime: "11:05",
                     endTime: "12:00",
                   ),
-                  MyTimetableCell(
-                    className: "6班",
-                    bgColor: pinkBg,
-                    textColor: pinkText,
-                    location: "二楼东一",
-                    teacher: "潘晓堂",
-                  ),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
                   MyTimetableCell(
                     className: "18班",
                     bgColor: blueBg,
                     textColor: blueText,
-                    location: "四楼",
+                    location: "五楼",
                     teacher: "熊满",
                   ),
                   MyTimetableCell(
-                    className: "1班",
+                    className: "2班",
                     bgColor: pinkBg,
                     textColor: pinkText,
-                    location: "一楼东一",
-                    teacher: "宋全林",
+                    location: "二楼西一",
+                    teacher: "王卉",
                   ),
                 ]),
                 TableRow(
@@ -144,58 +138,64 @@ class TimetablePage extends StatelessWidget {
                       TableCell(child: Text("")),
                     ]),
                 TableRow(children: [
-                  const MyTimetableRowCell(
+                  MyTimetableRowCell(
                     num: "5",
                     startTime: "14:30",
                     endTime: "15:15",
                   ),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
                   MyTimetableCell(
-                    className: "3班",
+                    className: "7班",
                     bgColor: pinkBg,
                     textColor: pinkText,
-                    location: "二楼东一",
-                    teacher: "赵亮",
+                    location: "三楼西2",
+                    teacher: "李金玉",
+                  ),
+                  MyTimetableCell(),
+                  MyTimetableCell(
+                    className: "6班",
+                    bgColor: pinkBg,
+                    textColor: pinkText,
+                    location: "三楼西1",
+                    teacher: "潘晓堂",
                   ),
                   MyTimetableCell(
-                    className: "13班",
-                    bgColor: blueBg,
-                    textColor: blueText,
-                    location: "四楼",
-                    teacher: "王丹",
+                    className: "1班",
+                    bgColor: pinkBg,
+                    textColor: pinkText,
+                    location: "一楼",
+                    teacher: "宋全林",
                   ),
-                  const MyTimetableCell(),
+                  MyTimetableCell(),
                 ]),
-                const TableRow(children: [
+                TableRow(children: [
                   MyTimetableRowCell(
                     num: "6",
                     startTime: "15:25",
                     endTime: "16:10",
                   ),
-                  MyTimetableCell(),
+                  MyTimetableCell(
+                    className: "5班",
+                    bgColor: blueBg,
+                    textColor: blueText,
+                    location: "二楼东1",
+                    teacher: "敖光辉",
+                  ),
                   MyTimetableCell(),
                   MyTimetableCell(),
                   MyTimetableCell(),
                   MyTimetableCell(),
                 ]),
                 TableRow(children: [
-                  const MyTimetableRowCell(
+                  MyTimetableRowCell(
                     num: "7",
                     startTime: "16:20",
                     endTime: "17:05",
                   ),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
-                  const MyTimetableCell(),
-                  MyTimetableCell(
-                    className: "5班",
-                    bgColor: blueBg,
-                    textColor: blueText,
-                    location: "二楼西一",
-                    teacher: "敖光辉",
-                  ),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
+                  MyTimetableCell(),
                 ]),
               ],
             ),
