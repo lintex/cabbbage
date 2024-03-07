@@ -11,7 +11,7 @@ Future<void> main() async {
   await NoteDatabase.initialize();
 
   runApp(GetMaterialApp(
-    title: '小西笔记',
+    title: '白菜笔记',
     debugShowCheckedModeBanner: false,
     theme: lightMode,
     darkTheme: darkMode,
