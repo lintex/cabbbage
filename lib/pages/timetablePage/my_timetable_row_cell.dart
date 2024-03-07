@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class MyTimetableRowCell extends StatelessWidget {
@@ -17,7 +15,7 @@ class MyTimetableRowCell extends StatelessWidget {
     {"num": 6, "startTime": "15:25", "endTime": "16:10"},
     {"num": 7, "startTime": "16:20", "endTime": "17:05"},
   ];
-  DateTime now = DateTime.now();
+  final DateTime now = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
