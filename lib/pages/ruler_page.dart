@@ -23,6 +23,8 @@ class RulerPage extends StatelessWidget {
     // 1英寸等于 25.4毫米，除于25.4，可得到每毫米多少 dp
     double dppmm = sqrt(height * height + width * width) / screenInches / 25.4;
 
+    Color textColor = Theme.of(context).colorScheme.inversePrimary;
+
     return Scaffold(
         body: SafeArea(
       child: Padding(
@@ -31,14 +33,15 @@ class RulerPage extends StatelessWidget {
           children: [
             // 画刻度
             CustomPaint(
-              painter: MyCustomPainter(dppinch, dppmm),
+              painter: MyCustomPainter(dppinch, dppmm, textColor),
               size: Size.infinite,
             ),
             // 旋转 cm 刻度数字
             Transform.rotate(
               angle: -pi / 2,
               child: CustomPaint(
-                painter: MyNumCustomPainter(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
+                painter: MyNumCustomPainter(
+                    dppinch, dppmm, textColor), //将刻度间隔传到自定义画笔组件
                 size: Size.infinite, //size 设置为全屏幕
               ),
             ),
@@ -46,7 +49,8 @@ class RulerPage extends StatelessWidget {
             Transform.rotate(
               angle: pi / 2,
               child: CustomPaint(
-                painter: MyNumCustomPainter2(dppinch, dppmm), //将刻度间隔传到自定义画笔组件
+                painter: MyNumCustomPainter2(
+                    dppinch, dppmm, textColor), //将刻度间隔传到自定义画笔组件
                 size: Size.infinite, //size 设置为全屏幕
               ),
             ),
@@ -54,26 +58,22 @@ class RulerPage extends StatelessWidget {
             Positioned(
               left: 90,
               top: height / 2,
-              child: const RotatedBox(
+              child: RotatedBox(
                 quarterTurns: 3,
                 child: Text("cm",
                     style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.black,
-                        fontFamily: "方正大标宋")),
+                        fontSize: 30, color: textColor, fontFamily: "方正大标宋")),
               ),
             ),
             // 显示 inch 字样
             Positioned(
               right: 90,
               top: height / 2,
-              child: const RotatedBox(
+              child: RotatedBox(
                 quarterTurns: 1,
                 child: Text("inch",
                     style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.black,
-                        fontFamily: "方正大标宋")),
+                        fontSize: 30, color: textColor, fontFamily: "方正大标宋")),
               ),
             ),
             // 关闭按钮
@@ -84,7 +84,7 @@ class RulerPage extends StatelessWidget {
                 elevation: 0,
                 onPressed: () => Get.back(),
                 color: Theme.of(context).colorScheme.primary,
-                textColor: Colors.grey,
+                textColor: textColor,
                 padding: const EdgeInsets.all(16),
                 shape: const CircleBorder(),
                 child: const Icon(
@@ -105,7 +105,8 @@ class MyNumCustomPainter extends CustomPainter {
   //接受传过来的两个刻度间隔
   double mmGap;
   double inchGap;
-  MyNumCustomPainter(this.inchGap, this.mmGap);
+  Color textColor;
+  MyNumCustomPainter(this.inchGap, this.mmGap, this.textColor);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -114,9 +115,9 @@ class MyNumCustomPainter extends CustomPainter {
       TextPainter numPainter = TextPainter(
           text: TextSpan(
               text: "${i ~/ 10}",
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
-                color: Colors.black,
+                color: textColor,
               )),
           textDirection: TextDirection.ltr,
           textAlign: TextAlign.center);
@@ -147,7 +148,8 @@ class MyNumCustomPainter extends CustomPainter {
 class MyNumCustomPainter2 extends CustomPainter {
   double mmGap;
   double inchGap;
-  MyNumCustomPainter2(this.inchGap, this.mmGap);
+  Color textColor;
+  MyNumCustomPainter2(this.inchGap, this.mmGap, this.textColor);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -161,8 +163,7 @@ class MyNumCustomPainter2 extends CustomPainter {
   void drawNum(int i, Canvas canvas, Size size) {
     var numPainter = TextPainter(
       text: TextSpan(
-          text: "${i ~/ 10}",
-          style: const TextStyle(fontSize: 16, color: Colors.black)),
+          text: "${i ~/ 10}", style: TextStyle(fontSize: 16, color: textColor)),
       textDirection: TextDirection.ltr,
     );
     numPainter.layout();
@@ -177,22 +178,22 @@ class MyCustomPainter extends CustomPainter {
   //接受传过来的两个刻度间隔
   double mmGap;
   double inchGap;
-  MyCustomPainter(this.inchGap, this.mmGap);
-
-  // 定义三种粗细的画笔，用来画刻度线
-  Paint paint1 = Paint()
-    ..color = Colors.black
-    ..strokeWidth = 1;
-  Paint paint2 = Paint()
-    ..color = Colors.black
-    ..strokeWidth = 2;
-  Paint paint3 = Paint()
-    ..color = Colors.black
-    ..strokeWidth = 3;
+  Color textColor;
+  MyCustomPainter(this.inchGap, this.mmGap, this.textColor);
 
   // 重写 paint 方法，通过循环画刻度线
   @override
   void paint(Canvas canvas, Size size) {
+    // 定义三种粗细的画笔，用来画刻度线
+    Paint paint1 = Paint()
+      ..color = textColor
+      ..strokeWidth = 1;
+    Paint paint2 = Paint()
+      ..color = textColor
+      ..strokeWidth = 2;
+    Paint paint3 = Paint()
+      ..color = textColor
+      ..strokeWidth = 3;
     int i = 0;
     while (i * mmGap < size.height) {
       if (i % 10 == 0) {
