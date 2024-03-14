@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/pages/marathonPage/marathon_controller.dart';
-import 'package:xiao_note/pages/marathonPage/my_textfield.dart';
+import 'package:xiao_note/components/my_textfield.dart';
 import 'package:xiao_note/theme/theme.dart';
 
 class MyFloatingActionButton extends StatelessWidget {
@@ -55,7 +55,7 @@ class MyFloatingActionButton extends StatelessWidget {
                   height: 100,
                   width: double.infinity,
                   child: CupertinoDatePicker(
-                    mode: CupertinoDatePickerMode.date, //只显示日期，不显示时间
+                    mode: CupertinoDatePickerMode.dateAndTime, //只显示日期，不显示时间
                     initialDateTime: DateTime.now(), //初始时间
                     maximumYear: DateTime.now().year + 1,
                     minimumYear: DateTime.now().year,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/components/my_grid_tile.dart';
-import 'package:xiao_note/pages/marathon_page.dart';
+import 'package:xiao_note/pages/marathon_page2.dart';
 import 'package:xiao_note/pages/note_page.dart';
 import 'package:xiao_note/pages/pace_calculate_page.dart';
 import 'package:xiao_note/pages/ruler_page.dart';
@@ -94,7 +94,7 @@ class GridPage extends StatelessWidget {
                   children: <Widget>[
                     MyGridTile(
                       title: '马拉松助手',
-                      onPressed: () => Get.to(() => const MarathonPage()),
+                      onPressed: () => Get.to(() => const MarathonPage2()),
                       icon: Icons.run_circle_outlined,
                     ),
                     MyGridTile(

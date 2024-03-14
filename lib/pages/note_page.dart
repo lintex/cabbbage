@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/models/note.dart';
 import 'package:xiao_note/models/note_database.dart';
-import 'package:xiao_note/theme/theme.dart';
+
+// 日记页面
 
 class NotePage extends StatefulWidget {
   const NotePage({super.key});
@@ -16,11 +17,13 @@ class _NotePageState extends State<NotePage> {
   @override
   void initState() {
     super.initState();
-    // 程序启动时读取数据
+    // 程序启动时读取数据，下方自定义函数通过NoteDatabase读取数据
     readNotes();
   }
 
+  // 初始化Controller读取输入框
   final textController = TextEditingController();
+  // 初始化NoteDatabase
   final NoteDatabase ndb = NoteDatabase();
 
   // 新建一条note
@@ -46,7 +49,7 @@ class _NotePageState extends State<NotePage> {
             ));
   }
 
-  // 读取notes
+  // 读取所有notes
   void readNotes() {
     ndb.fetchNotes();
   }
@@ -82,8 +85,9 @@ class _NotePageState extends State<NotePage> {
     //final noteDatabase = context.watch<NoteDatabase>();
 
     return Scaffold(
-      backgroundColor: greyBg,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const MyAppBar(title: "日记"),
+      // ? Obx包裹ListView，应有更好解决方案
       body: Obx(() => ListView.builder(
             itemCount: ndb.currentNotes.length,
             itemBuilder: (BuildContext context, int index) {
