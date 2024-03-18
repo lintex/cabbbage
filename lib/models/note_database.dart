@@ -5,13 +5,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xiao_note/models/note.dart';
 
 class NoteDatabase extends GetxController {
-  static late Isar isar;
-
+  static late Isar noteIsar;
   // 初始化数据库
   static Future<void> initialize() async {
     final dir = await getApplicationDocumentsDirectory();
-    isar = await Isar.open([NoteSchema], directory: dir.path);
-    debugPrint("Isar初始化成功！");
+    noteIsar = await Isar.open([NoteSchema], directory: dir.path);
+    debugPrint("Note Isar初始化成功！");
   }
 
   final List currentNotes = [].obs;
@@ -20,35 +19,35 @@ class NoteDatabase extends GetxController {
   Future<void> addNote(String textFromUser) async {
     final newNote = Note()..text = textFromUser;
 
-    await isar.writeTxn(() => isar.notes.put(newNote));
-    debugPrint("写入成功！");
+    await noteIsar.writeTxn(() => noteIsar.notes.put(newNote));
+    debugPrint("noteIsar写入成功！");
 
     fetchNotes();
   }
 
   // 读取数据
   Future<void> fetchNotes() async {
-    List<Note> fetchNotes = await isar.notes.where().findAll();
+    List<Note> fetchNotes = await noteIsar.notes.where().findAll();
     currentNotes.clear();
     currentNotes.addAll(fetchNotes);
-    debugPrint("读取成功！");
+    debugPrint("noteIsar读取成功！");
   }
 
   // 修改数据
   Future<void> updateNote(int id, String newText) async {
-    final existingNote = await isar.notes.get(id);
+    final existingNote = await noteIsar.notes.get(id);
     if (existingNote != null) {
       existingNote.text = newText;
-      await isar.writeTxn(() => isar.notes.put(existingNote));
-      debugPrint("修改成功！");
+      await noteIsar.writeTxn(() => noteIsar.notes.put(existingNote));
+      debugPrint("noteIsar修改成功！");
       await fetchNotes();
     }
   }
 
   // 删除数据
   Future<void> deleteNote(int id) async {
-    await isar.writeTxn(() => isar.notes.delete(id));
-    debugPrint("删除成功！");
+    await noteIsar.writeTxn(() => noteIsar.notes.delete(id));
+    debugPrint("noteIsar删除成功！");
     fetchNotes();
   }
   //

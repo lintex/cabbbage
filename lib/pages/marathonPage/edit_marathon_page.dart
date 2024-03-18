@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/my_button.dart';
 import 'package:xiao_note/components/my_textfield.dart';
+import 'package:xiao_note/models/marathon.dart';
 import 'package:xiao_note/models/marathon_database.dart';
 import 'package:xiao_note/tools/Tools.dart';
 
-class NewMarathonPage extends StatelessWidget {
-  NewMarathonPage({super.key});
+class EditMarathonPage extends StatelessWidget {
+  final Marathon marathon;
+  EditMarathonPage({super.key, required this.marathon});
   final marathonNameController = TextEditingController();
   final marathonStartController = TextEditingController();
   final marathonFinishController = TextEditingController();
@@ -19,14 +21,21 @@ class NewMarathonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //添加马拉松举行时间
-    var marathonDate = DateTime.now().obs;
+    var marathonDate = marathon.time.obs;
+
+    // 初始化textfield内容
+    marathonNameController.text = marathon.name;
+    marathonStartController.text = marathon.start!;
+    marathonFinishController.text = marathon.finish!;
+    marathonHotelController.text = marathon.hotel!;
 
     pickTime() {
+      // 弹出时间选择窗口
       Get.defaultDialog(
           title: '选择时间',
           titleStyle: const TextStyle(fontSize: 15),
           content: Column(children: [
-            Obx(() => Text(Tools.getDate(marathonDate.value))),
+            Obx(() => Text(Tools.getDate(marathonDate.value!))),
             SizedBox(
               height: 200,
               width: 300,
@@ -64,7 +73,7 @@ class NewMarathonPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            "添加马拉松比赛",
+            "修改比赛信息",
             style: TextStyle(fontSize: 18),
           ),
           centerTitle: true,
@@ -81,9 +90,10 @@ class NewMarathonPage extends StatelessWidget {
               child: IconButton(
                   onPressed: () {
                     // 将比赛信息存入数据库
-                    db.addMarathon(
+                    db.updateMarathon(
+                        marathon.id,
                         marathonNameController.text,
-                        marathonDate.value,
+                        marathonDate.value!,
                         marathonStartController.text,
                         marathonFinishController.text,
                         marathonHotelController.text);
@@ -110,6 +120,7 @@ class NewMarathonPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
+                  // 点击后弹出时间选择
                   onTap: () => pickTime(),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,8 +131,9 @@ class NewMarathonPage extends StatelessWidget {
                       ),
                       Row(
                         children: [
+                          // 显示选择的时间
                           Obx(() => Text(
-                                Tools.getDate(marathonDate.value),
+                                Tools.getDate(marathonDate.value!),
                                 style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme

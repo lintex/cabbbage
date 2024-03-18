@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'package:get/get.dart';
 import 'package:xiao_note/models/marathon_database.dart';
+import 'package:xiao_note/models/note_database.dart';
 import 'package:xiao_note/pages/dashboard_page.dart';
 import 'package:xiao_note/theme/theme.dart';
 
 Future<void> main() async {
   // 初始化Isar数据库
   WidgetsFlutterBinding.ensureInitialized();
-  // TODO: 这个地方不能初始化两次，导致note页面用不成
   // await NoteDatabase.initialize();
   await MarathonDatabase.initialize();
 

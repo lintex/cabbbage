@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
 import 'package:xiao_note/models/marathon.dart';
 import 'package:xiao_note/models/marathon_database.dart';
+import 'package:xiao_note/pages/marathonPage/edit_marathon_page.dart';
 
 class MyMarathonListTile extends StatelessWidget {
   MyMarathonListTile({super.key, required this.marathon});
-  // 初始化MarathonDatabase
-  final MarathonDatabase db = MarathonDatabase();
+  // 使用Get找到主页面使用的Controller
+  final MarathonDatabase db = Get.find();
   final Marathon marathon;
   // 读取所有比赛信息
   void read() {
     db.fetchMarathons();
-  }
-
-  // 修改比赛信息
-  void update(Marathon marathon) {
-    // todo
   }
 
   // 删除比赛
@@ -26,7 +23,7 @@ class MyMarathonListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(18, 14, 18, 0),
+      margin: const EdgeInsets.fromLTRB(18, 18, 18, 0),
       child: Slidable(
         endActionPane: ActionPane(motion: const StretchMotion(), children: [
           const SizedBox(
@@ -35,7 +32,8 @@ class MyMarathonListTile extends StatelessWidget {
           // 修改按钮
           SlidableAction(
             onPressed: (e) {
-              // TODO: 修改比赛信息
+              // 跳转到修改信息页面
+              Get.to(() => EditMarathonPage(marathon: marathon));
             },
             icon: Icons.edit,
             backgroundColor: Colors.blue.shade300,
@@ -93,7 +91,7 @@ class MyMarathonListTile extends StatelessWidget {
                   ),
                   // 显示马拉松举办时间和地点
                   Text(
-                    "${marathon.time?.year.toString()}年${marathon.time?.month.toString()}月${marathon.time?.day.toString()}日 | ${marathon.start}",
+                    "${marathon.time?.month.toString()}月${marathon.time?.day.toString()}日 ${marathon.time?.hour.toString()}:${marathon.time?.minute.toString().padLeft(2, '0')} | ${marathon.start}",
                     // .toString().padLeft(2, '0')
                     style: TextStyle(
                         fontSize: 12,
@@ -119,10 +117,7 @@ class MyMarathonListTile extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    DateTime.parse(marathon.time.toString())
-                        .difference(DateTime.now())
-                        .inDays
-                        .abs()
+                    (DateTime.now().difference(marathon.time!).inDays.abs() + 1)
                         .toString(),
                     style: const TextStyle(fontSize: 30),
                   ),

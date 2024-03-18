@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
-import 'package:xiao_note/components/my_text_divider.dart';
 import 'package:xiao_note/models/marathon.dart';
 import 'package:xiao_note/models/marathon_database.dart';
-import 'package:xiao_note/pages/marathonPage/marathon_controller.dart';
-import 'package:xiao_note/pages/marathonPage/my_floating_action_button.dart';
+import 'package:xiao_note/pages/marathonPage/marathon_detail_page.dart';
 import 'package:xiao_note/pages/marathonPage/my_marathon_list_tile.dart';
 import 'package:xiao_note/pages/marathonPage/new_marathon_page.dart';
 // 这个版本的马拉松助手采用数据库存储，方便排序及修改
@@ -23,7 +20,7 @@ class MarathonPage2 extends StatefulWidget {
 
 class _MarathonPage2State extends State<MarathonPage2> {
   @override
-  void initState() {
+  initState() {
     super.initState();
     // 页面打开时读取所有赛事信息
     read();
@@ -31,9 +28,8 @@ class _MarathonPage2State extends State<MarathonPage2> {
 
   // 初始化Controller读取输入框
   final textController = TextEditingController();
-  // 初始化MarathonDatabase
-  MarathonDatabase db = MarathonDatabase();
-
+  // 使用Get.put()实例化你的类，使其对当下的所有子路由可用
+  MarathonDatabase db = Get.put(MarathonDatabase());
   // 读取所有比赛信息
   void read() {
     db.fetchMarathons();
@@ -68,19 +64,29 @@ class _MarathonPage2State extends State<MarathonPage2> {
 
   @override
   Widget build(BuildContext context) {
+    // read(); // 修改后界面不更新，不知道怎么回事
     return Scaffold(
       appBar: const MyAppBar(title: "马拉松助手"),
       body: Obx(() => ListView.builder(
             itemCount: db.AllMarathons.length,
             itemBuilder: (BuildContext context, int index) {
               final marathon = db.AllMarathons[index];
-              return MyMarathonListTile(marathon: marathon);
+              return GestureDetector(
+                onTap: () =>
+                    Get.to(() => MarathonDetailPage(marathon: marathon)),
+                child: MyMarathonListTile(marathon: marathon),
+              );
             },
           )),
       floatingActionButton: FloatingActionButton(
         onPressed: (() =>
             Get.to(() => NewMarathonPage(), transition: Transition.downToUp)),
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.green[100],
+        child: const Icon(
+          Icons.add,
+          color: Colors.green,
+          size: 35,
+        ),
       ),
     );
   }
