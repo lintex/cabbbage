@@ -32,13 +32,18 @@ const MarathonSchema = CollectionSchema(
       name: r'name',
       type: IsarType.string,
     ),
-    r'start': PropertySchema(
+    r'packet': PropertySchema(
       id: 3,
+      name: r'packet',
+      type: IsarType.string,
+    ),
+    r'start': PropertySchema(
+      id: 4,
       name: r'start',
       type: IsarType.string,
     ),
     r'time': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'time',
       type: IsarType.dateTime,
     )
@@ -77,6 +82,12 @@ int _marathonEstimateSize(
   }
   bytesCount += 3 + object.name.length * 3;
   {
+    final value = object.packet;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.start;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -94,8 +105,9 @@ void _marathonSerialize(
   writer.writeString(offsets[0], object.finish);
   writer.writeString(offsets[1], object.hotel);
   writer.writeString(offsets[2], object.name);
-  writer.writeString(offsets[3], object.start);
-  writer.writeDateTime(offsets[4], object.time);
+  writer.writeString(offsets[3], object.packet);
+  writer.writeString(offsets[4], object.start);
+  writer.writeDateTime(offsets[5], object.time);
 }
 
 Marathon _marathonDeserialize(
@@ -109,8 +121,9 @@ Marathon _marathonDeserialize(
   object.hotel = reader.readStringOrNull(offsets[1]);
   object.id = id;
   object.name = reader.readString(offsets[2]);
-  object.start = reader.readStringOrNull(offsets[3]);
-  object.time = reader.readDateTimeOrNull(offsets[4]);
+  object.packet = reader.readStringOrNull(offsets[3]);
+  object.start = reader.readStringOrNull(offsets[4]);
+  object.time = reader.readDateTimeOrNull(offsets[5]);
   return object;
 }
 
@@ -130,6 +143,8 @@ P _marathonDeserializeProp<P>(
     case 3:
       return (reader.readStringOrNull(offset)) as P;
     case 4:
+      return (reader.readStringOrNull(offset)) as P;
+    case 5:
       return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -699,6 +714,152 @@ extension MarathonQueryFilter
     });
   }
 
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'packet',
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'packet',
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'packet',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'packet',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'packet',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'packet',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'packet',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'packet',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'packet',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'packet',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'packet',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterFilterCondition> packetIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'packet',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<Marathon, Marathon, QAfterFilterCondition> startIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -958,6 +1119,18 @@ extension MarathonQuerySortBy on QueryBuilder<Marathon, Marathon, QSortBy> {
     });
   }
 
+  QueryBuilder<Marathon, Marathon, QAfterSortBy> sortByPacket() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'packet', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterSortBy> sortByPacketDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'packet', Sort.desc);
+    });
+  }
+
   QueryBuilder<Marathon, Marathon, QAfterSortBy> sortByStart() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'start', Sort.asc);
@@ -1033,6 +1206,18 @@ extension MarathonQuerySortThenBy
     });
   }
 
+  QueryBuilder<Marathon, Marathon, QAfterSortBy> thenByPacket() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'packet', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Marathon, Marathon, QAfterSortBy> thenByPacketDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'packet', Sort.desc);
+    });
+  }
+
   QueryBuilder<Marathon, Marathon, QAfterSortBy> thenByStart() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'start', Sort.asc);
@@ -1081,6 +1266,13 @@ extension MarathonQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Marathon, Marathon, QDistinct> distinctByPacket(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'packet', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Marathon, Marathon, QDistinct> distinctByStart(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1118,6 +1310,12 @@ extension MarathonQueryProperty
   QueryBuilder<Marathon, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
+    });
+  }
+
+  QueryBuilder<Marathon, String?, QQueryOperations> packetProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'packet');
     });
   }
 

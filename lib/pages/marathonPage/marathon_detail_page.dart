@@ -125,6 +125,19 @@ class MarathonDetailPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "领物点",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Text(
+                    marathon.packet!,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
             ],
           ),
         )));

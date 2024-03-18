@@ -10,4 +10,5 @@ class Marathon {
   String? start;
   String? finish;
   String? hotel;
+  String? packet;
 }

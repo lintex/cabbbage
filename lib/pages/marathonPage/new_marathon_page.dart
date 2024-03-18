@@ -12,6 +12,7 @@ class NewMarathonPage extends StatelessWidget {
   final marathonStartController = TextEditingController();
   final marathonFinishController = TextEditingController();
   final marathonHotelController = TextEditingController();
+  final marathonPacketController = TextEditingController();
 
   // 使用Get找到主页面使用的Controller
   final MarathonDatabase db = Get.find();
@@ -86,7 +87,8 @@ class NewMarathonPage extends StatelessWidget {
                         marathonDate.value,
                         marathonStartController.text,
                         marathonFinishController.text,
-                        marathonHotelController.text);
+                        marathonHotelController.text,
+                        marathonPacketController.text);
                     // 清空文本框并返回
                     marathonNameController.clear();
                     Navigator.pop(context);
@@ -160,6 +162,10 @@ class NewMarathonPage extends StatelessWidget {
               MyTextField(
                 controller: marathonHotelController,
                 hintText: "请输入住宿酒店名称",
+              ),
+              MyTextField(
+                controller: marathonPacketController,
+                hintText: "请输入领物点",
               ),
             ],
           ),

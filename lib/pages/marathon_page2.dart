@@ -47,7 +47,7 @@ class _MarathonPage2State extends State<MarathonPage2> {
                 MaterialButton(
                   onPressed: () {
                     db.updateMarathon(marathon.id, textController.text,
-                        DateTime.now(), "起点", "终点", "酒店");
+                        DateTime.now(), "起点", "终点", "酒店", "领物点");
                     textController.clear();
                     Navigator.pop(context);
                   },

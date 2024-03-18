@@ -21,13 +21,14 @@ class MarathonDatabase extends GetxController {
 
   // 添加比赛
   Future<void> addMarathon(String name, DateTime time, String start,
-      String finish, String hotel) async {
+      String finish, String hotel, String packet) async {
     final newMarathon = Marathon()
       ..name = name
       ..time = time
       ..start = start
       ..finish = finish
-      ..hotel = hotel;
+      ..hotel = hotel
+      ..packet = packet;
 
     await marathonIsar.writeTxn(() => marathonIsar.marathons.put(newMarathon));
     debugPrint("Marathon Isar写入成功！");
@@ -45,8 +46,15 @@ class MarathonDatabase extends GetxController {
   }
 
   // 修改数据
-  Future<void> updateMarathon(int id, String name, DateTime time, String start,
-      String finish, String hotel) async {
+  Future<void> updateMarathon(
+    int id,
+    String name,
+    DateTime time,
+    String start,
+    String finish,
+    String hotel,
+    String packet,
+  ) async {
     final existingMarathon = await marathonIsar.marathons.get(id);
     if (existingMarathon != null) {
       existingMarathon
@@ -54,7 +62,8 @@ class MarathonDatabase extends GetxController {
         ..time = time
         ..start = start
         ..finish = finish
-        ..hotel = hotel;
+        ..hotel = hotel
+        ..packet = packet;
       await marathonIsar
           .writeTxn(() => marathonIsar.marathons.put(existingMarathon));
       debugPrint("Marathon Isar修改成功！");
