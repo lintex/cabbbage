@@ -35,8 +35,8 @@ class MyMarathonListTile extends StatelessWidget {
               // 跳转到修改信息页面
               Get.to(() => EditMarathonPage(marathon: marathon));
             },
-            icon: Icons.edit,
-            backgroundColor: Colors.blue.shade300,
+            icon: Icons.edit_calendar_outlined,
+            backgroundColor: Colors.green.shade300,
             borderRadius: BorderRadius.circular(12),
           ),
           const SizedBox(
@@ -47,7 +47,7 @@ class MyMarathonListTile extends StatelessWidget {
             onPressed: (e) {
               delete(marathon.id);
             },
-            icon: Icons.delete,
+            icon: Icons.highlight_remove_rounded,
             backgroundColor: Colors.red.shade200,
             borderRadius: BorderRadius.circular(12),
           ),
@@ -71,7 +71,7 @@ class MyMarathonListTile extends StatelessWidget {
                           .inDays <
                       0
                   ? Colors.grey[200]
-                  : Theme.of(context).colorScheme.primary),
+                  : Color.fromARGB(255, 27, 79, 29)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

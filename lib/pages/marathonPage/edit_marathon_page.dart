@@ -28,7 +28,7 @@ class EditMarathonPage extends StatelessWidget {
     marathonStartController.text = marathon.start!;
     marathonFinishController.text = marathon.finish!;
     marathonHotelController.text = marathon.hotel!;
-    marathonPacketController.text = marathon.hotel!;
+    marathonPacketController.text = marathon.packet ?? "";
 
     pickTime() {
       // 弹出时间选择窗口
@@ -174,6 +174,9 @@ class EditMarathonPage extends StatelessWidget {
               MyTextField(
                 controller: marathonHotelController,
                 hintText: "请输入住宿酒店名称",
+              ),
+              const SizedBox(
+                height: 18,
               ),
               MyTextField(
                 controller: marathonPacketController,

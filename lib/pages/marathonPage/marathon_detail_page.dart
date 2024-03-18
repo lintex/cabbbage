@@ -133,7 +133,7 @@ class MarathonDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(
-                    marathon.packet!,
+                    marathon.packet ?? "",
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],

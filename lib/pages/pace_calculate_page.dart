@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
+import 'package:xiao_note/pages/paceCalculatePage/my_pace_calculate_textfield.dart';
 import 'package:xiao_note/theme/theme.dart';
 //import 'package:get/get.dart';
 
@@ -111,29 +112,29 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                   Expanded(
                     child: SizedBox(
                       child: TextField(
-                        // onChanged: (value) {
-                        //   setState(() {
-                        //     if (int.parse(value) > 100) {
-                        //       _distanceErrorText = value;
-                        //     } else {
-                        //       _distanceErrorText = '';
-                        //     }
-                        //   });
-                        // },
                         controller: distanceController,
-                        //keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.number,
                         //autofocus: true,
                         textInputAction: TextInputAction.go,
+                        style:
+                            TextStyle(fontSize: 25, color: Colors.green[900]),
                         decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                          //contentPadding: EdgeInsets.only(
-                          //    top: 0, bottom: 0), //可保证TextField高度调整后，文字垂直居中
+                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12))),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.green, width: 1),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12))),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.green, width: 2),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
                           labelText: "请输入跑步的距离",
-                          // errorText: _distanceErrorText.isEmpty ? null : "距离太远",
-                          //helperText: "请输入跑步的距离"
+                          labelStyle: TextStyle(color: Colors.green),
                         ),
                       ),
                     ),
@@ -149,10 +150,20 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       onPressed: () {
                         distanceController.text = "42.195";
                       },
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.zero,
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                          const BorderSide(
+                              color: Colors.green, // 设置边框颜色为蓝色
+                              width: 1),
+                        ),
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
                       ),
-                      child: const Text("全马"),
+                      child: Text(
+                        "全马",
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).colorScheme.inversePrimary),
+                      ),
                     ),
                     const SizedBox(
                       width: 5,
@@ -161,10 +172,20 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       onPressed: () {
                         distanceController.text = "21.0975";
                       },
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.zero,
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                          const BorderSide(
+                              color: Colors.green, // 设置边框颜色为蓝色
+                              width: 1),
+                        ),
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
                       ),
-                      child: const Text("半马"),
+                      child: Text(
+                        "半马",
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).colorScheme.inversePrimary),
+                      ),
                     ),
                     const SizedBox(
                       width: 5,
@@ -173,10 +194,20 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       onPressed: () {
                         distanceController.text = "10";
                       },
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.zero,
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                          const BorderSide(
+                              color: Colors.green, // 设置边框颜色为蓝色
+                              width: 1),
+                        ),
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
                       ),
-                      child: const Text("十公里"),
+                      child: Text(
+                        "十公里",
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).colorScheme.inversePrimary),
+                      ),
                     ),
                     const SizedBox(
                       width: 5,
@@ -185,10 +216,20 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       onPressed: () {
                         distanceController.text = "5";
                       },
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.zero,
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                          const BorderSide(
+                              color: Colors.green, // 设置边框颜色为蓝色
+                              width: 1),
+                        ),
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
                       ),
-                      child: const Text("五公里"),
+                      child: Text(
+                        "五公里",
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).colorScheme.inversePrimary),
+                      ),
                     ),
                   ],
                 ),
@@ -197,104 +238,26 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Colors.green[50],
                       borderRadius: BorderRadius.circular(12)),
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
-                          onTap: () {
-                            if (hourController.text == "0") {
-                              hourController.text = "";
-                            }
-                          },
-                          // onChanged: (value) {
-                          //   setState(() {
-                          //     if (int.parse(value) > 6) {
-                          //       _hourErrorText = value;
-                          //     } else {
-                          //       _hourErrorText = '';
-                          //     }
-                          //   });
-                          // },
-                          controller: hourController,
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.go,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 0, 10, 0),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            labelText: "小时",
-                            // errorText:_hourErrorText.isEmpty ? null : "6小时关门"
-                          ),
-                        ),
-                      ),
+                          child: MyPaceCalculateTextField(
+                              text: "小时", controller: hourController)),
                       const SizedBox(
                         width: 10,
                       ),
                       Expanded(
-                        child: TextField(
-                          onTap: () {
-                            if (minuteController.text == "0") {
-                              minuteController.text = "";
-                            }
-                          },
-                          // onChanged: (value) {
-                          //   setState(() {
-                          //     if (int.parse(value) > 60) {
-                          //       _minuteErrorText = value;
-                          //     } else {
-                          //       _minuteErrorText = '';
-                          //     }
-                          //   });
-                          // },
-                          controller: minuteController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 0, 10, 0),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            labelText: "分钟",
-                            // errorText:
-                            //     _minuteErrorText.isEmpty ? null : "不能大于60"
-                          ),
-                        ),
-                      ),
+                          child: MyPaceCalculateTextField(
+                              text: "分钟", controller: minuteController)),
                       const SizedBox(
                         width: 10,
                       ),
                       Expanded(
-                        child: TextField(
-                          onTap: () {
-                            if (secondController.text == "0") {
-                              secondController.text = "";
-                            }
-                          },
-                          // onChanged: (value) {
-                          //   setState(() {
-                          //     if (int.parse(value) > 60) {
-                          //       _minuteErrorText = value;
-                          //     } else {
-                          //       _minuteErrorText = '';
-                          //     }
-                          //   });
-                          // },
-                          controller: secondController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 0, 10, 0),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            labelText: "秒",
-                            // errorText:
-                            //     _secondErrorText.isEmpty ? null : "不能大于60"
-                          ),
-                        ),
-                      ),
+                          child: MyPaceCalculateTextField(
+                              text: "秒", controller: secondController)),
                     ],
                   ),
                 ),
@@ -310,10 +273,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       color: Theme.of(context).colorScheme.primary,
                       padding: const EdgeInsets.all(16),
                       shape: const CircleBorder(),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_downward_rounded,
-                        color: blue,
-                        size: 55,
+                        color: Colors.green,
+                        size: 50,
                       ),
                     ),
                     MaterialButton(
@@ -322,10 +285,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       color: Theme.of(context).colorScheme.primary,
                       padding: const EdgeInsets.all(16),
                       shape: const CircleBorder(),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_upward_rounded,
-                        color: blue,
-                        size: 55,
+                        color: Colors.green,
+                        size: 50,
                       ),
                     ),
                   ],
@@ -335,50 +298,20 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Colors.green[50],
                       borderRadius: BorderRadius.circular(12)),
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
-                          onTap: () {
-                            if (paceMinuteController.text == "0") {
-                              paceMinuteController.text = "";
-                            }
-                          },
-                          controller: paceMinuteController,
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.go,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 0, 10, 0),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            labelText: "分",
-                          ),
-                        ),
-                      ),
+                          child: MyPaceCalculateTextField(
+                              text: "分", controller: paceMinuteController)),
                       const SizedBox(
                         width: 10,
                       ),
                       Expanded(
-                        child: TextField(
-                          onTap: () {
-                            if (paceSecondController.text == "0") {
-                              paceSecondController.text = "";
-                            }
-                          },
-                          controller: paceSecondController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 0, 10, 0),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            labelText: "秒",
-                          ),
-                        ),
+                        child: MyPaceCalculateTextField(
+                            text: "秒", controller: paceSecondController),
                       ),
                       const SizedBox(
                         width: 10,
