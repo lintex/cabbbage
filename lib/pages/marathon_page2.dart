@@ -7,7 +7,6 @@ import 'package:xiao_note/pages/marathonPage/marathon_detail_page.dart';
 import 'package:xiao_note/pages/marathonPage/my_marathon_list_tile.dart';
 import 'package:xiao_note/pages/marathonPage/new_marathon_page.dart';
 // 这个版本的马拉松助手采用数据库存储，方便排序及修改
-// TODO: 添加删除数据，页面不更新
 
 class MarathonPage2 extends StatefulWidget {
   const MarathonPage2({
@@ -68,9 +67,9 @@ class _MarathonPage2State extends State<MarathonPage2> {
     return Scaffold(
       appBar: const MyAppBar(title: "马拉松助手"),
       body: Obx(() => ListView.builder(
-            itemCount: db.AllMarathons.length,
+            itemCount: db.allMarathons.length,
             itemBuilder: (BuildContext context, int index) {
-              final marathon = db.AllMarathons[index];
+              final marathon = db.allMarathons[index];
               return GestureDetector(
                 onTap: () =>
                     Get.to(() => MarathonDetailPage(marathon: marathon)),

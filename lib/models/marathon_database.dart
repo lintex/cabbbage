@@ -17,8 +17,8 @@ class MarathonDatabase extends GetxController {
   }
 
   // 通过GetX存储比赛列表
-  final List AllMarathons = [].obs;
-
+  final List allMarathons = [].obs;
+  final List stillMarathons = [].obs;
   // 添加比赛
   Future<void> addMarathon(String name, DateTime time, String start,
       String finish, String hotel, String packet) async {
@@ -40,8 +40,8 @@ class MarathonDatabase extends GetxController {
   Future<void> fetchMarathons() async {
     List<Marathon> fetchMarathons =
         await marathonIsar.marathons.where().sortByTime().findAll();
-    AllMarathons.clear();
-    AllMarathons.addAll(fetchMarathons);
+    allMarathons.clear();
+    allMarathons.addAll(fetchMarathons);
     debugPrint("Marathon Isar读取成功！");
   }
 
