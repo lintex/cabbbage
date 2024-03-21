@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/models/marathon_database.dart';
-import 'package:xiao_note/models/note_database.dart';
+import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/pages/dashboard_page.dart';
 import 'package:xiao_note/theme/theme.dart';
 
 Future<void> main() async {
   // 初始化Isar数据库
   WidgetsFlutterBinding.ensureInitialized();
-  // await NoteDatabase.initialize();
-  await MarathonDatabase.initialize();
+  await Database.initialize();
 
   runApp(GetMaterialApp(
     title: '白菜助手',

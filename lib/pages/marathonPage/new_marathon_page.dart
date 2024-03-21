@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/my_button.dart';
 import 'package:xiao_note/components/my_textfield.dart';
-import 'package:xiao_note/models/marathon_database.dart';
+import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/tools/Tools.dart';
 
 class NewMarathonPage extends StatelessWidget {
@@ -15,7 +15,7 @@ class NewMarathonPage extends StatelessWidget {
   final marathonPacketController = TextEditingController();
 
   // 使用Get找到主页面使用的Controller
-  final MarathonDatabase db = Get.find();
+  final Database db = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class NewMarathonPage extends StatelessWidget {
                 // maximumYear: DateTime.now().year + 1,
                 // minimumYear: DateTime.now().year,
                 minimumDate:
-                    DateTime.now().add(const Duration(minutes: -10)), //最小数值date
+                    DateTime.now().add(const Duration(days: -10)), //最小数值date
                 // maximumDate: DateTime.now().add(const Duration(days: 500)),
                 // 时间选择器发生变化时将选择时间存储到变量
                 onDateTimeChanged: (date) {
@@ -162,6 +162,9 @@ class NewMarathonPage extends StatelessWidget {
               MyTextField(
                 controller: marathonHotelController,
                 hintText: "请输入住宿酒店名称",
+              ),
+              const SizedBox(
+                height: 18,
               ),
               MyTextField(
                 controller: marathonPacketController,

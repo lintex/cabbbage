@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:xiao_note/components/my_button.dart';
 import 'package:xiao_note/components/my_textfield.dart';
 import 'package:xiao_note/models/marathon.dart';
-import 'package:xiao_note/models/marathon_database.dart';
+import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/tools/Tools.dart';
 
 class EditMarathonPage extends StatelessWidget {
@@ -16,7 +16,7 @@ class EditMarathonPage extends StatelessWidget {
   final marathonHotelController = TextEditingController();
   final marathonPacketController = TextEditingController();
   // 使用Get找到主页面使用的Controller
-  final MarathonDatabase db = Get.find();
+  final Database db = Get.find();
 
   @override
   Widget build(BuildContext context) {

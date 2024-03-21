@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/components/my_button.dart';
-import 'package:xiao_note/components/my_textfield.dart';
 import 'package:xiao_note/models/marathon.dart';
-import 'package:xiao_note/models/marathon_database.dart';
+import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/pages/marathonPage/edit_marathon_page.dart';
 import 'package:xiao_note/tools/Tools.dart';
 
@@ -13,16 +10,16 @@ class MarathonDetailPage extends StatelessWidget {
   MarathonDetailPage({super.key, required this.marathon});
 
   // 使用Get找到主页面使用的Controller
-  final MarathonDatabase db = Get.find();
+  final Database db = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            marathon.name,
-            style: const TextStyle(fontSize: 18),
-          ),
+          title: Obx(() => Text(
+                marathon.name,
+                style: const TextStyle(fontSize: 18),
+              )),
           centerTitle: true,
           leading: IconButton(
               onPressed: () => Get.back(),
@@ -52,10 +49,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "比赛名称",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Text(
-                    marathon.name,
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                  Obx(() => Text(
+                        marathon.name,
+                        style: const TextStyle(fontSize: 16),
+                      )),
                 ],
               ),
               const SizedBox(
@@ -68,10 +65,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "比赛时间",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Text(
-                    Tools.getDate(marathon.time!),
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                  Obx(() => Text(
+                        Tools.getDate(marathon.time!),
+                        style: const TextStyle(fontSize: 16),
+                      )),
                 ],
               ),
               const SizedBox(
@@ -84,10 +81,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "比赛起点",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Text(
-                    marathon.start!,
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                  Obx(() => Text(
+                        marathon.start!,
+                        style: const TextStyle(fontSize: 16),
+                      )),
                 ],
               ),
               const SizedBox(
@@ -100,10 +97,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "比赛终点",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Text(
-                    marathon.finish!,
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                  Obx(() => Text(
+                        marathon.finish!,
+                        style: const TextStyle(fontSize: 16),
+                      )),
                 ],
               ),
               const SizedBox(
@@ -116,10 +113,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "住宿酒店",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Text(
-                    marathon.hotel!,
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                  Obx(() => Text(
+                        marathon.hotel!,
+                        style: const TextStyle(fontSize: 16),
+                      )),
                 ],
               ),
               const SizedBox(
@@ -132,10 +129,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "领物点",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Text(
-                    marathon.packet ?? "",
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                  Obx(() => Text(
+                        marathon.packet ?? "",
+                        style: const TextStyle(fontSize: 16),
+                      )),
                 ],
               ),
             ],

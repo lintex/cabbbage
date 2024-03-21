@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:xiao_note/components/marquee_widget.dart';
 import 'package:xiao_note/components/my_dashboard_tile.dart';
 import 'package:xiao_note/components/my_drawer.dart';
-import 'package:xiao_note/models/dashboard.dart';
-import 'package:xiao_note/models/marathon_database.dart';
+import 'package:xiao_note/models/marathon.dart';
+
+import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/pages/marathon_page2.dart';
 import 'package:xiao_note/tools/tools.dart';
 
@@ -13,55 +14,75 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MarathonDatabase db = Get.put(MarathonDatabase());
-
-    List<String> loopList = [];
-    loopList = db.allMarathons
-        .map((m) => '${m.name}还有${Tools.diffDays(m.time)}天')
-        .toList();
+    Database db = Get.put(Database());
+    db.fetchMarathons();
+    List loopList = [].obs;
+    debugPrint("列表长度为：${db.stillMarathons.length}");
+    loopList = db.stillMarathons;
 
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Theme.of(context).colorScheme.background,
-          title: Text(
-            Dashboard.getTitle(),
-            style: const TextStyle(fontSize: 18),
-          )),
-      drawer: const MyDrawer(),
-      body: ListView(
-        children: [
-          GestureDetector(
-            onTap: () => Get.to(() => const MarathonPage2()),
-            child: MyDashboardTile(
-                child: SizedBox(
-              height: 20,
-              child: MarqueeWidget(
-                //子Item构建器
-                itemBuilder: (BuildContext context, int index) {
-                  String itemStr = loopList[index];
-                  //通常可以是一个 Text文本
-                  return Text(itemStr);
-                },
-                //循环的提示消息数量
-                count: loopList.length,
-              ),
+        appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Theme.of(context).colorScheme.background,
+            title: Text(
+              Tools.getTitle(),
+              style: const TextStyle(fontSize: 18),
             )),
+        drawer: const MyDrawer(),
+        body: Obx(
+          () => ListView(
+            children: [
+              GestureDetector(
+                onTap: () => Get.to(() => const MarathonPage2()),
+                child: MyDashboardTile(
+                    child: SizedBox(
+                  height: 30,
+                  // 循环控件
+                  child: MarqueeWidget(
+                    // 循环时间
+                    loopSeconds: 3,
+                    //子Item构建器
+                    itemBuilder: (BuildContext context, int index) {
+                      Marathon m = loopList[index];
+                      //设置所有子控件字体样式
+                      return DefaultTextStyle(
+                        style: TextStyle(
+                            fontSize: 16,
+                            color:
+                                Theme.of(context).colorScheme.inversePrimary),
+                        //循环显示还有多少天
+                        child: Row(
+                          children: [
+                            Text("${m.name}还有"),
+                            Text(
+                              Tools.diffDays(m.time!),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const Text("天")
+                          ],
+                        ),
+                      );
+                    },
+                    //循环的提示消息数量
+                    count: loopList.length,
+                  ),
+                )),
+              ),
+              const MyDashboardTile(
+                child: Text("Test"),
+              ),
+              const MyDashboardTile(
+                child: Text("Test"),
+              ),
+              const MyDashboardTile(
+                child: Text("Test"),
+              ),
+              const MyDashboardTile(
+                child: Text("Test"),
+              ),
+            ],
           ),
-          const MyDashboardTile(
-            child: Text("Test"),
-          ),
-          const MyDashboardTile(
-            child: Text("Test"),
-          ),
-          const MyDashboardTile(
-            child: Text("Test"),
-          ),
-          const MyDashboardTile(
-            child: Text("Test"),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/models/marathon.dart';
-import 'package:xiao_note/models/marathon_database.dart';
+import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/pages/marathonPage/edit_marathon_page.dart';
 
 class MyMarathonListTile extends StatelessWidget {
   MyMarathonListTile({super.key, required this.marathon});
   // 使用Get找到主页面使用的Controller
-  final MarathonDatabase db = Get.find();
+  final Database db = Get.find();
   final Marathon marathon;
   // 读取所有比赛信息
   void read() {
@@ -71,7 +71,7 @@ class MyMarathonListTile extends StatelessWidget {
                           .inDays <
                       0
                   ? Colors.grey[200]
-                  : Color.fromARGB(255, 27, 79, 29)),
+                  : Colors.green[100]),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

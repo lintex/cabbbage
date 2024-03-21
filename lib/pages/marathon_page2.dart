@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/models/marathon.dart';
-import 'package:xiao_note/models/marathon_database.dart';
+import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/pages/marathonPage/marathon_detail_page.dart';
 import 'package:xiao_note/pages/marathonPage/my_marathon_list_tile.dart';
 import 'package:xiao_note/pages/marathonPage/new_marathon_page.dart';
@@ -28,7 +28,7 @@ class _MarathonPage2State extends State<MarathonPage2> {
   // 初始化Controller读取输入框
   final textController = TextEditingController();
   // 使用Get.put()实例化你的类，使其对当下的所有子路由可用
-  MarathonDatabase db = Get.put(MarathonDatabase());
+  Database db = Get.put(Database());
   // 读取所有比赛信息
   void read() {
     db.fetchMarathons();
