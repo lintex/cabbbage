@@ -21,8 +21,8 @@ class EditMarathonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //添加马拉松举行时间
-    var marathonDate = marathon.time.obs;
-
+    DateTime? initDate = marathon.time;
+    var marathonDate = initDate.obs;
     // 初始化textfield内容
     marathonNameController.text = marathon.name;
     marathonStartController.text = marathon.start!;
@@ -48,6 +48,8 @@ class EditMarathonPage extends StatelessWidget {
                 minimumDate:
                     DateTime.now().add(const Duration(minutes: -10)), //最小数值date
                 // maximumDate: DateTime.now().add(const Duration(days: 500)),
+                use24hFormat: true, // 是否使用24小时制
+                dateOrder: DatePickerDateOrder.dmy, // 日期选择器排序方式 默认年/月/日
                 // 时间选择器发生变化时将选择时间存储到变量
                 onDateTimeChanged: (date) {
                   marathonDate.value = date;
@@ -58,7 +60,9 @@ class EditMarathonPage extends StatelessWidget {
           cancel: MyButton(
             text: "取消",
             onPressed: () {
-              Navigator.pop(context);
+              // 取消时设置为初始时间
+              marathonDate.value = initDate;
+              Get.back();
             },
             color: Theme.of(context).colorScheme.primary,
           ),

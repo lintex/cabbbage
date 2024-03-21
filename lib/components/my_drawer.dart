@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:xiao_note/pages/about_page.dart';
 import 'package:xiao_note/pages/grid_page.dart';
 import 'package:xiao_note/pages/note_page.dart';
 
@@ -75,9 +76,12 @@ class MyDrawer extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15),
-              child: Text(
-                "Version: 2024.3.6.8",
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
+              child: GestureDetector(
+                onTap: () => Get.to(() => const AboutPage()),
+                child: Text(
+                  "Version: 2024.3.21.8",
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
+                ),
               ),
             ),
             const SizedBox(

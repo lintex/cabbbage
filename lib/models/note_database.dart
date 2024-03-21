@@ -4,7 +4,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:xiao_note/models/note.dart';
 
-class NoteDatabase extends GetxController {
+class Database extends GetxController {
   static late Isar noteIsar;
   // 初始化数据库
   static Future<void> initialize() async {

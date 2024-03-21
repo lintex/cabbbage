@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/models/note.dart';
-import 'package:xiao_note/models/note_database.dart';
+import 'package:xiao_note/models/database.dart';
 
 // 日记页面
 
@@ -24,7 +24,7 @@ class _NotePageState extends State<NotePage> {
   // 初始化Controller读取输入框
   final textController = TextEditingController();
   // 初始化NoteDatabase
-  final NoteDatabase ndb = NoteDatabase();
+  final Database ndb = Database();
 
   // 新建一条note
   void createNote() {

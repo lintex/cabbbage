@@ -9,17 +9,17 @@ class MarathonDetailPage extends StatelessWidget {
   final Marathon marathon;
   MarathonDetailPage({super.key, required this.marathon});
 
-  // 使用Get找到主页面使用的Controller
-  final Database db = Get.find();
+  // // 使用Get找到主页面使用的Controller
+  // final Database db = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Obx(() => Text(
-                marathon.name,
-                style: const TextStyle(fontSize: 18),
-              )),
+          title: Text(
+            marathon.name,
+            style: const TextStyle(fontSize: 18),
+          ),
           centerTitle: true,
           leading: IconButton(
               onPressed: () => Get.back(),
@@ -49,10 +49,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "比赛名称",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Obx(() => Text(
-                        marathon.name,
-                        style: const TextStyle(fontSize: 16),
-                      )),
+                  Text(
+                    marathon.name,
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -65,10 +65,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "比赛时间",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Obx(() => Text(
-                        Tools.getDate(marathon.time!),
-                        style: const TextStyle(fontSize: 16),
-                      )),
+                  Text(
+                    Tools.getDate(marathon.time!),
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -81,10 +81,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "比赛起点",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Obx(() => Text(
-                        marathon.start!,
-                        style: const TextStyle(fontSize: 16),
-                      )),
+                  Text(
+                    marathon.start!,
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -97,10 +97,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "比赛终点",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Obx(() => Text(
-                        marathon.finish!,
-                        style: const TextStyle(fontSize: 16),
-                      )),
+                  Text(
+                    marathon.finish!,
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -113,10 +113,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "住宿酒店",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Obx(() => Text(
-                        marathon.hotel!,
-                        style: const TextStyle(fontSize: 16),
-                      )),
+                  Text(
+                    marathon.hotel!,
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
               const SizedBox(
@@ -129,10 +129,10 @@ class MarathonDetailPage extends StatelessWidget {
                     "领物点",
                     style: TextStyle(fontSize: 18),
                   ),
-                  Obx(() => Text(
-                        marathon.packet ?? "",
-                        style: const TextStyle(fontSize: 16),
-                      )),
+                  Text(
+                    marathon.packet ?? "",
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
             ],
