@@ -8,7 +8,17 @@ Color greyBg = const Color.fromARGB(255, 247, 247, 247);
 Color yellow = const Color.fromARGB(255, 236, 176, 56);
 Color red = const Color.fromARGB(255, 193, 56, 72);
 Color grey = const Color.fromARGB(255, 159, 159, 159);
-//暗黑模式
+// 日间模式
+// 按钮背景 240,240,240
+// 蓝色按钮背景 52,130,255 按钮文字255
+// 蓝色listTile背景 234,242,255 文字 61,129,240
+
+// 暗黑模式
+// 纯黑背景  0,  0,  0 文字 143,143,143  亮色161,灰色72
+// 弹出窗口背景 36, 36, 36 文字234
+// 按钮背景  69, 69, 69  按钮文字 200,200,200
+// 蓝色按钮背景 38,122,247 按钮文字 234,242,253
+
 Color blackBg = const Color.fromARGB(255, 36, 36, 36);
 Color greyText = const Color.fromARGB(255, 50, 50, 50);
 Color whiteText = const Color.fromARGB(255, 229, 229, 229);

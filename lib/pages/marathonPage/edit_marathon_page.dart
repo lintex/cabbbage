@@ -46,7 +46,7 @@ class EditMarathonPage extends StatelessWidget {
                 // maximumYear: DateTime.now().year + 1,
                 // minimumYear: DateTime.now().year,
                 minimumDate:
-                    DateTime.now().add(const Duration(minutes: -10)), //最小数值date
+                    DateTime.now().add(const Duration(days: -10)), //最小数值date
                 // maximumDate: DateTime.now().add(const Duration(days: 500)),
                 use24hFormat: true, // 是否使用24小时制
                 dateOrder: DatePickerDateOrder.dmy, // 日期选择器排序方式 默认年/月/日

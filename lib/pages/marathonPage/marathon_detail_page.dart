@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/models/marathon.dart';
-import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/pages/marathonPage/edit_marathon_page.dart';
 import 'package:xiao_note/tools/Tools.dart';
 
 class MarathonDetailPage extends StatelessWidget {
   final Marathon marathon;
   MarathonDetailPage({super.key, required this.marathon});
-
-  // // 使用Get找到主页面使用的Controller
-  // final Database db = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +62,7 @@ class MarathonDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(
-                    Tools.getDate(marathon.time!),
+                    Tools.getFullDateTime(marathon.time!),
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],

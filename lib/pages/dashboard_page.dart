@@ -43,26 +43,37 @@ class DashboardPage extends StatelessWidget {
                     loopSeconds: 3,
                     //子Item构建器
                     itemBuilder: (BuildContext context, int index) {
-                      Marathon m = loopList[index];
-                      //设置所有子控件字体样式
-                      return DefaultTextStyle(
-                        style: TextStyle(
-                            fontSize: 16,
-                            color:
-                                Theme.of(context).colorScheme.inversePrimary),
-                        //循环显示还有多少天
-                        child: Row(
-                          children: [
-                            Text("${m.name}还有"),
-                            Text(
-                              Tools.diffDays(m.time!),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const Text("天")
-                          ],
-                        ),
-                      );
+                      if (loopList.isNotEmpty) {
+                        Marathon m = loopList[index];
+                        //设置所有子控件字体样式
+                        return DefaultTextStyle(
+                          style: TextStyle(
+                              fontSize: 16,
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary),
+                          //循环显示还有多少天
+                          child: Row(
+                            children: [
+                              Text("${m.name}还有"),
+                              Text(
+                                Tools.diffDays(m.time!),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Text("天")
+                            ],
+                          ),
+                        );
+                      } else {
+                        // TODO 不滚动
+                        return DefaultTextStyle(
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary),
+                            child: const Row(children: [Text("最近没有马拉松比赛...")]));
+                      }
                     },
                     //循环的提示消息数量
                     count: loopList.length,

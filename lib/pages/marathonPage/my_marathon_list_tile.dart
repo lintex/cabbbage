@@ -68,10 +68,10 @@ class MyMarathonListTile extends StatelessWidget {
               //根据天数改变背景色
               color: DateTime.parse(marathon.time.toString())
                           .difference(DateTime.now())
-                          .inDays <
-                      0
-                  ? Colors.grey[200]
-                  : Colors.green[100]),
+                          .inHours <
+                      24
+                  ? const Color.fromARGB(255, 246, 246, 246)
+                  : const Color.fromARGB(255, 234, 242, 255)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -107,8 +107,8 @@ class MyMarathonListTile extends StatelessWidget {
                   Text(
                     DateTime.parse(marathon.time.toString())
                                 .difference(DateTime.now())
-                                .inDays <
-                            0
+                                .inHours <
+                            24
                         ? "过了"
                         : "还有",
                     style: const TextStyle(fontSize: 9, color: Colors.grey),
@@ -117,16 +117,27 @@ class MyMarathonListTile extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    (DateTime.now().difference(marathon.time!).inDays.abs() + 1)
-                        .toString(),
+                    marathon.time!.difference(DateTime.now()).inDays.abs() == 0
+                        ? marathon.time!
+                            .difference(DateTime.now())
+                            .inHours
+                            .abs()
+                            .toString()
+                        : marathon.time!
+                            .difference(DateTime.now())
+                            .inDays
+                            .abs()
+                            .toString(),
                     style: const TextStyle(fontSize: 30),
                   ),
                   const SizedBox(
                     width: 5,
                   ),
-                  const Text(
-                    "天",
-                    style: TextStyle(fontSize: 9, color: Colors.grey),
+                  Text(
+                    marathon.time!.difference(DateTime.now()).inDays.abs() == 0
+                        ? "小时"
+                        : "天",
+                    style: const TextStyle(fontSize: 9, color: Colors.grey),
                   ),
                 ],
               ),
