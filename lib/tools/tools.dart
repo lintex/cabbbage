@@ -10,7 +10,7 @@ class Tools {
   }
 
   static String diffDays(DateTime d) {
-    return (DateTime.now().difference(d).abs().inDays + 1).toString();
+    return (DateTime.now().difference(d).abs().inDays).toString();
   }
 
   //* 天气+时间标题

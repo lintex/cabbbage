@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/pages/paceCalculatePage/my_pace_calculate_textfield.dart';
-import 'package:xiao_note/theme/theme.dart';
 //import 'package:get/get.dart';
 
 class PaceCalculatePage extends StatefulWidget {
@@ -24,6 +23,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
   final TextEditingController secondController = TextEditingController();
   final TextEditingController paceMinuteController = TextEditingController();
   final TextEditingController paceSecondController = TextEditingController();
+  final speedController = TextEditingController();
 
   void timeToPace() {
     if (distanceController.text != "" && hourController.text != "") {
@@ -38,7 +38,9 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
 
       paceMinuteController.text = paceMinute.toString();
       paceSecondController.text = paceSecond.toString();
-
+      // 时速计算
+      speedController.text =
+          (distance / (hour + minute / 60 + second / 3600)).toStringAsFixed(2);
       //double speed = distance / (hour + minute / 60 + second / 3600);
 
       // Get.defaultDialog(
@@ -315,6 +317,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       ),
                       const SizedBox(
                         width: 10,
+                      ),
+                      Expanded(
+                        child: MyPaceCalculateTextField(
+                            text: "时速", controller: speedController),
                       ),
                     ],
                   ),

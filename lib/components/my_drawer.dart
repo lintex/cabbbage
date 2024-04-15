@@ -47,7 +47,7 @@ class MyDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     leading: const Icon(CupertinoIcons.doc_text),
-                    title: const Text("文章"),
+                    title: const Text("笔记 "),
                     onTap: () => Get.to(() => const NotePage()),
                   ),
                   ListTile(

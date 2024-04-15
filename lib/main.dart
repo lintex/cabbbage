@@ -11,7 +11,7 @@ Future<void> main() async {
   await Database.initialize();
 
   runApp(GetMaterialApp(
-    title: '菜菜助手',
+    title: '卷心菜',
     debugShowCheckedModeBanner: false,
     theme: lightMode,
     darkTheme: darkMode,

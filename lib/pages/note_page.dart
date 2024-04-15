@@ -86,14 +86,17 @@ class _NotePageState extends State<NotePage> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: const MyAppBar(title: "日记"),
+      appBar: const MyAppBar(title: "笔记"),
       // ? Obx包裹ListView，应有更好解决方案
       body: Obx(() => ListView.builder(
             itemCount: ndb.currentNotes.length,
             itemBuilder: (BuildContext context, int index) {
               final note = ndb.currentNotes[index];
               return ListTile(
-                title: Text(note.text),
+                title: Text(
+                  note.text,
+                  style: const TextStyle(fontFamily: '霞鹜文楷', fontSize: 20),
+                ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
