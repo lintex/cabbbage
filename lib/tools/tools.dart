@@ -9,8 +9,30 @@ class Tools {
     return "${d.year}年${d.month}月${d.day}日${weekday[d.weekday]} ${d.hour}:${d.minute}";
   }
 
+  // 计算两个时间间隔多少天
   static String diffDays(DateTime d) {
     return (DateTime.now().difference(d).abs().inDays).toString();
+  }
+
+  //【马拉松助手】计算还有多少小时
+  static String diffHours(DateTime d) {
+    return (DateTime.now().difference(d).abs().inHours -
+            DateTime.now().difference(d).abs().inDays * 24)
+        .toString();
+  }
+
+  //【马拉松助手】计算还有多少分钟
+  static String diffMinutes(DateTime d) {
+    return (DateTime.now().difference(d).abs().inMinutes -
+            DateTime.now().difference(d).abs().inHours * 60)
+        .toString();
+  }
+
+  //【马拉松助手】计算还有多少秒
+  static String diffSeconds(DateTime d) {
+    return (DateTime.now().difference(d).abs().inSeconds -
+            DateTime.now().difference(d).abs().inMinutes * 60)
+        .toString();
   }
 
   //* 天气+时间标题

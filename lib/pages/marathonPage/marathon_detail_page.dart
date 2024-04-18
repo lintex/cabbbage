@@ -3,17 +3,45 @@ import 'package:get/get.dart';
 import 'package:xiao_note/models/marathon.dart';
 import 'package:xiao_note/pages/marathonPage/edit_marathon_page.dart';
 import 'package:xiao_note/tools/Tools.dart';
+import 'dart:async';
 
-class MarathonDetailPage extends StatelessWidget {
+class MarathonDetailPage extends StatefulWidget {
   final Marathon marathon;
-  MarathonDetailPage({super.key, required this.marathon});
+  const MarathonDetailPage({super.key, required this.marathon});
+
+  @override
+  State<MarathonDetailPage> createState() => _MarathonDetailPageState();
+}
+
+class _MarathonDetailPageState extends State<MarathonDetailPage> {
+  // 定义一个定时器
+  late Timer _timer;
+  var stillTime = ''.obs;
+
+  @override
+  void initState() {
+    super.initState();
+    // 初始化定时器
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      stillTime.value =
+          "${Tools.diffDays(widget.marathon.time!)}天${Tools.diffHours(widget.marathon.time!)}小时${Tools.diffMinutes(widget.marathon.time!)}分${Tools.diffSeconds(widget.marathon.time!)}秒";
+      // print(stillTime);
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    // 定时器销毁
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            marathon.name,
+            widget.marathon.name,
             style: const TextStyle(fontSize: 18),
           ),
           centerTitle: true,
@@ -28,7 +56,7 @@ class MarathonDetailPage extends StatelessWidget {
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
                   onPressed: () =>
-                      Get.to(() => EditMarathonPage(marathon: marathon)),
+                      Get.to(() => EditMarathonPage(marathon: widget.marathon)),
                   icon: const Icon(Icons.edit_calendar_outlined)),
             )
           ],
@@ -46,7 +74,7 @@ class MarathonDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(
-                    marathon.name,
+                    widget.marathon.name,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],
@@ -62,7 +90,7 @@ class MarathonDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(
-                    Tools.getFullDateTime(marathon.time!),
+                    Tools.getFullDateTime(widget.marathon.time!),
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],
@@ -78,7 +106,7 @@ class MarathonDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(
-                    marathon.start!,
+                    widget.marathon.start!,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],
@@ -94,23 +122,7 @@ class MarathonDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(
-                    marathon.finish!,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "住宿酒店",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    marathon.hotel!,
+                    widget.marathon.finish!,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ],
@@ -126,9 +138,33 @@ class MarathonDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(
-                    marathon.packet ?? "",
+                    widget.marathon.packet ?? "",
                     style: const TextStyle(fontSize: 16),
                   ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "住宿酒店",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Text(
+                    widget.marathon.hotel!,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Obx(() => Text("倒计时：$stillTime")),
                 ],
               ),
             ],
