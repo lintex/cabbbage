@@ -116,6 +116,7 @@ class Database extends GetxController {
 
   // 读取最后一条Note数据
   Future<void> fetchLastNote() async {
+    // 这个地方不能用Id排序很是困惑，只能用时间倒序取最后一条记录
     List<Note> fetchNotes =
         await isar.notes.where().sortByCreateTimeDesc().limit(1).findAll();
     lastNote.value = fetchNotes[0].text;
