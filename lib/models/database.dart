@@ -44,6 +44,7 @@ class Database extends GetxController {
         await isar.marathons.where().sortByTime().findAll();
     allMarathons.clear();
     allMarathons.addAll(fetchMarathons);
+    // 获取还未到达日期的最近三条记录
     fetchMarathons = await isar.marathons
         .filter()
         .timeGreaterThan(DateTime.now())
@@ -91,10 +92,13 @@ class Database extends GetxController {
   //  Notes表相关操作
   // ----------------------------------------------
   final List currentNotes = [].obs;
+  final lastNote = ''.obs;
 
   // 添加数据
   Future<void> addNote(String textFromUser) async {
-    final newNote = Note()..text = textFromUser;
+    final newNote = Note()
+      ..text = textFromUser
+      ..createTime = DateTime.now();
 
     await isar.writeTxn(() => isar.notes.put(newNote));
     debugPrint("noteIsar写入成功！");
@@ -108,6 +112,14 @@ class Database extends GetxController {
     currentNotes.clear();
     currentNotes.addAll(fetchNotes);
     debugPrint("noteIsar读取成功！");
+  }
+
+  // 读取最后一条Note数据
+  Future<void> fetchLastNote() async {
+    List<Note> fetchNotes =
+        await isar.notes.where().sortByCreateTimeDesc().limit(1).findAll();
+    lastNote.value = fetchNotes[0].text;
+    debugPrint("noteIsar读取成功！内容为${fetchNotes[0].text}");
   }
 
   // 修改数据

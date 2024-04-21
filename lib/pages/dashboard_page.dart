@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/marquee_widget.dart';
 import 'package:xiao_note/components/my_dashboard_tile.dart';
@@ -7,6 +8,7 @@ import 'package:xiao_note/models/marathon.dart';
 
 import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/pages/marathon_page2.dart';
+import 'package:xiao_note/pages/note_page.dart';
 import 'package:xiao_note/tools/tools.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -15,10 +17,14 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Database db = Get.put(Database());
+    // 获取马拉松数据，显示还未过期三条记录
     db.fetchMarathons();
     List loopList = [].obs;
     debugPrint("列表长度为：${db.stillMarathons.length}");
     loopList = db.stillMarathons;
+
+    // 读取最后一条note，读取数据存储在db.lastNote，已经是obs
+    db.fetchLastNote();
 
     return Scaffold(
         appBar: AppBar(
@@ -80,8 +86,11 @@ class DashboardPage extends StatelessWidget {
                   ),
                 )),
               ),
-              const MyDashboardTile(
-                child: Text("Test"),
+              GestureDetector(
+                onTap: () => Get.to(() => const NotePage()),
+                child: MyDashboardTile(
+                  child: Text(db.lastNote.value),
+                ),
               ),
               const MyDashboardTile(
                 child: Text("Test"),
