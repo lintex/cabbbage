@@ -10,8 +10,13 @@ Color red = const Color.fromARGB(255, 193, 56, 72);
 Color grey = const Color.fromARGB(255, 159, 159, 159);
 // 日间模式
 // 按钮背景 240,240,240
+Color buttonBg = const Color.fromARGB(255, 240, 240, 240);
 // 蓝色按钮背景 52,130,255 按钮文字255
+Color blueButtonBg = const Color.fromARGB(255, 52, 130, 255);
+Color blueButtonText = const Color.fromARGB(255, 255, 255, 255);
 // 蓝色listTile背景 234,242,255 文字 61,129,240
+Color blueTileBg = const Color.fromARGB(255, 234, 242, 255);
+Color blueTileText = const Color.fromARGB(255, 61, 129, 240);
 
 // 暗黑模式
 // 纯黑背景  0,  0,  0 文字 143,143,143  亮色161,灰色72
@@ -26,26 +31,35 @@ Color whiteText = const Color.fromARGB(255, 229, 229, 229);
 ThemeData lightMode = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    appBarTheme: AppBarTheme(backgroundColor: greyBg),
-    scaffoldBackgroundColor: greyBg,
+    appBarTheme: AppBarTheme(backgroundColor: bg),
+    scaffoldBackgroundColor: bg,
     colorScheme: ColorScheme.light(
-      background: const Color.fromARGB(255, 247, 247, 247),
-      primary: Colors.grey[300]!,
-      secondary: Colors.grey[400]!,
-      tertiary: Colors.grey[500]!,
-      inversePrimary: Colors.black87,
-      outline: const Color.fromARGB(255, 235, 235, 235),
-    ));
+        background: const Color.fromARGB(255, 247, 247, 247),
+        primary: const Color.fromARGB(255, 233, 233, 233),
+        secondary: Colors.grey.shade400,
+        tertiary: Colors.grey.shade500,
+        primaryContainer: const Color.fromARGB(255, 232, 245, 235),
+        inversePrimary: Colors.black87,
+        outline: const Color.fromARGB(255, 235, 235, 235),
+        shadow: const Color.fromARGB(255, 222, 222, 222),
+        // floatActionButton 颜色
+        secondaryContainer: Colors.green.shade100,
+        onSecondaryContainer: Colors.green));
 
 ThemeData darkMode = ThemeData(
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(backgroundColor: blackBg),
     scaffoldBackgroundColor: blackBg,
     colorScheme: ColorScheme.dark(
-      background: blackBg,
-      primary: const Color.fromARGB(255, 50, 50, 50),
-      secondary: Colors.grey[800]!,
-      tertiary: Colors.grey.shade500,
-      inversePrimary: const Color.fromARGB(255, 229, 229, 229),
-      outline: const Color.fromARGB(255, 70, 70, 70),
-    ));
+        background: blackBg,
+        primary: const Color.fromARGB(255, 50, 50, 50),
+        secondary: Colors.grey.shade800,
+        tertiary: Colors.grey.shade500,
+        // list tile 背景色
+        primaryContainer: const Color.fromARGB(255, 14, 32, 32),
+        inversePrimary: const Color.fromARGB(255, 229, 229, 229),
+        outline: const Color.fromARGB(255, 70, 70, 70),
+        shadow: const Color.fromARGB(255, 12, 12, 12),
+        // floatActionButton 颜色
+        secondaryContainer: const Color.fromARGB(255, 9, 31, 11),
+        onSecondaryContainer: Colors.green.shade600));

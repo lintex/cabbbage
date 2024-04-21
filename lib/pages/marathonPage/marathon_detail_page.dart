@@ -16,13 +16,13 @@ class MarathonDetailPage extends StatefulWidget {
 class _MarathonDetailPageState extends State<MarathonDetailPage> {
   // 定义一个定时器
   late Timer _timer;
-  var stillTime = ''.obs;
+  var stillTime = '00天00小时00分00秒'.obs;
 
   @override
   void initState() {
     super.initState();
-    // 初始化定时器
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    // 初始化定时器，间隔100毫秒刷新一次，这个地方用second:1时间太长
+    _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       stillTime.value =
           "${Tools.diffDays(widget.marathon.time!)}天${Tools.diffHours(widget.marathon.time!)}小时${Tools.diffMinutes(widget.marathon.time!)}分${Tools.diffSeconds(widget.marathon.time!)}秒";
       // print(stillTime);
@@ -66,6 +66,19 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() => Text(
+                        "倒计时：$stillTime",
+                        style:
+                            const TextStyle(fontSize: 25, fontFamily: "方正大标宋"),
+                      )),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -161,11 +174,6 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
               ),
               const SizedBox(
                 height: 20,
-              ),
-              Row(
-                children: [
-                  Obx(() => Text("倒计时：$stillTime")),
-                ],
               ),
             ],
           ),

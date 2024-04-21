@@ -118,25 +118,40 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                         keyboardType: TextInputType.number,
                         //autofocus: true,
                         textInputAction: TextInputAction.go,
-                        style:
-                            TextStyle(fontSize: 25, color: Colors.green[900]),
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                          border: OutlineInputBorder(
+                        style: TextStyle(
+                            fontSize: 25,
+                            color:
+                                Theme.of(context).colorScheme.inversePrimary),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.primary,
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          border: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12))),
                           enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.green, width: 1),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer,
+                                  width: 1),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(12))),
+                                  const BorderRadius.all(Radius.circular(12))),
                           focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.green, width: 2),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
+                                width: 2),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
                           ),
                           labelText: "请输入跑步的距离",
-                          labelStyle: TextStyle(color: Colors.green),
+                          labelStyle: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer),
                         ),
                       ),
                     ),
@@ -154,8 +169,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       },
                       style: ButtonStyle(
                         side: MaterialStateProperty.all(
-                          const BorderSide(
-                              color: Colors.green, // 设置边框颜色为蓝色
+                          BorderSide(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer, // 设置边框颜色为蓝色
                               width: 1),
                         ),
                         padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -176,8 +193,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       },
                       style: ButtonStyle(
                         side: MaterialStateProperty.all(
-                          const BorderSide(
-                              color: Colors.green, // 设置边框颜色为蓝色
+                          BorderSide(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer, // 设置边框颜色为蓝色
                               width: 1),
                         ),
                         padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -198,8 +217,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       },
                       style: ButtonStyle(
                         side: MaterialStateProperty.all(
-                          const BorderSide(
-                              color: Colors.green, // 设置边框颜色为蓝色
+                          BorderSide(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
                               width: 1),
                         ),
                         padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -220,8 +241,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       },
                       style: ButtonStyle(
                         side: MaterialStateProperty.all(
-                          const BorderSide(
-                              color: Colors.green, // 设置边框颜色为蓝色
+                          BorderSide(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer, // 设置边框颜色为蓝色
                               width: 1),
                         ),
                         padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -240,7 +263,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.green[50],
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(12)),
                   padding: const EdgeInsets.all(15),
                   child: Row(
@@ -275,9 +298,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       color: Theme.of(context).colorScheme.primary,
                       padding: const EdgeInsets.all(16),
                       shape: const CircleBorder(),
-                      child: const Icon(
+                      child: Icon(
                         Icons.arrow_downward_rounded,
-                        color: Colors.green,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
                         size: 50,
                       ),
                     ),
@@ -287,9 +311,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       color: Theme.of(context).colorScheme.primary,
                       padding: const EdgeInsets.all(16),
                       shape: const CircleBorder(),
-                      child: const Icon(
+                      child: Icon(
                         Icons.arrow_upward_rounded,
-                        color: Colors.green,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
                         size: 50,
                       ),
                     ),
@@ -300,7 +325,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.green[50],
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(12)),
                   padding: const EdgeInsets.all(15),
                   child: Row(

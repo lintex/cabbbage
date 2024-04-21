@@ -109,7 +109,7 @@ class NewMarathonPage extends StatelessWidget {
             children: [
               MyTextField(
                 controller: marathonNameController,
-                hintText: "请输入比赛名称",
+                hintText: "比赛名称",
               ),
               const SizedBox(
                 height: 10,
@@ -132,11 +132,11 @@ class NewMarathonPage extends StatelessWidget {
                                 style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .secondary),
+                                        .inversePrimary),
                               )),
                           Icon(
                             Icons.keyboard_arrow_right,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: Theme.of(context).colorScheme.inversePrimary,
                           ),
                         ],
                       ),
@@ -152,28 +152,28 @@ class NewMarathonPage extends StatelessWidget {
               ),
               MyTextField(
                 controller: marathonStartController,
-                hintText: "请输入比赛起点",
+                hintText: "比赛起点",
               ),
               const SizedBox(
                 height: 18,
               ),
               MyTextField(
                 controller: marathonFinishController,
-                hintText: "请输入比赛终点",
+                hintText: "比赛终点",
               ),
               const SizedBox(
                 height: 18,
               ),
               MyTextField(
                 controller: marathonHotelController,
-                hintText: "请输入住宿酒店名称",
+                hintText: "住宿酒店",
               ),
               const SizedBox(
                 height: 18,
               ),
               MyTextField(
                 controller: marathonPacketController,
-                hintText: "请输入领物点",
+                hintText: "领物地点",
               ),
             ],
           ),

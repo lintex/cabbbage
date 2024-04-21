@@ -80,13 +80,14 @@ class _MarathonPage2State extends State<MarathonPage2> {
       floatingActionButton: FloatingActionButton(
         onPressed: (() =>
             Get.to(() => NewMarathonPage(), transition: Transition.downToUp)),
-        backgroundColor: Colors.green[100],
-        child: const Icon(
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        child: Icon(
           Icons.add,
-          color: Colors.green,
+          color: Theme.of(context).colorScheme.onSecondaryContainer,
           size: 35,
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

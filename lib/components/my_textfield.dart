@@ -28,13 +28,14 @@ class MyTextField extends StatelessWidget {
         border: roundBorder,
         enabledBorder: roundBorder,
         filled: true, // * 只有filled为true时，下面的fillColor才有效
-        fillColor: Theme.of(context).colorScheme.secondary,
+        fillColor: Theme.of(context).colorScheme.primary,
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue, width: 2),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         hintText: hintText,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+        hintStyle:
+            TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
         //labelText: labelText,
         labelStyle: const TextStyle(fontSize: 14),
       ),

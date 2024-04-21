@@ -70,8 +70,8 @@ class MyMarathonListTile extends StatelessWidget {
                           .difference(DateTime.now())
                           .inHours <
                       24
-                  ? const Color.fromARGB(255, 246, 246, 246)
-                  : const Color.fromARGB(255, 234, 242, 255)),
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.primaryContainer),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

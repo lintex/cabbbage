@@ -36,19 +36,24 @@ class MyPaceCalculateTextField extends StatelessWidget {
       // errorText:_hourErrorText.isEmpty ? null : "6小时关门"
 
       decoration: InputDecoration(
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black45, width: 2),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+              width: 2),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         contentPadding: const EdgeInsets.fromLTRB(20, 5, 10, 5),
         // 直接设置border 不起作用
         border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12))),
-        enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black38, width: 1),
-            borderRadius: BorderRadius.all(Radius.circular(12))),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                width: 1),
+            borderRadius: const BorderRadius.all(Radius.circular(12))),
         labelText: text,
-        labelStyle: const TextStyle(color: Colors.black45),
+        labelStyle: TextStyle(
+            color: Theme.of(context).colorScheme.onSecondaryContainer),
         // hintStyle: const TextStyle(color: Colors.green),
       ),
     );

@@ -6,33 +6,36 @@ class Tools {
 
   static String getFullDateTime(DateTime d) {
     var weekday = [" ", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
-    return "${d.year}年${d.month}月${d.day}日${weekday[d.weekday]} ${d.hour}:${d.minute}";
+    return "${d.year}年${d.month}月${d.day}日${weekday[d.weekday]} ${d.hour}:${d.minute.toString().padLeft(2, '0')}";
   }
 
-  // 计算两个时间间隔多少天
+  // 计算两个时间间隔多少天, 剩余天数小于1时不显示
   static String diffDays(DateTime d) {
-    return (DateTime.now().difference(d).abs().inDays).toString();
+    return (d.difference(DateTime.now()).inDays) < 1
+        ? ''
+        : (d.difference(DateTime.now()).inDays).toString();
   }
 
   //【马拉松助手】计算还有多少小时
   static String diffHours(DateTime d) {
-    return (DateTime.now().difference(d).abs().inHours -
-            DateTime.now().difference(d).abs().inDays * 24)
+    return (d.difference(DateTime.now()).inHours -
+            d.difference(DateTime.now()).inDays * 24)
         .toString();
   }
 
   //【马拉松助手】计算还有多少分钟
   static String diffMinutes(DateTime d) {
-    return (DateTime.now().difference(d).abs().inMinutes -
-            DateTime.now().difference(d).abs().inHours * 60)
+    return (d.difference(DateTime.now()).inMinutes -
+            d.difference(DateTime.now()).inHours * 60)
         .toString();
   }
 
   //【马拉松助手】计算还有多少秒
   static String diffSeconds(DateTime d) {
-    return (DateTime.now().difference(d).abs().inSeconds -
-            DateTime.now().difference(d).abs().inMinutes * 60)
-        .toString();
+    return (d.difference(DateTime.now()).inSeconds -
+            d.difference(DateTime.now()).inMinutes * 60)
+        .toString()
+        .padLeft(2, '0');
   }
 
   //* 天气+时间标题
