@@ -7,12 +7,12 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle greyText = const TextStyle(
-      color: Colors.black54,
+    TextStyle greyText = TextStyle(
+      color: Theme.of(context).colorScheme.inversePrimary,
       fontSize: 12,
     );
-    TextStyle underlineText = const TextStyle(
-        color: Colors.black54,
+    TextStyle underlineText = TextStyle(
+        color: Theme.of(context).colorScheme.inversePrimary,
         fontSize: 12,
         decoration: TextDecoration.underline);
     return Scaffold(
@@ -38,10 +38,10 @@ class AboutPage extends StatelessWidget {
                       const Text("再菜也要用心卷",
                           style: TextStyle(fontFamily: '字语相思体', fontSize: 28)),
                       const SizedBox(height: 15),
-                      const Text(
-                        "卷心菜 0.0.1",
+                      Text(
+                        "卷心菜 0.0.2",
                         style: TextStyle(
-                          color: Colors.black45,
+                          color: Theme.of(context).colorScheme.inversePrimary,
                         ),
                       ),
                       const SizedBox(
