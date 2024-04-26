@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
+import 'package:xiao_note/components/my_text_divider.dart';
 import 'package:xiao_note/models/marathon.dart';
 import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/pages/marathonPage/marathon_detail_page.dart';
@@ -66,17 +67,37 @@ class _MarathonPage2State extends State<MarathonPage2> {
     // read(); // 修改后界面不更新，不知道怎么回事
     return Scaffold(
       appBar: const MyAppBar(title: "马拉松助手"),
-      body: Obx(() => ListView.builder(
-            itemCount: db.allMarathons.length,
-            itemBuilder: (BuildContext context, int index) {
-              final marathon = db.allMarathons[index];
-              return GestureDetector(
-                onTap: () =>
-                    Get.to(() => MarathonDetailPage(marathon: marathon)),
-                child: MyMarathonListTile(marathon: marathon),
-              );
-            },
-          )),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: ListView(shrinkWrap: true, children: <Widget>[
+          Flex(direction: Axis.horizontal, children: <Widget>[
+            //这一行Flex不要回报错“Incorrect use of ParentDataWidget.”
+            Expanded(
+              child: Obx(() => ListView.builder(
+                    shrinkWrap: true, //这一行不要列表无法显示
+                    physics: const NeverScrollableScrollPhysics(), //不要无法滚动
+                    itemCount: db.allMarathons.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final marathon = db.allMarathons[index];
+                      return GestureDetector(
+                        onTap: () => Get.to(
+                            () => MarathonDetailPage(marathon: marathon)),
+                        child: MyMarathonListTile(marathon: marathon),
+                      );
+                    },
+                  )),
+            ),
+          ]),
+          const SizedBox(
+            height: 20,
+          ),
+          const MyTextDivider(text: "🏃‍♀️跑起来就有风"),
+          const SizedBox(
+            height: 40,
+          ),
+        ]),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: (() =>
             Get.to(() => NewMarathonPage(), transition: Transition.downToUp)),
@@ -87,7 +108,7 @@ class _MarathonPage2State extends State<MarathonPage2> {
           size: 35,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

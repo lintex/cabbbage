@@ -16,12 +16,12 @@ class MyTextDivider extends StatelessWidget {
             color: Color.fromARGB(174, 189, 189, 189),
           )),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               text,
               style: const TextStyle(
                   color: Color.fromARGB(180, 97, 97, 97),
-                  fontSize: 12,
+                  fontSize: 16,
                   fontFamily: "干就完事了"),
             ),
           ),

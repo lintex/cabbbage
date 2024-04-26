@@ -19,7 +19,7 @@ class AboutPage extends StatelessWidget {
         appBar: const MyAppBar(title: "关于"),
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(15, 50, 15, 30),
+            padding: const EdgeInsets.fromLTRB(15, 50, 15, 40),
             child: Column(
               children: [
                 Expanded(
@@ -39,7 +39,7 @@ class AboutPage extends StatelessWidget {
                           style: TextStyle(fontFamily: '字语相思体', fontSize: 28)),
                       const SizedBox(height: 15),
                       Text(
-                        "卷心菜 0.0.2",
+                        "卷心菜 0.0.3.240424",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),
@@ -64,13 +64,22 @@ class AboutPage extends StatelessWidget {
                       "小西软件 版权所有",
                       style: greyText,
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       "Copyright ©️ 2024 SmallWest Software. All rights reserved.",
                       style: greyText,
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       "ICP备案号：鄂B2-20240059-1745A",
                       style: greyText,
+                    ),
+                    SizedBox(
+                      height: 5,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

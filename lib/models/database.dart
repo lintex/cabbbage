@@ -111,6 +111,7 @@ class Database extends GetxController {
     List<Note> fetchNotes = await isar.notes.where().findAll();
     currentNotes.clear();
     currentNotes.addAll(fetchNotes);
+    fetchLastNote();
     debugPrint("noteIsar读取成功！");
   }
 

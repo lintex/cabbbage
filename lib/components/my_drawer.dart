@@ -79,7 +79,7 @@ class MyDrawer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => Get.to(() => const AboutPage()),
                 child: Text(
-                  "Version: 2024.3.21.8",
+                  "Version: 2024.4.21.5",
                   style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
                 ),
               ),

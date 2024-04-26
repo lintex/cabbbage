@@ -5,6 +5,7 @@ import 'package:xiao_note/models/database.dart';
 import 'package:xiao_note/pages/dashboard_page.dart';
 import 'package:xiao_note/theme/theme.dart';
 
+// flutter build apk --release
 Future<void> main() async {
   // 初始化Isar数据库
   WidgetsFlutterBinding.ensureInitialized();

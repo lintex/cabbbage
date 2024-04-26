@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/marquee_widget.dart';
 import 'package:xiao_note/components/my_dashboard_tile.dart';
@@ -89,7 +88,7 @@ class DashboardPage extends StatelessWidget {
               GestureDetector(
                 onTap: () => Get.to(() => const NotePage()),
                 child: MyDashboardTile(
-                  child: Text(db.lastNote.value),
+                  child: Obx(() => Text(db.lastNote.value)),
                 ),
               ),
               const MyDashboardTile(
