@@ -28,11 +28,11 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
   void timeToPace() {
     if (distanceController.text != "" && hourController.text != "") {
       double distance = double.parse(distanceController.text);
-      double hour = double.parse(hourController.text);
-      double minute = double.parse(minuteController.text);
-      double second = double.parse(secondController.text);
+      double hours = double.parse(hourController.text);
+      double minutes = double.parse(minuteController.text);
+      double seconds = double.parse(secondController.text);
 
-      double secondsPerKM = (hour * 3600 + minute * 60 + second) / distance;
+      double secondsPerKM = (hours * 3600 + minutes * 60 + seconds) / distance;
       int paceMinute = secondsPerKM ~/ 60;
       int paceSecond = (secondsPerKM % 60).toInt();
 
@@ -40,7 +40,8 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
       paceSecondController.text = paceSecond.toString();
       // 时速计算
       speedController.text =
-          (distance / (hour + minute / 60 + second / 3600)).toStringAsFixed(2);
+          (distance / (hours + minutes / 60 + seconds / 3600))
+              .toStringAsFixed(2);
       //double speed = distance / (hour + minute / 60 + second / 3600);
 
       // Get.defaultDialog(
@@ -69,6 +70,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
       minuteController.text = minutes.toString();
       secondController.text = seconds.toString();
 
+      // 时速计算
+      speedController.text =
+          (distance / (hours + minutes / 60 + seconds / 3600))
+              .toStringAsFixed(2);
       // Get.defaultDialog(
       //   title: "计算结果",
       //   titleStyle: const TextStyle(fontSize: 20),
@@ -95,6 +100,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
     secondController.text = "0";
     paceMinuteController.text = "0";
     paceSecondController.text = "0";
+    speedController.text = "0";
 
     return Scaffold(
         appBar: const MyAppBar(title: "马拉松配速计算器"),
@@ -115,18 +121,27 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                     child: SizedBox(
                       child: TextField(
                         controller: distanceController,
+                        textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                         //autofocus: true,
                         textInputAction: TextInputAction.go,
                         style: TextStyle(
-                            fontSize: 25,
+                            shadows: const [
+                              Shadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 1.0,
+                                color: Color.fromARGB(255, 50, 50, 50),
+                              ),
+                            ],
+                            fontSize: 30,
+                            fontFamily: "DigitalNumbers",
                             color:
                                 Theme.of(context).colorScheme.inversePrimary),
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Theme.of(context).colorScheme.primary,
                           contentPadding:
-                              const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                              const EdgeInsets.fromLTRB(20, 10, 20, 10),
                           border: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12))),
@@ -147,7 +162,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
                           ),
-                          labelText: "请输入跑步的距离",
+                          labelText: "跑步距离",
                           labelStyle: TextStyle(
                               color: Theme.of(context)
                                   .colorScheme
@@ -213,7 +228,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                     ),
                     OutlinedButton(
                       onPressed: () {
-                        distanceController.text = "10";
+                        distanceController.text = "10.00";
                       },
                       style: ButtonStyle(
                         side: MaterialStateProperty.all(
@@ -237,7 +252,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                     ),
                     OutlinedButton(
                       onPressed: () {
-                        distanceController.text = "5";
+                        distanceController.text = "5.00";
                       },
                       style: ButtonStyle(
                         side: MaterialStateProperty.all(

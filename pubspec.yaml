@@ -103,6 +103,9 @@ flutter:
     - family: 方正大标宋
       fonts:
         - asset: assets/fonts/方正大标宋.ttf 
+    - family: DigitalNumbers
+      fonts:
+        - asset: assets/fonts/DigitalNumbers-Regular.ttf 
   # example:
   # fonts:
   #   - family: Schyler
