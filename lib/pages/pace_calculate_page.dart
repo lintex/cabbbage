@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/pages/paceCalculatePage/my_pace_calculate_textfield.dart';
-//import 'package:get/get.dart';
 
 class PaceCalculatePage extends StatefulWidget {
   const PaceCalculatePage({super.key});
@@ -11,12 +11,6 @@ class PaceCalculatePage extends StatefulWidget {
 }
 
 class _PaceCalculatePageState extends State<PaceCalculatePage> {
-  // String _distanceErrorText = '';
-  // String _hourErrorText = '';
-  // String _minuteErrorText = '';
-  // String _secondErrorText = '';
-  // String _paceMinuteErrorText = '';
-  // String _paceSecondErrorText = '';
   final TextEditingController distanceController = TextEditingController();
   final TextEditingController hourController = TextEditingController();
   final TextEditingController minuteController = TextEditingController();
@@ -24,44 +18,43 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
   final TextEditingController paceMinuteController = TextEditingController();
   final TextEditingController paceSecondController = TextEditingController();
   final speedController = TextEditingController();
+  var distance = 0.0.obs;
+  var speed = 0.0.obs;
+
+  everyHourCostTime() {
+    for (int i = 1; i < distance.value; i++) {
+      print("$i公里用时：${i / speed.value * 60}分");
+    }
+  }
 
   void timeToPace() {
     if (distanceController.text != "" && hourController.text != "") {
-      double distance = double.parse(distanceController.text);
+      distance.value = double.parse(distanceController.text);
       double hours = double.parse(hourController.text);
       double minutes = double.parse(minuteController.text);
       double seconds = double.parse(secondController.text);
 
-      double secondsPerKM = (hours * 3600 + minutes * 60 + seconds) / distance;
+      double secondsPerKM =
+          (hours * 3600 + minutes * 60 + seconds) / distance.value;
       int paceMinute = secondsPerKM ~/ 60;
       int paceSecond = (secondsPerKM % 60).toInt();
 
       paceMinuteController.text = paceMinute.toString();
       paceSecondController.text = paceSecond.toString();
       // 时速计算
-      speedController.text =
-          (distance / (hours + minutes / 60 + seconds / 3600))
-              .toStringAsFixed(2);
-      //double speed = distance / (hour + minute / 60 + second / 3600);
-
-      // Get.defaultDialog(
-      //   title: "计算结果",
-      //   titleStyle: const TextStyle(fontSize: 20),
-      //   middleText:
-      //       "距离：${distance.toString()}公里\n用时：${hour.toInt().toString()}小时${minute == 0 ? "" : "${minute.toInt().toString()}分"}${second == 0 ? "" : "${second.toInt().toString()}秒"}\n配速：${paceMinute.toString()}分${paceSecond.toString()}秒/公里\n时速：${speed.toStringAsFixed(2)}公里/小时",
-      //   middleTextStyle: const TextStyle(fontSize: 18),
-      //   contentPadding: const EdgeInsets.all(20),
-      // );
+      speed.value = distance / (hours + minutes / 60 + seconds / 3600);
+      speedController.text = speed.value.toStringAsFixed(2);
+      everyHourCostTime();
     }
   }
 
   void paceToTime() {
     if (distanceController.text != "" && paceMinuteController.text != "") {
-      double distance = double.parse(distanceController.text);
+      distance.value = double.parse(distanceController.text);
       double paceMinute = double.parse(paceMinuteController.text);
       double paceSecond = double.parse(paceSecondController.text);
 
-      double secondsAll = (paceMinute * 60 + paceSecond) * distance;
+      double secondsAll = (paceMinute * 60 + paceSecond) * distance.value;
       int hours = secondsAll ~/ 3600;
       int minutes = (secondsAll - hours * 3600) ~/ 60;
       int seconds = (secondsAll - hours * 3600 - minutes * 60).toInt();
@@ -71,17 +64,9 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
       secondController.text = seconds.toString();
 
       // 时速计算
-      speedController.text =
-          (distance / (hours + minutes / 60 + seconds / 3600))
-              .toStringAsFixed(2);
-      // Get.defaultDialog(
-      //   title: "计算结果",
-      //   titleStyle: const TextStyle(fontSize: 20),
-      //   middleText:
-      //       "距离：${distance.toString()}公里\n配速：${paceMinuteController.text}分${paceSecondController.text}秒\n用时：${hours.toString()}小时${minutes.toString()}分${seconds.toString()}秒",
-      //   middleTextStyle: const TextStyle(fontSize: 18),
-      //   contentPadding: const EdgeInsets.all(20),
-      // );
+      speed.value = distance / (hours + minutes / 60 + seconds / 3600);
+      speedController.text = speed.value.toStringAsFixed(2);
+      everyHourCostTime();
     }
   }
 
@@ -126,6 +111,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                         //autofocus: true,
                         textInputAction: TextInputAction.go,
                         style: TextStyle(
+                            fontSize: 28,
+                            letterSpacing: 4, //字符间距
+                            fontFamily: "DigitalNumbers",
+                            // 文字阴影
                             shadows: const [
                               Shadow(
                                 offset: Offset(1.0, 1.0),
@@ -133,8 +122,6 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                                 color: Color.fromARGB(255, 50, 50, 50),
                               ),
                             ],
-                            fontSize: 30,
-                            fontFamily: "DigitalNumbers",
                             color:
                                 Theme.of(context).colorScheme.inversePrimary),
                         decoration: InputDecoration(
@@ -365,6 +352,14 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text("每公里用时："),
+                SizedBox(
+                  height: 15,
+                ),
+                Text("大众等级成绩："),
               ],
             ),
           ),

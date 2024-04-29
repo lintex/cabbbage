@@ -13,19 +13,44 @@ class MarathonDetailPage extends StatefulWidget {
   State<MarathonDetailPage> createState() => _MarathonDetailPageState();
 }
 
+// 定义一个可观察的类，用来记录倒计时时间
+class Countdown {
+  Countdown(
+      {this.days = '', this.hours = '', this.minutes = '', this.seconds = ''});
+  String days;
+  String hours;
+  String minutes;
+  String seconds;
+}
+
 class _MarathonDetailPageState extends State<MarathonDetailPage> {
   // 定义一个定时器
   late Timer _timer;
-  var stillTime = '00天00小时00分00秒'.obs;
+  // 倒计时可观察
+  var countdown = Countdown().obs;
+  // 倒计时字体样式
+  final countdownNumStyle = TextStyle(
+    fontSize: 26,
+    fontFamily: "DigitalNumbers",
+    color: Colors.green.shade900,
+  );
+  final countdownTextStyle = const TextStyle(
+    fontSize: 18,
+    fontFamily: "方正大标宋",
+  );
 
   @override
   void initState() {
     super.initState();
     // 初始化定时器，间隔100毫秒刷新一次，这个地方用second:1时间太长
     _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
-      stillTime.value =
-          "${Tools.diffDays(widget.marathon.time!)}天${Tools.diffHours(widget.marathon.time!)}小时${Tools.diffMinutes(widget.marathon.time!)}分${Tools.diffSeconds(widget.marathon.time!)}秒";
-      // print(stillTime);
+      // 更新自定义类的值
+      countdown(Countdown(
+          days: Tools.diffDays(widget.marathon.time!),
+          hours: Tools.diffHours(widget.marathon.time!),
+          minutes: Tools.diffMinutes(widget.marathon.time!),
+          seconds: Tools.diffSeconds(widget.marathon.time!)));
+      // print(int.parse(countdown.value.hours) < 0);
     });
   }
 
@@ -38,6 +63,8 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO 这个地方一直返回空
+    print(int.tryParse(countdown.value.hours) ?? 0);
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -66,111 +93,177 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Obx(() => Text(
-                        "倒计时：$stillTime",
-                        style:
-                            const TextStyle(fontSize: 25, fontFamily: "方正大标宋"),
-                      )),
-                ],
-              ),
+              // TODO 这个地方老是报错
+              if (10 < 0) ...[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "比赛已经结束！",
+                        style: countdownTextStyle,
+                      ),
+                    ]),
+              ] else ...[
+                Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          "倒计时:",
+                          style: countdownTextStyle,
+                        ),
+                        Text(
+                          countdown.value.days,
+                          style: countdownNumStyle,
+                        ),
+                        Text(
+                          "天",
+                          style: countdownTextStyle,
+                        ),
+                        Text(
+                          countdown.value.hours,
+                          style: countdownNumStyle,
+                        ),
+                        Text(
+                          "时",
+                          style: countdownTextStyle,
+                        ),
+                        Text(
+                          countdown.value.minutes,
+                          style: countdownNumStyle,
+                        ),
+                        Text(
+                          "分",
+                          style: countdownTextStyle,
+                        ),
+                        Text(
+                          countdown.value.seconds,
+                          style: countdownNumStyle,
+                        ),
+                        Text(
+                          "秒",
+                          style: countdownTextStyle,
+                        ),
+                      ],
+                    )),
+              ],
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "比赛名称",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    widget.marathon.name,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "比赛时间",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    Tools.getFullDateTime(widget.marathon.time!),
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "比赛起点",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    widget.marathon.start!,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "比赛终点",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    widget.marathon.finish!,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "领物点",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    widget.marathon.packet ?? "",
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "住宿酒店",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    widget.marathon.hotel!,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
+              Container(
+                //height: 60,
+                width: double.infinity,
+                //alignment: Alignment.center,
+                // margin: const EdgeInsets.fromLTRB(20, 12, 20, 10),
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  //border: Border.all(width: 1),
+                  borderRadius: const BorderRadius.all(Radius.circular(11)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.shadow,
+                      offset: Offset(2.0, 2.0),
+                      blurRadius: 10.0,
+                    )
+                  ],
+                  // gradient: const LinearGradient(
+                  //   colors: [Colors.red, Colors.orange],
+                  // ),
+                ),
+                //transform: Matrix4.rotationZ(0.02)
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          widget.marathon.start == ''
+                              ? '待公布'
+                              : widget.marathon.start!,
+                          style: const TextStyle(
+                              fontSize: 25, fontFamily: '方正大标宋'),
+                        ),
+                        const Icon(
+                          Icons.arrow_right_alt_rounded,
+                          size: 50,
+                        ),
+                        Text(
+                          widget.marathon.finish == ''
+                              ? '待公布'
+                              : widget.marathon.finish!,
+                          style: const TextStyle(
+                              fontSize: 25, fontFamily: '方正大标宋'),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.date_range),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          Tools.getFullDateTime(widget.marathon.time!),
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Row(
+                      children: [
+                        Icon(Icons.money),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "A19999",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.business_center),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          widget.marathon.packet == ''
+                              ? "待公布"
+                              : widget.marathon.packet!,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.hotel),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          widget.marathon.hotel == ''
+                              ? "待预订"
+                              : widget.marathon.hotel!,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 20,

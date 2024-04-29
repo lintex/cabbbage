@@ -90,7 +90,7 @@ class _MarathonPage2State extends State<MarathonPage2> {
             ),
           ]),
           const SizedBox(
-            height: 20,
+            height: 30,
           ),
           const MyTextDivider(text: "🏃‍♀️跑起来就有风"),
           const SizedBox(

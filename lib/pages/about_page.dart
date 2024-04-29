@@ -39,7 +39,7 @@ class AboutPage extends StatelessWidget {
                           style: TextStyle(fontFamily: '字语相思体', fontSize: 28)),
                       const SizedBox(height: 15),
                       Text(
-                        "卷心菜 0.0.3.240424",
+                        "卷心菜 0.0.3.240428",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),

@@ -5,15 +5,12 @@ class Tools {
   }
 
   static String getFullDateTime(DateTime d) {
-    var weekday = [" ", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
-    return "${d.year}年${d.month}月${d.day}日${weekday[d.weekday]} ${d.hour}:${d.minute.toString().padLeft(2, '0')}";
+    return "${d.year}年${d.month}月${d.day}日 ${d.hour}:${d.minute.toString().padLeft(2, '0')}";
   }
 
-  // 计算两个时间间隔多少天, 剩余天数小于1时不显示
+  // 计算两个时间间隔多少天
   static String diffDays(DateTime d) {
-    return (d.difference(DateTime.now()).inDays) < 1
-        ? ''
-        : (d.difference(DateTime.now()).inDays).toString();
+    return (d.difference(DateTime.now()).inDays).toString();
   }
 
   //【马拉松助手】计算还有多少小时
@@ -27,7 +24,8 @@ class Tools {
   static String diffMinutes(DateTime d) {
     return (d.difference(DateTime.now()).inMinutes -
             d.difference(DateTime.now()).inHours * 60)
-        .toString();
+        .toString()
+        .padLeft(2, '0');
   }
 
   //【马拉松助手】计算还有多少秒

@@ -22,7 +22,7 @@ class MyTextDivider extends StatelessWidget {
               style: const TextStyle(
                   color: Color.fromARGB(180, 97, 97, 97),
                   fontSize: 16,
-                  fontFamily: "干就完事了"),
+                  fontFamily: "字语相思体"),
             ),
           ),
           Expanded(
