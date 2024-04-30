@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:xiao_note/pages/about_page.dart';
-import 'package:xiao_note/pages/grid_page.dart';
-import 'package:xiao_note/pages/note_page.dart';
+import 'package:cabbage/pages/about_page.dart';
+import 'package:cabbage/pages/grid_page.dart';
+import 'package:cabbage/pages/note_page.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});

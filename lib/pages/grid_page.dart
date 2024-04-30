@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/components/my_app_bar.dart';
-import 'package:xiao_note/components/my_grid_tile.dart';
-import 'package:xiao_note/pages/manage_page.dart';
-import 'package:xiao_note/pages/marathon_page2.dart';
-import 'package:xiao_note/pages/note_page.dart';
-import 'package:xiao_note/pages/pace_calculate_page.dart';
-import 'package:xiao_note/pages/ruler_page.dart';
-import 'package:xiao_note/pages/timetable_page.dart';
+import 'package:cabbage/components/my_app_bar.dart';
+import 'package:cabbage/components/my_grid_tile.dart';
+import 'package:cabbage/pages/manage_page.dart';
+import 'package:cabbage/pages/marathon_page2.dart';
+import 'package:cabbage/pages/note_page.dart';
+import 'package:cabbage/pages/pace_calculate_page.dart';
+import 'package:cabbage/pages/ruler_page.dart';
+import 'package:cabbage/pages/timetable_page.dart';
 
 class GridPage extends StatelessWidget {
   const GridPage({super.key});

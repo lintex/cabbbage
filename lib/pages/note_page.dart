@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/components/my_app_bar.dart';
-import 'package:xiao_note/models/note.dart';
-import 'package:xiao_note/models/database.dart';
+import 'package:cabbage/components/my_app_bar.dart';
+import 'package:cabbage/models/note.dart';
+import 'package:cabbage/models/database.dart';
 
 // 日记页面
 

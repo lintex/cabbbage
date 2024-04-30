@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/models/marathon.dart';
-import 'package:xiao_note/pages/marathonPage/edit_marathon_page.dart';
-import 'package:xiao_note/tools/Tools.dart';
+import 'package:cabbage/models/marathon.dart';
+import 'package:cabbage/pages/marathonPage/edit_marathon_page.dart';
+import 'package:cabbage/tools/Tools.dart';
 import 'dart:async';
 
 class MarathonDetailPage extends StatefulWidget {

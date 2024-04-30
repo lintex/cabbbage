@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/components/my_app_bar.dart';
-import 'package:xiao_note/components/my_text_divider.dart';
-import 'package:xiao_note/pages/marathonPage/marathon_controller.dart';
-import 'package:xiao_note/pages/marathonPage/my_floating_action_button.dart';
+import 'package:cabbage/components/my_app_bar.dart';
+import 'package:cabbage/components/my_text_divider.dart';
+import 'package:cabbage/pages/marathonPage/marathon_controller.dart';
+import 'package:cabbage/pages/marathonPage/my_floating_action_button.dart';
 
 class MarathonPage extends StatelessWidget {
   const MarathonPage({

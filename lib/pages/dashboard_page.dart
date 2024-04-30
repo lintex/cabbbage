@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/components/marquee_widget.dart';
-import 'package:xiao_note/components/my_dashboard_tile.dart';
-import 'package:xiao_note/components/my_drawer.dart';
-import 'package:xiao_note/models/marathon.dart';
+import 'package:cabbage/components/marquee_widget.dart';
+import 'package:cabbage/components/my_dashboard_tile.dart';
+import 'package:cabbage/components/my_drawer.dart';
+import 'package:cabbage/models/marathon.dart';
 
-import 'package:xiao_note/models/database.dart';
-import 'package:xiao_note/pages/marathon_page2.dart';
-import 'package:xiao_note/pages/note_page.dart';
-import 'package:xiao_note/tools/tools.dart';
+import 'package:cabbage/models/database.dart';
+import 'package:cabbage/pages/marathon_page2.dart';
+import 'package:cabbage/pages/note_page.dart';
+import 'package:cabbage/tools/tools.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});

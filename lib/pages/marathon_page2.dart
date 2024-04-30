@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/components/my_app_bar.dart';
-import 'package:xiao_note/components/my_text_divider.dart';
-import 'package:xiao_note/models/marathon.dart';
-import 'package:xiao_note/models/database.dart';
-import 'package:xiao_note/pages/marathonPage/marathon_detail_page.dart';
-import 'package:xiao_note/pages/marathonPage/my_marathon_list_tile.dart';
-import 'package:xiao_note/pages/marathonPage/new_marathon_page.dart';
+import 'package:cabbage/components/my_app_bar.dart';
+import 'package:cabbage/components/my_text_divider.dart';
+import 'package:cabbage/models/marathon.dart';
+import 'package:cabbage/models/database.dart';
+import 'package:cabbage/pages/marathonPage/marathon_detail_page.dart';
+import 'package:cabbage/pages/marathonPage/my_marathon_list_tile.dart';
+import 'package:cabbage/pages/marathonPage/new_marathon_page.dart';
 // 这个版本的马拉松助手采用数据库存储，方便排序及修改
 
 class MarathonPage2 extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:xiao_note/components/my_app_bar.dart';
-import 'package:xiao_note/pages/timetablePage/my_timetable_cell.dart';
-import 'package:xiao_note/pages/timetablePage/my_timetable_column_cell.dart';
-import 'package:xiao_note/pages/timetablePage/my_timetable_row_cell.dart';
+import 'package:cabbage/components/my_app_bar.dart';
+import 'package:cabbage/pages/timetablePage/my_timetable_cell.dart';
+import 'package:cabbage/pages/timetablePage/my_timetable_column_cell.dart';
+import 'package:cabbage/pages/timetablePage/my_timetable_row_cell.dart';
 
 class TimetablePage extends StatelessWidget {
   const TimetablePage({super.key});

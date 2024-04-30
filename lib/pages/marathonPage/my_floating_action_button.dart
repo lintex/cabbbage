@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/pages/marathonPage/marathon_controller.dart';
-import 'package:xiao_note/components/my_textfield.dart';
-import 'package:xiao_note/theme/theme.dart';
+import 'package:cabbage/pages/marathonPage/marathon_controller.dart';
+import 'package:cabbage/components/my_textfield.dart';
+import 'package:cabbage/theme/theme.dart';
 
 class MyFloatingActionButton extends StatelessWidget {
   const MyFloatingActionButton({super.key});

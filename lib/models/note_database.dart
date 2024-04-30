@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:xiao_note/models/note.dart';
+import 'package:cabbage/models/note.dart';
 
 class Database extends GetxController {
   static late Isar noteIsar;

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:xiao_note/components/my_app_bar.dart';
-import 'package:xiao_note/components/my_button.dart';
-import 'package:xiao_note/pages/manage_page.dart';
+import 'package:cabbage/components/my_app_bar.dart';
+import 'package:cabbage/components/my_button.dart';
+import 'package:cabbage/pages/manage_page.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});

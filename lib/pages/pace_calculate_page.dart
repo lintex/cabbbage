@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/components/my_app_bar.dart';
-import 'package:xiao_note/pages/paceCalculatePage/my_pace_calculate_textfield.dart';
+import 'package:cabbage/components/my_app_bar.dart';
+import 'package:cabbage/pages/paceCalculatePage/my_pace_calculate_textfield.dart';
 
 class PaceCalculatePage extends StatefulWidget {
   const PaceCalculatePage({super.key});

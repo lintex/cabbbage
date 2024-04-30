@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/models/database.dart';
-import 'package:xiao_note/pages/dashboard_page.dart';
-import 'package:xiao_note/theme/theme.dart';
+import 'package:cabbage/models/database.dart';
+import 'package:cabbage/pages/dashboard_page.dart';
+import 'package:cabbage/theme/theme.dart';
 
 // flutter build apk --release
 Future<void> main() async {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:xiao_note/components/my_app_bar.dart';
-import 'package:xiao_note/components/my_button.dart';
-import 'package:xiao_note/components/my_textfield.dart';
+import 'package:cabbage/components/my_app_bar.dart';
+import 'package:cabbage/components/my_button.dart';
+import 'package:cabbage/components/my_textfield.dart';
 
 class ManagePage extends StatelessWidget {
   const ManagePage({super.key});

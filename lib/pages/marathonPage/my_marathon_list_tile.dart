@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/models/marathon.dart';
-import 'package:xiao_note/models/database.dart';
-import 'package:xiao_note/pages/marathonPage/edit_marathon_page.dart';
+import 'package:cabbage/models/marathon.dart';
+import 'package:cabbage/models/database.dart';
+import 'package:cabbage/pages/marathonPage/edit_marathon_page.dart';
 
 class MyMarathonListTile extends StatelessWidget {
   MyMarathonListTile({super.key, required this.marathon});

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:xiao_note/components/my_button.dart';
-import 'package:xiao_note/components/my_textfield.dart';
-import 'package:xiao_note/models/marathon.dart';
-import 'package:xiao_note/models/database.dart';
-import 'package:xiao_note/tools/Tools.dart';
+import 'package:cabbage/components/my_button.dart';
+import 'package:cabbage/components/my_textfield.dart';
+import 'package:cabbage/models/marathon.dart';
+import 'package:cabbage/models/database.dart';
+import 'package:cabbage/tools/Tools.dart';
 
 class EditMarathonPage extends StatelessWidget {
   final Marathon marathon;
