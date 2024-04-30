@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/components/my_grid_tile.dart';
+import 'package:xiao_note/pages/manage_page.dart';
 import 'package:xiao_note/pages/marathon_page2.dart';
 import 'package:xiao_note/pages/note_page.dart';
 import 'package:xiao_note/pages/pace_calculate_page.dart';
@@ -32,7 +33,7 @@ class GridPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "学习测试",
+                        "主要功能",
                         style: TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold),
                       ),
@@ -59,6 +60,11 @@ class GridPage extends StatelessWidget {
                       title: '笔记',
                       onPressed: () => Get.to(() => const NotePage()),
                       icon: Icons.article_outlined,
+                    ),
+                    MyGridTile(
+                      title: '管理',
+                      onPressed: () => Get.to(() => const ManagePage()),
+                      icon: Icons.manage_accounts_outlined,
                     ),
                   ],
                 ),

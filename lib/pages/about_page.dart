@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/components/my_button.dart';
 
@@ -15,6 +16,10 @@ class AboutPage extends StatelessWidget {
         color: Theme.of(context).colorScheme.inversePrimary,
         fontSize: 12,
         decoration: TextDecoration.underline);
+    // 读取版本号
+    GetStorage box = GetStorage();
+    String version = box.read('version');
+
     return Scaffold(
         appBar: const MyAppBar(title: "关于"),
         body: Center(
@@ -39,7 +44,7 @@ class AboutPage extends StatelessWidget {
                           style: TextStyle(fontFamily: '字语相思体', fontSize: 28)),
                       const SizedBox(height: 15),
                       Text(
-                        "卷心菜 0.0.3.240428",
+                        "卷心菜 $version",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),
