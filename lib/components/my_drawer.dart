@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:xiao_note/pages/about_page.dart';
 import 'package:xiao_note/pages/grid_page.dart';
 import 'package:xiao_note/pages/note_page.dart';
@@ -10,6 +11,10 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 读取版本号
+    GetStorage box = GetStorage();
+    String version = box.read('version');
+
     return Drawer(
       //backgroundColor: greyBg,
       child: Container(
@@ -79,7 +84,7 @@ class MyDrawer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => Get.to(() => const AboutPage()),
                 child: Text(
-                  "Version: 2024.4.21.5",
+                  "Version: $version",
                   style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
                 ),
               ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/components/my_button.dart';
+import 'package:xiao_note/pages/manage_page.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -33,9 +36,12 @@ class AboutPage extends StatelessWidget {
                       const SizedBox(
                         height: 95,
                       ),
-                      Image.asset(
-                        "assets/images/logo.png",
-                        width: 70,
+                      GestureDetector(
+                        onDoubleTap: () => Get.to(() => const ManagePage()),
+                        child: Image.asset(
+                          "assets/images/logo.png",
+                          width: 70,
+                        ),
                       ),
                       const SizedBox(
                         height: 15,
@@ -69,21 +75,21 @@ class AboutPage extends StatelessWidget {
                       "小西软件 版权所有",
                       style: greyText,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       "Copyright ©️ 2024 SmallWest Software. All rights reserved.",
                       style: greyText,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       "ICP备案号：鄂B2-20240059-1745A",
                       style: greyText,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(

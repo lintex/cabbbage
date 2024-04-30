@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:xiao_note/components/my_app_bar.dart';
 import 'package:xiao_note/components/my_button.dart';
+import 'package:xiao_note/components/my_textfield.dart';
 
 class ManagePage extends StatelessWidget {
   const ManagePage({super.key});
@@ -17,18 +18,31 @@ class ManagePage extends StatelessWidget {
 
     return Scaffold(
         appBar: const MyAppBar(title: "管理页面"),
-        body: Column(
-          children: [
-            TextField(
-              controller: versionController,
-            ),
-            MyButton(
-                text: '保存',
-                onPressed: () {
-                  box.write('version', versionController.text);
-                  Get.snackbar('注意⚠️', "新版本号${versionController.text}写入✅成功！");
-                })
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MyTextField(
+                controller: versionController,
+                hintText: '输入版本号',
+                labelText: '版本号',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              MyButton(
+                  text: '保存',
+                  onPressed: () {
+                    box.write('version', versionController.text);
+                    Get.snackbar('', "新版本号 ${versionController.text} 写入成功！");
+                    // var snackBar = SnackBar(
+                    //   content: Text('✅成功：新版本号 ${versionController.text} 写入成功！'),
+                    // );
+                    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  })
+            ],
+          ),
         ));
   }
 }

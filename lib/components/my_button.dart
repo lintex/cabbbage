@@ -5,7 +5,7 @@ class MyButton extends StatelessWidget {
       {super.key,
       required this.text,
       required this.onPressed,
-      this.color = const Color.fromARGB(255, 193, 193, 193)});
+      this.color = const Color.fromARGB(255, 222, 222, 222)});
   //final void Function()? onPressed;
   final VoidCallback onPressed;
   final String text;
@@ -15,6 +15,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all(const Size(100, 48)),
         backgroundColor: MaterialStateProperty.all(color),
         //文字颜色
         foregroundColor: MaterialStateProperty.all(Colors.black87),
@@ -31,7 +32,10 @@ class MyButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       //shape: const Border(),
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 16),
+      ),
     );
   }
 }
