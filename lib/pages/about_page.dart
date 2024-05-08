@@ -22,6 +22,8 @@ class AboutPage extends StatelessWidget {
     // 读取版本号
     GetStorage box = GetStorage();
     String version = box.read('version');
+    // 点击次数
+    int clickTimes = 0;
 
     return Scaffold(
         appBar: const MyAppBar(title: "关于"),
@@ -36,8 +38,11 @@ class AboutPage extends StatelessWidget {
                       const SizedBox(
                         height: 95,
                       ),
+                      // 点击7次跳转到管理界面
                       GestureDetector(
-                        onDoubleTap: () => Get.to(() => const ManagePage()),
+                        onTap: () => clickTimes == 7
+                            ? Get.to(() => const ManagePage())
+                            : clickTimes++,
                         child: Image.asset(
                           "assets/images/logo.png",
                           width: 70,

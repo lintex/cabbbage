@@ -35,7 +35,7 @@ class ManagePage extends StatelessWidget {
                   text: '保存',
                   onPressed: () {
                     box.write('version', versionController.text);
-                    Get.snackbar('', "新版本号 ${versionController.text} 写入成功！");
+                    Get.snackbar('成功', "新版本号 ${versionController.text} 写入成功！");
                     // var snackBar = SnackBar(
                     //   content: Text('✅成功：新版本号 ${versionController.text} 写入成功！'),
                     // );
