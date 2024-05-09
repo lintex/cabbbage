@@ -57,13 +57,13 @@ class MyMarathonListTile extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).colorScheme.primary,
-                  blurRadius: 2,
-                  offset: const Offset(1.0, 1.0),
-                ),
-              ],
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Theme.of(context).colorScheme.primary,
+              //     blurRadius: 2,
+              //     offset: const Offset(1.0, 1.0),
+              //   ),
+              // ],
               borderRadius: BorderRadius.circular(12),
               //根据天数改变背景色
               color: DateTime.parse(marathon.time.toString())

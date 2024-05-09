@@ -40,50 +40,70 @@ class DashboardPage extends StatelessWidget {
               GestureDetector(
                 onTap: () => Get.to(() => const MarathonPage2()),
                 child: MyDashboardTile(
-                    child: SizedBox(
-                  height: 30,
-                  // 循环控件
-                  child: MarqueeWidget(
-                    // 循环时间
-                    loopSeconds: 3,
-                    //子Item构建器
-                    itemBuilder: (BuildContext context, int index) {
-                      if (loopList.isNotEmpty) {
-                        Marathon m = loopList[index];
-                        //设置所有子控件字体样式
-                        return DefaultTextStyle(
-                          style: TextStyle(
-                              fontSize: 16,
-                              color:
-                                  Theme.of(context).colorScheme.inversePrimary),
-                          //循环显示还有多少天
-                          child: Row(
-                            children: [
-                              Text("${m.name}还有"),
-                              Text(
-                                Tools.diffDays(m.time!),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const Text("天")
-                            ],
-                          ),
-                        );
-                      } else {
-                        // TODO 不滚动
-                        return DefaultTextStyle(
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .inversePrimary),
-                            child: const Row(children: [Text("最近没有马拉松比赛...")]));
-                      }
-                    },
-                    //循环的提示消息数量
-                    count: loopList.length,
-                  ),
-                )),
+                  child: Column(
+                      children: loopList
+                          .map((m) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4),
+                                child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      SizedBox(
+                                        width: 30,
+                                        child: Text(
+                                          textAlign: TextAlign.right,
+                                          Tools.diffDays(m.time!),
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: 'DigitalNumbers',
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        ' 天 距离 ',
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .tertiary),
+                                      ),
+                                      Text(m.name)
+                                    ]),
+                              ))
+                          .toList()
+
+                      // if (loopList.isNotEmpty) ...[
+                      //   // Marathon m = loopList[index];
+                      //   //设置所有子控件字体样式
+                      //   DefaultTextStyle(
+                      //     style: TextStyle(
+                      //         fontSize: 16,
+                      //         color:
+                      //             Theme.of(context).colorScheme.inversePrimary),
+                      //     //循环显示还有多少天
+                      //     child: Row(
+                      //       children: [
+                      //         Text("${m.name}还有"),
+                      //         Text(
+                      //           Tools.diffDays(m.time!),
+                      //           style: const TextStyle(
+                      //               fontWeight: FontWeight.bold),
+                      //         ),
+                      //         const Text("天")
+                      //       ],
+                      //     ),
+                      //   )
+                      // ] else ...[
+                      //   DefaultTextStyle(
+                      //       style: TextStyle(
+                      //           fontSize: 16,
+                      //           color: Theme.of(context)
+                      //               .colorScheme
+                      //               .inversePrimary),
+                      //       child: const Row(children: [Text("最近没有马拉松比赛...")]))
+                      // ]
+
+                      ),
+                ),
               ),
               GestureDetector(
                 onTap: () => Get.to(() => const NotePage()),

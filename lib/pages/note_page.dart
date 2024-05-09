@@ -1,3 +1,6 @@
+import 'package:cabbage/components/my_card.dart';
+import 'package:cabbage/components/my_float_action_button.dart';
+import 'package:cabbage/pages/marathonPage/new_marathon_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbage/components/my_app_bar.dart';
@@ -92,29 +95,32 @@ class _NotePageState extends State<NotePage> {
             itemCount: ndb.currentNotes.length,
             itemBuilder: (BuildContext context, int index) {
               final note = ndb.currentNotes[index];
-              return ListTile(
-                title: Text(
-                  note.text,
-                  style: const TextStyle(fontFamily: '霞鹜文楷', fontSize: 20),
-                ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                        onPressed: () => updateNote(note),
-                        icon: const Icon(Icons.edit)),
-                    IconButton(
-                        onPressed: () => deleteNote(note.id),
-                        icon: const Icon(Icons.delete)),
-                  ],
-                ),
-              );
+              return MyCard(content: note.text);
+              // return ListTile(
+              //   title: Text(
+              //     note.text,
+              //     style: const TextStyle(fontFamily: '霞鹜文楷', fontSize: 20),
+              //   ),
+              //   trailing: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: [
+              //       IconButton(
+              //           onPressed: () => updateNote(note),
+              //           icon: const Icon(Icons.edit)),
+              //       IconButton(
+              //           onPressed: () => deleteNote(note.id),
+              //           icon: const Icon(Icons.delete)),
+              //     ],
+              //   ),
+              // );
             },
           )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: createNote,
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: createNote,
+      //   child: const Icon(Icons.add),
+      // ),
+      floatingActionButton: MyFloatActionButton(toPage: NewMarathonPage()),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

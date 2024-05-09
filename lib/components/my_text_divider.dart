@@ -9,12 +9,13 @@ class MyTextDivider extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Expanded(
-              child: Divider(
-            thickness: 0.5,
-            color: Color.fromARGB(174, 189, 189, 189),
-          )),
+          // const Expanded(
+          //     child: Divider(
+          //   thickness: 0.5,
+          //   color: Color.fromARGB(174, 189, 189, 189),
+          // )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
@@ -22,14 +23,14 @@ class MyTextDivider extends StatelessWidget {
               style: const TextStyle(
                   color: Color.fromARGB(180, 97, 97, 97),
                   fontSize: 16,
-                  fontFamily: "字语相思体"),
+                  fontFamily: "干就完事了"),
             ),
           ),
-          Expanded(
-              child: Divider(
-            thickness: 0.5,
-            color: Colors.grey[400],
-          )),
+          // Expanded(
+          //     child: Divider(
+          //   thickness: 0.5,
+          //   color: Colors.grey[400],
+          // )),
         ],
       ),
     );

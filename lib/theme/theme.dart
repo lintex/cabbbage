@@ -38,12 +38,12 @@ ThemeData lightMode = ThemeData(
         primary: const Color.fromARGB(255, 233, 233, 233),
         secondary: Colors.grey.shade400,
         tertiary: Colors.grey.shade500,
-        primaryContainer: const Color.fromARGB(255, 232, 245, 235),
+        primaryContainer: Color.fromARGB(200, 190, 227, 191),
         inversePrimary: Colors.black87,
         outline: const Color.fromARGB(255, 235, 235, 235),
         shadow: const Color.fromARGB(255, 222, 222, 222),
         // floatActionButton 颜色
-        secondaryContainer: Colors.green.shade100,
+        secondaryContainer: Colors.green.shade600,
         onSecondaryContainer: Colors.green));
 
 ThemeData darkMode = ThemeData(
@@ -61,5 +61,5 @@ ThemeData darkMode = ThemeData(
         outline: const Color.fromARGB(255, 70, 70, 70),
         shadow: const Color.fromARGB(255, 12, 12, 12),
         // floatActionButton 颜色
-        secondaryContainer: const Color.fromARGB(255, 9, 31, 11),
+        secondaryContainer: Color.fromARGB(255, 16, 55, 19),
         onSecondaryContainer: Colors.green.shade600));

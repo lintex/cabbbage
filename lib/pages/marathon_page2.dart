@@ -1,3 +1,4 @@
+import 'package:cabbage/components/my_float_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbage/components/my_app_bar.dart';
@@ -94,21 +95,12 @@ class _MarathonPage2State extends State<MarathonPage2> {
           ),
           const MyTextDivider(text: "🏃‍♀️跑起来就有风"),
           const SizedBox(
-            height: 40,
+            height: 80,
           ),
         ]),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() =>
-            Get.to(() => NewMarathonPage(), transition: Transition.downToUp)),
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.onSecondaryContainer,
-          size: 35,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: MyFloatActionButton(toPage: NewMarathonPage()),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

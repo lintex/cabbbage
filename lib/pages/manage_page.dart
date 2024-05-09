@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:cabbage/components/my_app_bar.dart';
 import 'package:cabbage/components/my_button.dart';
-import 'package:cabbage/components/my_textfield.dart';
+import 'package:cabbage/components/my_textfield2.dart';
 
 class ManagePage extends StatelessWidget {
   const ManagePage({super.key});
@@ -23,7 +23,7 @@ class ManagePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyTextField(
+              MyTextField2(
                 controller: versionController,
                 hintText: '输入版本号',
                 labelText: '版本号',

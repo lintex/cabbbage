@@ -55,7 +55,7 @@ class AboutPage extends StatelessWidget {
                           style: TextStyle(fontFamily: '字语相思体', fontSize: 28)),
                       const SizedBox(height: 15),
                       Text(
-                        "卷心菜 $version",
+                        "开笔记 $version",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary,
                         ),

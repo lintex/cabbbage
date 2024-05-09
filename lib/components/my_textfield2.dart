@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
-class MyTextField extends StatelessWidget {
-  const MyTextField({
-    super.key,
-    required this.controller,
-    this.hintText = '',
-    // this.labelText = ''
-  });
+class MyTextField2 extends StatelessWidget {
+  const MyTextField2(
+      {super.key,
+      required this.controller,
+      this.hintText = '',
+      this.labelText = ''});
   final TextEditingController controller;
   final String hintText;
-  // final String labelText;
+  final String labelText;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +36,9 @@ class MyTextField extends StatelessWidget {
         hintText: hintText,
         hintStyle:
             TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
-        // labelText: labelText,
-        // labelStyle:
-        //     TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
+        labelText: labelText,
+        labelStyle:
+            TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
       ),
     );
   }
