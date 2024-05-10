@@ -10,7 +10,7 @@ class Tools {
 
   // 计算两个时间间隔多少天
   static String diffDays(DateTime d) {
-    return (d.difference(DateTime.now()).inDays).toString();
+    return (d.difference(DateTime.now()).inDays + 1).toString();
   }
 
   //【马拉松助手】计算还有多少小时

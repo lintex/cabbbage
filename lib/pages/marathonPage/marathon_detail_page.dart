@@ -46,7 +46,8 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
     _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       // 更新自定义类的值
       countdown(Countdown(
-          days: Tools.diffDays(widget.marathon.time!),
+          days: (widget.marathon.time!.difference(DateTime.now()).inDays)
+              .toString(),
           hours: Tools.diffHours(widget.marathon.time!),
           minutes: Tools.diffMinutes(widget.marathon.time!),
           seconds: Tools.diffSeconds(widget.marathon.time!)));

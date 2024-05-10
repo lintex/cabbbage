@@ -1,3 +1,4 @@
+import 'package:cabbage/tools/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
@@ -68,8 +69,8 @@ class MyMarathonListTile extends StatelessWidget {
               //根据天数改变背景色
               color: DateTime.parse(marathon.time.toString())
                           .difference(DateTime.now())
-                          .inHours <
-                      24
+                          .inMinutes <
+                      0
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.primaryContainer),
           child: Row(
@@ -107,8 +108,8 @@ class MyMarathonListTile extends StatelessWidget {
                   Text(
                     DateTime.parse(marathon.time.toString())
                                 .difference(DateTime.now())
-                                .inHours <
-                            24
+                                .inMinutes <
+                            0
                         ? "过了"
                         : "还有",
                     style: const TextStyle(fontSize: 9, color: Colors.grey),
@@ -123,11 +124,7 @@ class MyMarathonListTile extends StatelessWidget {
                             .inHours
                             .abs()
                             .toString()
-                        : marathon.time!
-                            .difference(DateTime.now())
-                            .inDays
-                            .abs()
-                            .toString(),
+                        : Tools.diffDays(marathon.time!),
                     style: const TextStyle(fontSize: 30),
                   ),
                   const SizedBox(
