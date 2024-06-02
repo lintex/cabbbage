@@ -23,7 +23,7 @@ class AboutPage extends StatelessWidget {
     GetStorage box = GetStorage();
     String version = box.read('version');
     // 点击次数
-    int clickTimes = 0;
+    int clickTimes = 1;
 
     return Scaffold(
         appBar: const MyAppBar(title: "关于"),

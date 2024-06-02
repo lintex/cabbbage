@@ -82,10 +82,41 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
             // 【按钮】修改比赛信息
             Padding(
               padding: const EdgeInsets.only(right: 10),
-              child: IconButton(
-                  onPressed: () =>
-                      Get.to(() => EditMarathonPage(marathon: widget.marathon)),
-                  icon: const Icon(Icons.edit_calendar_outlined)),
+              child: PopupMenuButton(
+                // onPressed: () =>
+                //     Get.to(() => EditMarathonPage(marathon: widget.marathon)),
+                icon: const Icon(
+                  Icons.more_vert,
+                  size: 30,
+                ),
+                itemBuilder: (BuildContext context) {
+                  return [
+                    const PopupMenuItem(
+                      value: "edit",
+                      child: Text("修改"),
+                    ),
+                    const PopupMenuItem(
+                      value: "delete",
+                      child: Text("删除"),
+                    ),
+                  ];
+                },
+                onSelected: (Object object) {
+                  if (object == 'edit') {
+                    Get.to(() => EditMarathonPage(marathon: widget.marathon));
+                  } else if (object == 'delete') {
+                    print("删除马拉松比赛");
+                  }
+                },
+                onCanceled: () {
+                  print("canceled");
+                },
+                color: Theme.of(context).colorScheme.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide.none,
+                ),
+              ),
             )
           ],
         ),
@@ -165,7 +196,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                   boxShadow: [
                     BoxShadow(
                       color: Theme.of(context).colorScheme.shadow,
-                      offset: Offset(2.0, 2.0),
+                      offset: const Offset(2.0, 2.0),
                       blurRadius: 10.0,
                     )
                   ],

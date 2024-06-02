@@ -1,6 +1,7 @@
 import 'package:cabbage/components/my_card.dart';
 import 'package:cabbage/components/my_float_action_button.dart';
 import 'package:cabbage/pages/marathonPage/new_marathon_page.dart';
+import 'package:cabbage/pages/notePage/new_note_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbage/components/my_app_bar.dart';
@@ -119,7 +120,7 @@ class _NotePageState extends State<NotePage> {
       //   onPressed: createNote,
       //   child: const Icon(Icons.add),
       // ),
-      floatingActionButton: MyFloatActionButton(toPage: NewMarathonPage()),
+      floatingActionButton: MyFloatActionButton(toPage: NewNotePage()),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

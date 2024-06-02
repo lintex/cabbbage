@@ -67,13 +67,36 @@ class _MarathonPage2State extends State<MarathonPage2> {
   Widget build(BuildContext context) {
     // read(); // 修改后界面不更新，不知道怎么回事
     return Scaffold(
-      appBar: const MyAppBar(title: "马拉松助手"),
+      appBar: AppBar(
+        title: const Text(
+          '马拉松比赛助手',
+          style: TextStyle(fontSize: 18),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () => Get.back(),
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+            )),
+        actions: [
+          // 【按钮】修改比赛信息
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+                onPressed: () => Get.to(() => NewMarathonPage()),
+                icon: const Icon(
+                  Icons.add,
+                  size: 30,
+                )),
+          )
+        ],
+      ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
         child: ListView(shrinkWrap: true, children: <Widget>[
           Flex(direction: Axis.horizontal, children: <Widget>[
-            //这一行Flex不要回报错“Incorrect use of ParentDataWidget.”
+            //这一行Flex不要，会报错“Incorrect use of ParentDataWidget.”
             Expanded(
               child: Obx(() => ListView.builder(
                     shrinkWrap: true, //这一行不要列表无法显示
@@ -99,8 +122,8 @@ class _MarathonPage2State extends State<MarathonPage2> {
           ),
         ]),
       ),
-      floatingActionButton: MyFloatActionButton(toPage: NewMarathonPage()),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      // floatingActionButton: MyFloatActionButton(toPage: NewMarathonPage()),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

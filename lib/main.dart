@@ -12,7 +12,7 @@ Future<void> main() async {
   await Database.initialize();
 
   runApp(GetMaterialApp(
-    title: '卷心菜',
+    title: '开笔记',
     debugShowCheckedModeBanner: false,
     theme: lightMode,
     darkTheme: darkMode,
