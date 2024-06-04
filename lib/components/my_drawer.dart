@@ -1,3 +1,4 @@
+import 'package:cabbage/pages/setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     // 读取版本号
     GetStorage box = GetStorage();
-    String version = box.read('version');
+    String version = box.read('version') ?? 'null';
 
     return Drawer(
       //backgroundColor: greyBg,
@@ -25,7 +26,7 @@ class MyDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: () => Get.to(() => const SettingPage()),
               child: const Padding(
                 padding: EdgeInsets.only(left: 18),
                 child: Text(
@@ -69,7 +70,7 @@ class MyDrawer extends StatelessWidget {
                   ListTile(
                     leading: const Icon(CupertinoIcons.gear_alt),
                     title: const Text("设置"),
-                    onTap: () => Get.to(() => const GridPage()),
+                    onTap: () => Get.to(() => const SettingPage()),
                   ),
                   ListTile(
                     leading: const Icon(CupertinoIcons.ellipses_bubble),

@@ -1,7 +1,13 @@
 import 'package:cabbage/components/my_button.dart';
+import 'package:cabbage/models/database.dart';
 import 'package:flutter/material.dart';
 import 'package:cabbage/components/my_app_bar.dart';
 import 'package:get/get.dart';
+
+// 初始化Controller读取输入框
+final noteTextController = TextEditingController();
+// 初始化NoteDatabase
+final Database ndb = Get.find();
 
 class NewNotePage extends StatelessWidget {
   const NewNotePage({super.key});
@@ -31,15 +37,9 @@ class NewNotePage extends StatelessWidget {
               child: IconButton(
                   onPressed: () {
                     // 将比赛信息存入数据库
-                    // db.addMarathon(
-                    //     marathonNameController.text,
-                    //     marathonDate.value,
-                    //     marathonStartController.text,
-                    //     marathonFinishController.text,
-                    //     marathonHotelController.text,
-                    //     marathonPacketController.text);
-                    // // 清空文本框并返回
-                    // marathonNameController.clear();
+                    ndb.addNote(noteTextController.text);
+                    // 清空文本框并返回
+                    noteTextController.clear();
                     Navigator.pop(context);
                   },
                   icon: const Icon(Icons.done, size: 30)),
@@ -47,10 +47,11 @@ class NewNotePage extends StatelessWidget {
           ],
         ),
         body: Padding(
-          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
           child: Column(
             children: [
               TextField(
+                controller: noteTextController,
                 autofocus: true,
                 minLines: 5,
                 maxLines: 10,
@@ -67,7 +68,7 @@ class NewNotePage extends StatelessWidget {
                   focusedBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Colors.green.shade200, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
                   ),
                   // hitText 和 labelText 同时存在有些问题
                   hintText: "hintText",

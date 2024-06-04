@@ -7,7 +7,9 @@ import 'package:cabbage/models/note.dart';
 
 class Database extends GetxController {
   static late Isar isar;
-
+  Database() {
+    fetchNotes();
+  }
   // 初始化数据库
   static Future<void> initialize() async {
     final dir = await getApplicationDocumentsDirectory();
@@ -102,7 +104,8 @@ class Database extends GetxController {
 
     await isar.writeTxn(() => isar.notes.put(newNote));
     debugPrint("noteIsar写入成功！");
-
+    // 必须update不然页面不会更新
+    update();
     fetchNotes();
   }
 

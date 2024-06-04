@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cabbage/components/marquee_widget.dart';
 import 'package:cabbage/components/my_dashboard_tile.dart';
 import 'package:cabbage/components/my_drawer.dart';
-import 'package:cabbage/models/marathon.dart';
-
 import 'package:cabbage/models/database.dart';
 import 'package:cabbage/pages/marathon_page2.dart';
 import 'package:cabbage/pages/note_page.dart';

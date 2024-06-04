@@ -21,7 +21,7 @@ class AboutPage extends StatelessWidget {
         decoration: TextDecoration.underline);
     // 读取版本号
     GetStorage box = GetStorage();
-    String version = box.read('version');
+    String version = box.read('version') ?? 'null';
     // 点击次数
     int clickTimes = 1;
 
