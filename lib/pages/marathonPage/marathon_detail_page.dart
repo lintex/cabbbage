@@ -1,3 +1,4 @@
+import 'package:cabbage/models/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbage/models/marathon.dart';
@@ -6,8 +7,8 @@ import 'package:cabbage/tools/Tools.dart';
 import 'dart:async';
 
 class MarathonDetailPage extends StatefulWidget {
-  final Marathon marathon;
-  const MarathonDetailPage({super.key, required this.marathon});
+  final int marathonId;
+  const MarathonDetailPage({super.key, required this.marathonId});
 
   @override
   State<MarathonDetailPage> createState() => _MarathonDetailPageState();
@@ -17,13 +18,13 @@ class MarathonDetailPage extends StatefulWidget {
 class Countdown {
   Countdown(
       {this.days = '', this.hours = '', this.minutes = '', this.seconds = ''});
-  String days;
-  String hours;
-  String minutes;
-  String seconds;
+  String days, hours, minutes, seconds;
 }
 
 class _MarathonDetailPageState extends State<MarathonDetailPage> {
+  final Database db = Get.find();
+  // 定义当前马拉松
+  late Marathon currentMarathon;
   // 定义一个定时器
   late Timer _timer;
   // 倒计时可观察
@@ -42,15 +43,20 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
   @override
   void initState() {
     super.initState();
+    // 获取当前马拉松信息
+
+    db.getMarathon(widget.marathonId);
+    currentMarathon = db.currentMarathon[0];
+
     // 初始化定时器，间隔100毫秒刷新一次，这个地方用second:1时间太长
     _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       // 更新自定义类的值
       countdown(Countdown(
-          days: (widget.marathon.time!.difference(DateTime.now()).inDays)
+          days: (currentMarathon.time!.difference(DateTime.now()).inDays)
               .toString(),
-          hours: Tools.diffHours(widget.marathon.time!),
-          minutes: Tools.diffMinutes(widget.marathon.time!),
-          seconds: Tools.diffSeconds(widget.marathon.time!)));
+          hours: Tools.diffHours(currentMarathon.time!),
+          minutes: Tools.diffMinutes(currentMarathon.time!),
+          seconds: Tools.diffSeconds(currentMarathon.time!)));
       // print(int.parse(countdown.value.hours) < 0);
     });
   }
@@ -69,7 +75,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.marathon.name,
+            currentMarathon.name,
             style: const TextStyle(fontSize: 18),
           ),
           centerTitle: true,
@@ -103,9 +109,10 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                 },
                 onSelected: (Object object) {
                   if (object == 'edit') {
-                    Get.to(() => EditMarathonPage(marathon: widget.marathon));
+                    Get.to(() => EditMarathonPage(marathon: currentMarathon));
                   } else if (object == 'delete') {
-                    print("删除马拉松比赛");
+                    db.deleteMarathon(currentMarathon.id);
+                    Get.back();
                   }
                 },
                 onCanceled: () {
@@ -211,9 +218,9 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          widget.marathon.start == ''
+                          currentMarathon.start == ''
                               ? '待公布'
-                              : widget.marathon.start!,
+                              : currentMarathon.start!,
                           style: const TextStyle(
                               fontSize: 25, fontFamily: '方正大标宋'),
                         ),
@@ -222,9 +229,9 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                           size: 50,
                         ),
                         Text(
-                          widget.marathon.finish == ''
+                          currentMarathon.finish == ''
                               ? '待公布'
-                              : widget.marathon.finish!,
+                              : currentMarathon.finish!,
                           style: const TextStyle(
                               fontSize: 25, fontFamily: '方正大标宋'),
                         ),
@@ -240,7 +247,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                           width: 5,
                         ),
                         Text(
-                          Tools.getFullDateTime(widget.marathon.time!),
+                          Tools.getFullDateTime(currentMarathon.time!),
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],
@@ -270,9 +277,9 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                           width: 5,
                         ),
                         Text(
-                          widget.marathon.packet == ''
+                          currentMarathon.packet == ''
                               ? "待公布"
-                              : widget.marathon.packet!,
+                              : currentMarathon.packet!,
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],
@@ -287,9 +294,9 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                           width: 5,
                         ),
                         Text(
-                          widget.marathon.hotel == ''
+                          currentMarathon.hotel == ''
                               ? "待预订"
-                              : widget.marathon.hotel!,
+                              : currentMarathon.hotel!,
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],

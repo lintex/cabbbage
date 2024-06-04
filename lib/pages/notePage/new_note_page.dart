@@ -1,7 +1,6 @@
 import 'package:cabbage/components/my_button.dart';
 import 'package:cabbage/models/database.dart';
 import 'package:flutter/material.dart';
-import 'package:cabbage/components/my_app_bar.dart';
 import 'package:get/get.dart';
 
 // 初始化Controller读取输入框

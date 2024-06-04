@@ -31,15 +31,15 @@ class MyMarathonListTile extends StatelessWidget {
             width: 8,
           ),
           // 修改按钮
-          SlidableAction(
-            onPressed: (e) {
-              // 跳转到修改信息页面
-              Get.to(() => EditMarathonPage(marathon: marathon));
-            },
-            icon: Icons.edit_calendar_outlined,
-            backgroundColor: Colors.green.shade300,
-            borderRadius: BorderRadius.circular(12),
-          ),
+          // SlidableAction(
+          //   onPressed: (e) {
+          //     // 跳转到修改信息页面
+          //     Get.to(() => EditMarathonPage(marathon: marathon));
+          //   },
+          //   icon: Icons.edit_calendar_outlined,
+          //   backgroundColor: Colors.green.shade300,
+          //   borderRadius: BorderRadius.circular(12),
+          // ),
           const SizedBox(
             width: 8,
           ),

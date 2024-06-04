@@ -1,3 +1,4 @@
+import 'package:cabbage/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,10 @@ Future<void> main() async {
     home: const DashboardPage(),
 
     // 国际化支持
-    locale: const Locale('zh', 'CH'), //默认是中文
+    translations: Messages(), // 你的翻译
+    locale: const Locale('zh', 'CN'), // 默认中文
+    fallbackLocale: const Locale('en', 'US'), // 中文不存在时，使用英文
+
     localizationsDelegates: const [
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,

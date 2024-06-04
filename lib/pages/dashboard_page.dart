@@ -108,8 +108,8 @@ class DashboardPage extends StatelessWidget {
                   child: Obx(() => Text(db.lastNote.value)),
                 ),
               ),
-              const MyDashboardTile(
-                child: Text("Test"),
+              MyDashboardTile(
+                child: Text('hello'.tr),
               ),
               const MyDashboardTile(
                 child: Text("Test"),

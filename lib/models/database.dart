@@ -8,6 +8,7 @@ import 'package:cabbage/models/note.dart';
 class Database extends GetxController {
   static late Isar isar;
   Database() {
+    // 这里什么都不用写
     fetchNotes();
   }
   // 初始化数据库
@@ -23,6 +24,8 @@ class Database extends GetxController {
   // 通过GetX存储比赛列表
   final List allMarathons = [].obs;
   final List stillMarathons = [].obs;
+  final List currentMarathon = [].obs;
+
   // 添加比赛
   Future<void> addMarathon(String name, DateTime time, String start,
       String finish, String hotel, String packet) async {
@@ -36,7 +39,7 @@ class Database extends GetxController {
 
     await isar.writeTxn(() => isar.marathons.put(newMarathon));
     debugPrint("Marathon Isar写入成功！");
-
+    update();
     fetchMarathons();
   }
 
@@ -56,6 +59,15 @@ class Database extends GetxController {
     stillMarathons.clear();
     stillMarathons.addAll(fetchMarathons);
     debugPrint("Marathon Isar读取成功！");
+  }
+
+  // 通过id读取一条马拉松数据
+  Future<void> getMarathon(int id) async {
+    List<Marathon> fetchMarathons =
+        await isar.marathons.where().idEqualTo(id).findAll();
+    currentMarathon.clear();
+    currentMarathon.addAll(fetchMarathons);
+    debugPrint("通过id读取Marathon成功！");
   }
 
   // 修改数据
@@ -79,7 +91,8 @@ class Database extends GetxController {
         ..packet = packet;
       await isar.writeTxn(() => isar.marathons.put(existingMarathon));
       debugPrint("Marathon Isar修改成功！");
-      await fetchMarathons();
+      update();
+      fetchMarathons();
     }
   }
 
@@ -87,6 +100,7 @@ class Database extends GetxController {
   Future<void> deleteMarathon(int id) async {
     await isar.writeTxn(() => isar.marathons.delete(id));
     debugPrint("Marathon Isar删除成功！");
+    update();
     fetchMarathons();
   }
 
@@ -134,7 +148,8 @@ class Database extends GetxController {
       existingNote.text = newText;
       await isar.writeTxn(() => isar.notes.put(existingNote));
       debugPrint("noteIsar修改成功！");
-      await fetchNotes();
+      update();
+      fetchNotes();
     }
   }
 
@@ -142,6 +157,7 @@ class Database extends GetxController {
   Future<void> deleteNote(int id) async {
     await isar.writeTxn(() => isar.notes.delete(id));
     debugPrint("noteIsar删除成功！");
+    update();
     fetchNotes();
   }
 }
