@@ -30,8 +30,8 @@ class NotePage extends StatelessWidget {
             builder: (db) => SliverList.builder(
                   itemCount: db.currentNotes.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final note = db.currentNotes[index];
-                    return MyCard(content: note.text);
+                    final currentNote = db.currentNotes[index];
+                    return MyCard(note: currentNote);
                   },
                 )),
       ]),

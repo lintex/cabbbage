@@ -17,13 +17,23 @@ const NoteSchema = CollectionSchema(
   name: r'Note',
   id: 6284318083599466921,
   properties: {
-    r'createTime': PropertySchema(
+    r'cabId': PropertySchema(
       id: 0,
-      name: r'createTime',
+      name: r'cabId',
+      type: IsarType.byte,
+    ),
+    r'createdTime': PropertySchema(
+      id: 1,
+      name: r'createdTime',
+      type: IsarType.dateTime,
+    ),
+    r'lastEditedTime': PropertySchema(
+      id: 2,
+      name: r'lastEditedTime',
       type: IsarType.dateTime,
     ),
     r'text': PropertySchema(
-      id: 1,
+      id: 3,
       name: r'text',
       type: IsarType.string,
     )
@@ -58,8 +68,10 @@ void _noteSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.createTime);
-  writer.writeString(offsets[1], object.text);
+  writer.writeByte(offsets[0], object.cabId);
+  writer.writeDateTime(offsets[1], object.createdTime);
+  writer.writeDateTime(offsets[2], object.lastEditedTime);
+  writer.writeString(offsets[3], object.text);
 }
 
 Note _noteDeserialize(
@@ -69,9 +81,11 @@ Note _noteDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Note();
-  object.createTime = reader.readDateTimeOrNull(offsets[0]);
+  object.cabId = reader.readByte(offsets[0]);
+  object.createdTime = reader.readDateTimeOrNull(offsets[1]);
   object.id = id;
-  object.text = reader.readString(offsets[1]);
+  object.lastEditedTime = reader.readDateTimeOrNull(offsets[2]);
+  object.text = reader.readString(offsets[3]);
   return object;
 }
 
@@ -83,8 +97,12 @@ P _noteDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readByte(offset)) as P;
     case 1:
+      return (reader.readDateTimeOrNull(offset)) as P;
+    case 2:
+      return (reader.readDateTimeOrNull(offset)) as P;
+    case 3:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -179,59 +197,111 @@ extension NoteQueryWhere on QueryBuilder<Note, Note, QWhereClause> {
 }
 
 extension NoteQueryFilter on QueryBuilder<Note, Note, QFilterCondition> {
-  QueryBuilder<Note, Note, QAfterFilterCondition> createTimeIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'createTime',
-      ));
-    });
-  }
-
-  QueryBuilder<Note, Note, QAfterFilterCondition> createTimeIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'createTime',
-      ));
-    });
-  }
-
-  QueryBuilder<Note, Note, QAfterFilterCondition> createTimeEqualTo(
-      DateTime? value) {
+  QueryBuilder<Note, Note, QAfterFilterCondition> cabIdEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'createTime',
+        property: r'cabId',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Note, Note, QAfterFilterCondition> createTimeGreaterThan(
+  QueryBuilder<Note, Note, QAfterFilterCondition> cabIdGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'cabId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> cabIdLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'cabId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> cabIdBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'cabId',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> createdTimeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'createdTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> createdTimeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'createdTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> createdTimeEqualTo(
+      DateTime? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'createdTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> createdTimeGreaterThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'createTime',
+        property: r'createdTime',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Note, Note, QAfterFilterCondition> createTimeLessThan(
+  QueryBuilder<Note, Note, QAfterFilterCondition> createdTimeLessThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'createTime',
+        property: r'createdTime',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Note, Note, QAfterFilterCondition> createTimeBetween(
+  QueryBuilder<Note, Note, QAfterFilterCondition> createdTimeBetween(
     DateTime? lower,
     DateTime? upper, {
     bool includeLower = true,
@@ -239,7 +309,7 @@ extension NoteQueryFilter on QueryBuilder<Note, Note, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'createTime',
+        property: r'createdTime',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -292,6 +362,75 @@ extension NoteQueryFilter on QueryBuilder<Note, Note, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'id',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> lastEditedTimeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'lastEditedTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> lastEditedTimeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'lastEditedTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> lastEditedTimeEqualTo(
+      DateTime? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'lastEditedTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> lastEditedTimeGreaterThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'lastEditedTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> lastEditedTimeLessThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'lastEditedTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterFilterCondition> lastEditedTimeBetween(
+    DateTime? lower,
+    DateTime? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'lastEditedTime',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -434,15 +573,39 @@ extension NoteQueryObject on QueryBuilder<Note, Note, QFilterCondition> {}
 extension NoteQueryLinks on QueryBuilder<Note, Note, QFilterCondition> {}
 
 extension NoteQuerySortBy on QueryBuilder<Note, Note, QSortBy> {
-  QueryBuilder<Note, Note, QAfterSortBy> sortByCreateTime() {
+  QueryBuilder<Note, Note, QAfterSortBy> sortByCabId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createTime', Sort.asc);
+      return query.addSortBy(r'cabId', Sort.asc);
     });
   }
 
-  QueryBuilder<Note, Note, QAfterSortBy> sortByCreateTimeDesc() {
+  QueryBuilder<Note, Note, QAfterSortBy> sortByCabIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createTime', Sort.desc);
+      return query.addSortBy(r'cabId', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> sortByCreatedTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'createdTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> sortByCreatedTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'createdTime', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> sortByLastEditedTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastEditedTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> sortByLastEditedTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastEditedTime', Sort.desc);
     });
   }
 
@@ -460,15 +623,27 @@ extension NoteQuerySortBy on QueryBuilder<Note, Note, QSortBy> {
 }
 
 extension NoteQuerySortThenBy on QueryBuilder<Note, Note, QSortThenBy> {
-  QueryBuilder<Note, Note, QAfterSortBy> thenByCreateTime() {
+  QueryBuilder<Note, Note, QAfterSortBy> thenByCabId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createTime', Sort.asc);
+      return query.addSortBy(r'cabId', Sort.asc);
     });
   }
 
-  QueryBuilder<Note, Note, QAfterSortBy> thenByCreateTimeDesc() {
+  QueryBuilder<Note, Note, QAfterSortBy> thenByCabIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createTime', Sort.desc);
+      return query.addSortBy(r'cabId', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> thenByCreatedTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'createdTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> thenByCreatedTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'createdTime', Sort.desc);
     });
   }
 
@@ -481,6 +656,18 @@ extension NoteQuerySortThenBy on QueryBuilder<Note, Note, QSortThenBy> {
   QueryBuilder<Note, Note, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> thenByLastEditedTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastEditedTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Note, Note, QAfterSortBy> thenByLastEditedTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastEditedTime', Sort.desc);
     });
   }
 
@@ -498,9 +685,21 @@ extension NoteQuerySortThenBy on QueryBuilder<Note, Note, QSortThenBy> {
 }
 
 extension NoteQueryWhereDistinct on QueryBuilder<Note, Note, QDistinct> {
-  QueryBuilder<Note, Note, QDistinct> distinctByCreateTime() {
+  QueryBuilder<Note, Note, QDistinct> distinctByCabId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'createTime');
+      return query.addDistinctBy(r'cabId');
+    });
+  }
+
+  QueryBuilder<Note, Note, QDistinct> distinctByCreatedTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'createdTime');
+    });
+  }
+
+  QueryBuilder<Note, Note, QDistinct> distinctByLastEditedTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'lastEditedTime');
     });
   }
 
@@ -519,9 +718,21 @@ extension NoteQueryProperty on QueryBuilder<Note, Note, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Note, DateTime?, QQueryOperations> createTimeProperty() {
+  QueryBuilder<Note, int, QQueryOperations> cabIdProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'createTime');
+      return query.addPropertyName(r'cabId');
+    });
+  }
+
+  QueryBuilder<Note, DateTime?, QQueryOperations> createdTimeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'createdTime');
+    });
+  }
+
+  QueryBuilder<Note, DateTime?, QQueryOperations> lastEditedTimeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'lastEditedTime');
     });
   }
 

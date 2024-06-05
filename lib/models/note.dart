@@ -6,5 +6,7 @@ part "note.g.dart"; // dart run build_runner build
 class Note {
   Id id = Isar.autoIncrement;
   late String text;
-  DateTime? createTime;
+  DateTime? createdTime;
+  DateTime? lastEditedTime;
+  byte cabId = 0; // note分类
 }

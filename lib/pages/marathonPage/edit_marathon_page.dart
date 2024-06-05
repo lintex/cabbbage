@@ -85,8 +85,8 @@ class EditMarathonPage extends StatelessWidget {
           leading: IconButton(
               onPressed: () => Get.back(),
               icon: const Icon(
-                Icons.close,
-                size: 30,
+                Icons.arrow_back_ios_new_rounded,
+                size: 25,
               )),
           actions: [
             // 右边确认按钮右边要空一点

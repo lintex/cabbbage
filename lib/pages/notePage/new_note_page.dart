@@ -1,4 +1,7 @@
 import 'package:cabbage/models/database.dart';
+import 'package:cabbage/pages/notePage/my_tools_bar.dart';
+import 'package:clipboard/clipboard.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,8 +29,8 @@ class NewNotePage extends StatelessWidget {
           leading: IconButton(
               onPressed: () => Get.back(),
               icon: const Icon(
-                Icons.close,
-                size: 30,
+                Icons.arrow_back_ios_new_rounded,
+                size: 25,
               )),
           actions: [
             // 右边确认按钮右边要空一点
@@ -78,45 +81,7 @@ class NewNotePage extends StatelessWidget {
                   //     TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        noteTextController.text =
-                            '🔲 ${noteTextController.text}';
-                      },
-                      icon: const Icon(Icons.check_box_outlined)),
-                  IconButton(
-                      onPressed: () {
-                        noteTextController.text =
-                            '#️ ${noteTextController.text}';
-                      },
-                      icon: const Icon(Icons.numbers)),
-                  IconButton(
-                      onPressed: () async {
-                        Navigator.of(context).pop();
-                        final pickedImage = await ImagePicker()
-                            .pickImage(source: ImageSource.gallery);
-                        if (pickedImage != null) {
-                          // _updateSelectedImage(File(pickedImage.path));
-                          // _saveImagePath(pickedImage.path);
-                          noteTextController.text =
-                              noteTextController.text + pickedImage.path;
-                        }
-                      },
-                      icon: const Icon(Icons.photo_outlined)),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.format_bold)),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.alternate_email)),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.undo_rounded)),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.redo_rounded)),
-                ],
-              ),
+              MyToolsBar(noteTextController: noteTextController),
             ],
           ),
         ));

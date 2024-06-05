@@ -114,7 +114,7 @@ class Database extends GetxController {
   Future<void> addNote(String textFromUser) async {
     final newNote = Note()
       ..text = textFromUser
-      ..createTime = DateTime.now();
+      ..createdTime = DateTime.now();
 
     await isar.writeTxn(() => isar.notes.put(newNote));
     debugPrint("noteIsar写入成功！");
@@ -125,8 +125,11 @@ class Database extends GetxController {
 
   // 读取数据
   Future<void> fetchNotes() async {
-    List<Note> fetchNotes =
-        await isar.notes.where().sortByCreateTimeDesc().findAll();
+    List<Note> fetchNotes = await isar.notes
+        .where()
+        .sortByCabIdDesc()
+        .thenByCreatedTimeDesc()
+        .findAll();
     currentNotes.clear();
     currentNotes.addAll(fetchNotes);
     fetchLastNote();
@@ -137,7 +140,7 @@ class Database extends GetxController {
   Future<void> fetchLastNote() async {
     // 这个地方不能用Id排序很是困惑，只能用时间倒序取最后一条记录
     List<Note> fetchNotes =
-        await isar.notes.where().sortByCreateTimeDesc().limit(1).findAll();
+        await isar.notes.where().sortByCreatedTimeDesc().limit(1).findAll();
     lastNote.value = fetchNotes[0].text;
     debugPrint("noteIsar读取成功！内容为${fetchNotes[0].text}");
   }
@@ -146,9 +149,23 @@ class Database extends GetxController {
   Future<void> updateNote(int id, String newText) async {
     final existingNote = await isar.notes.get(id);
     if (existingNote != null) {
-      existingNote.text = newText;
+      existingNote
+        ..text = newText
+        ..lastEditedTime = DateTime.now();
       await isar.writeTxn(() => isar.notes.put(existingNote));
       debugPrint("noteIsar修改成功！");
+      update();
+      fetchNotes();
+    }
+  }
+
+  // 置顶note
+  Future<void> setTopNote(int id) async {
+    final existingNote = await isar.notes.get(id);
+    if (existingNote != null) {
+      existingNote.cabId = 255;
+      await isar.writeTxn(() => isar.notes.put(existingNote));
+      debugPrint("note置顶成功！");
       update();
       fetchNotes();
     }
