@@ -21,6 +21,10 @@ class Countdown {
   String days, hours, minutes, seconds;
 }
 
+bool isExpired(Marathon m) {
+  return int.parse(Tools.diffSeconds(m.time!)) < 0 ? true : false;
+}
+
 class _MarathonDetailPageState extends State<MarathonDetailPage> {
   final Database db = Get.find();
   // 定义当前马拉松
@@ -57,7 +61,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
           hours: Tools.diffHours(currentMarathon.time!),
           minutes: Tools.diffMinutes(currentMarathon.time!),
           seconds: Tools.diffSeconds(currentMarathon.time!)));
-      // print(int.parse(countdown.value.hours) < 0);
+      //print('时间：${countdown().seconds}');
     });
   }
 
@@ -70,8 +74,6 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO 这个地方一直返回空
-    print(int.tryParse(countdown.value.hours) ?? 0);
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -89,8 +91,6 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: PopupMenuButton(
-                // onPressed: () =>
-                //     Get.to(() => EditMarathonPage(marathon: widget.marathon)),
                 icon: const Icon(
                   Icons.more_vert,
                   size: 30,
@@ -132,8 +132,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              // TODO 这个地方老是报错
-              if (10 < 0) ...[
+              if (isExpired(currentMarathon)) ...[
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,

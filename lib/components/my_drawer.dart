@@ -14,7 +14,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     // 读取版本号
     GetStorage box = GetStorage();
-    String version = box.read('version') ?? 'null';
+    String version = box.read('version');
 
     return Drawer(
       //backgroundColor: greyBg,

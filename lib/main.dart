@@ -5,12 +5,15 @@ import 'package:get/get.dart';
 import 'package:cabbage/models/database.dart';
 import 'package:cabbage/pages/dashboard_page.dart';
 import 'package:cabbage/theme/theme.dart';
+import 'package:get_storage/get_storage.dart';
 
 // flutter build apk --release
 Future<void> main() async {
   // 初始化Isar数据库
   WidgetsFlutterBinding.ensureInitialized();
   await Database.initialize();
+  // 初始化GetStorage，不然读取不到配置信息
+  await GetStorage.init();
 
   runApp(GetMaterialApp(
     title: '开笔记',
