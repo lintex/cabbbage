@@ -125,7 +125,8 @@ class Database extends GetxController {
 
   // 读取数据
   Future<void> fetchNotes() async {
-    List<Note> fetchNotes = await isar.notes.where().findAll();
+    List<Note> fetchNotes =
+        await isar.notes.where().sortByCreateTimeDesc().findAll();
     currentNotes.clear();
     currentNotes.addAll(fetchNotes);
     fetchLastNote();

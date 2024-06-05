@@ -15,18 +15,35 @@ class NotePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: const MyAppBar(title: "笔记"),
+      // appBar: const MyAppBar(title: "笔记"),
       // ? 此处不能使用Obx包裹ListView，必须使用GetBuilder
 
-      body: GetBuilder<Database>(
-          init: Database(),
-          builder: (db) => ListView.builder(
-                itemCount: db.currentNotes.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final note = db.currentNotes[index];
-                  return MyCard(content: note.text);
-                },
-              )),
+      body: CustomScrollView(slivers: [
+        const SliverAppBar(
+          title: Text("笔记"),
+          floating: true,
+          pinned: false,
+          snap: true,
+        ),
+        GetBuilder<Database>(
+            init: Database(),
+            builder: (db) => SliverList.builder(
+                  itemCount: db.currentNotes.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final note = db.currentNotes[index];
+                    return MyCard(content: note.text);
+                  },
+                )),
+      ]),
+      // GetBuilder<Database>(
+      //     init: Database(),
+      //     builder: (db) => ListView.builder(
+      //           itemCount: db.currentNotes.length,
+      //           itemBuilder: (BuildContext context, int index) {
+      //             final note = db.currentNotes[index];
+      //             return MyCard(content: note.text);
+      //           },
+      //         )),
 
       floatingActionButton: const MyFloatActionButton(toPage: NewNotePage()),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

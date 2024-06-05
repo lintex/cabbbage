@@ -1,7 +1,7 @@
-import 'package:cabbage/components/my_button.dart';
 import 'package:cabbage/models/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 // 初始化Controller读取输入框
 final noteTextController = TextEditingController();
@@ -35,7 +35,7 @@ class NewNotePage extends StatelessWidget {
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
                   onPressed: () {
-                    // 将比赛信息存入数据库
+                    // 将输入内容存入数据库
                     ndb.addNote(noteTextController.text);
                     // 清空文本框并返回
                     noteTextController.clear();
@@ -70,7 +70,7 @@ class NewNotePage extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                   ),
                   // hitText 和 labelText 同时存在有些问题
-                  hintText: "hintText",
+                  hintText: "现在的想法是...",
                   hintStyle: TextStyle(
                       color: Theme.of(context).colorScheme.inversePrimary),
                   // labelText: labelText,
@@ -78,7 +78,45 @@ class NewNotePage extends StatelessWidget {
                   //     TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
                 ),
               ),
-              MyButton(text: "确定", onPressed: () {})
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        noteTextController.text =
+                            '🔲 ${noteTextController.text}';
+                      },
+                      icon: const Icon(Icons.check_box_outlined)),
+                  IconButton(
+                      onPressed: () {
+                        noteTextController.text =
+                            '#️ ${noteTextController.text}';
+                      },
+                      icon: const Icon(Icons.numbers)),
+                  IconButton(
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                        final pickedImage = await ImagePicker()
+                            .pickImage(source: ImageSource.gallery);
+                        if (pickedImage != null) {
+                          // _updateSelectedImage(File(pickedImage.path));
+                          // _saveImagePath(pickedImage.path);
+                          noteTextController.text =
+                              noteTextController.text + pickedImage.path;
+                        }
+                      },
+                      icon: const Icon(Icons.photo_outlined)),
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.format_bold)),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.alternate_email)),
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.undo_rounded)),
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.redo_rounded)),
+                ],
+              ),
             ],
           ),
         ));
