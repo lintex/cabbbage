@@ -20,9 +20,8 @@ class NotePage extends StatelessWidget {
       body: CustomScrollView(slivers: [
         const SliverAppBar(
           title: Text("笔记"),
+          centerTitle: true,
           floating: true,
-          pinned: false,
-          snap: true,
         ),
         GetBuilder<Database>(
             init: Database(),

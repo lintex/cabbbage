@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 class Tools {
   static String getDate(DateTime d) {
     var weekday = [" ", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
@@ -41,5 +43,10 @@ class Tools {
     DateTime d = DateTime.now();
     var weekday = [" ", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
     return "🌤️ ${d.month}月${d.day}日 ${weekday[d.weekday]}";
+  }
+
+  //* 生成UUID
+  static String getUUID() {
+    return const Uuid().v1();
   }
 }

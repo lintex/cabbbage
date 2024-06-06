@@ -15,6 +15,7 @@ class MyDrawer extends StatelessWidget {
     // 读取版本号
     GetStorage box = GetStorage();
     String version = box.read('version');
+    String userName = box.read('userName');
 
     return Drawer(
       //backgroundColor: greyBg,
@@ -27,11 +28,11 @@ class MyDrawer extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () => Get.to(() => const SettingPage()),
-              child: const Padding(
-                padding: EdgeInsets.only(left: 18),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 18),
                 child: Text(
-                  "lintex",
-                  style: TextStyle(fontSize: 25, fontFamily: "方正大标宋"),
+                  userName,
+                  style: const TextStyle(fontSize: 25, fontFamily: "方正大标宋"),
                 ),
               ),
             ),
