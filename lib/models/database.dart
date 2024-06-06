@@ -171,6 +171,18 @@ class Database extends GetxController {
     }
   }
 
+  // 取消置顶note
+  Future<void> cancelTopNote(int id) async {
+    final existingNote = await isar.notes.get(id);
+    if (existingNote != null) {
+      existingNote.cabId = 0;
+      await isar.writeTxn(() => isar.notes.put(existingNote));
+      debugPrint("note取消置顶成功！");
+      update();
+      fetchNotes();
+    }
+  }
+
   // 删除数据
   Future<void> deleteNote(int id) async {
     await isar.writeTxn(() => isar.notes.delete(id));

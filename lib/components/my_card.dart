@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:cabbage/components/my_button.dart';
+import 'package:cabbage/components/my_divider.dart';
+import 'package:cabbage/components/my_text_divider.dart';
 import 'package:cabbage/models/note.dart';
 import 'package:cabbage/pages/notePage/edit_note_page.dart';
 import 'package:cabbage/theme/theme.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,46 +14,125 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Get.to(() => EditNotePage(note: note)),
-      child: Container(
-          //height: 60,
-          width: double.infinity,
-          //alignment: Alignment.center,
-          margin: const EdgeInsets.fromLTRB(20, 12, 20, 10),
-          padding: const EdgeInsets.fromLTRB(15, 18, 15, 18),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            //border: Border.all(width: 1),
-            borderRadius: BorderRadius.all(Radius.circular(11)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                offset: Offset(2.0, 2.0),
-                blurRadius: 10.0,
-              )
-            ],
-            // gradient: const LinearGradient(
-            //   colors: [Colors.red, Colors.orange],
-            // ),
-          ),
-          //transform: Matrix4.rotationZ(0.02)
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  // Row里面的Text要包在Expanded里面，不然不换行
-                  note.text,
-                  style: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: '霞鹜文楷',
-                      //fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
+    return Container(
+        //height: 60,
+        width: double.infinity,
+        //alignment: Alignment.center,
+        margin: const EdgeInsets.fromLTRB(20, 12, 20, 10),
+        padding: const EdgeInsets.fromLTRB(15, 18, 15, 18),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          //border: Border.all(width: 1),
+          borderRadius: BorderRadius.all(Radius.circular(11)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              offset: Offset(2.0, 2.0),
+              blurRadius: 10.0,
+            )
+          ],
+          // gradient: const LinearGradient(
+          //   colors: [Colors.red, Colors.orange],
+          // ),
+        ),
+        //transform: Matrix4.rotationZ(0.02)
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+                child: GestureDetector(
+              onTap: () => Get.to(() => EditNotePage(note: note)),
+              onLongPress: () {
+                Get.bottomSheet(Container(
+                  padding: const EdgeInsets.all(25),
+                  height: 300,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                          width: double.infinity,
+                          child: MyButton(
+                              text: "分享", onPressed: () => Get.back())),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                          width: double.infinity,
+                          child: MyButton(
+                              text: "复制",
+                              onPressed: () {
+                                FlutterClipboard.copy(note.text)
+                                    .then((value) => debugPrint('copied'));
+                                Get.snackbar("success", "笔记内容已复制到剪贴板！");
+                                Get.back();
+                              })),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                          width: double.infinity,
+                          child: MyButton(
+                              text: "删除", onPressed: () => Get.back())),
+                      const MyDivider(),
+                      SizedBox(
+                          width: double.infinity,
+                          child: MyButton(
+                              text: "分享", onPressed: () => Get.back())),
+                    ],
+                  ),
+                ));
+              },
+              child: Text(
+                // Row里面的Text要包在Expanded里面，不然不换行
+                note.text,
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: '霞鹜文楷',
+                    //fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
-              note.cabId == 255
+            )),
+            PopupMenuButton(
+              itemBuilder: (BuildContext context) {
+                return [
+                  note.cabId == 255
+                      ? const PopupMenuItem(
+                          value: "cancelSetTop",
+                          child: Text("取消置顶"),
+                        )
+                      : const PopupMenuItem(
+                          value: "setTop",
+                          child: Text("置顶"),
+                        ),
+                  const PopupMenuItem(
+                    value: "share",
+                    child: Text("分享"),
+                  ),
+                ];
+              },
+              onSelected: (Object object) {
+                switch (object) {
+                  case "setTop":
+                    ndb.setTopNote(note.id);
+                    Get.snackbar("success", "笔记置顶成功！");
+                    break;
+                  case "cancelSetTop":
+                    ndb.cancelTopNote(note.id);
+                    Get.snackbar("success", "笔记取消置顶成功！");
+                    break;
+                  case "share":
+                    // 分享笔记
+                    break;
+                  default:
+                }
+              },
+              color: Theme.of(context).colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide.none,
+              ),
+              // 下面只能用child，不能用icon不然会有默认边距，而且去不掉
+              child: note.cabId == 255
                   ? Icon(
                       Icons.push_pin,
                       color: grey,
@@ -61,9 +142,9 @@ class MyCard extends StatelessWidget {
                       Icons.more_vert,
                       color: grey,
                       size: 15,
-                    )
-            ],
-          )),
-    );
+                    ),
+            ),
+          ],
+        ));
   }
 }

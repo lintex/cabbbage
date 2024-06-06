@@ -43,13 +43,7 @@ Future<void> main() async {
 }
 
 bool isFirstRun() {
-  // 判断App是否为第一次运行，进入欢迎界面
+  // 判断App是否为第一次运行
   GetStorage box = GetStorage();
   return box.read('isFirstRun') ?? true;
-  // if (isFirstRun) {
-  //   debugPrint("App第一次运行");
-  //   Get.to(const WelcomePage());
-  // } else {
-  //   debugPrint("App不是第一次运行");
-  // }
 }
