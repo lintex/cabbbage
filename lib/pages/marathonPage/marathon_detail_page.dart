@@ -7,8 +7,8 @@ import 'package:cabbage/tools/Tools.dart';
 import 'dart:async';
 
 class MarathonDetailPage extends StatefulWidget {
-  final int marathonId;
-  const MarathonDetailPage({super.key, required this.marathonId});
+  const MarathonDetailPage({super.key, required this.index});
+  final int index;
 
   @override
   State<MarathonDetailPage> createState() => _MarathonDetailPageState();
@@ -27,8 +27,9 @@ bool isExpired(Marathon m) {
 
 class _MarathonDetailPageState extends State<MarathonDetailPage> {
   final Database db = Get.find();
-  // 定义当前马拉松
-  late Marathon currentMarathon;
+  // 定义当前马拉松，页面使用，不会更新
+  // late Marathon allMarathons;
+
   // 定义一个定时器
   late Timer _timer;
   // 倒计时可观察
@@ -47,21 +48,18 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
   @override
   void initState() {
     super.initState();
-    // 获取当前马拉松信息
-
-    db.getMarathon(widget.marathonId);
-    currentMarathon = db.currentMarathon[0];
 
     // 初始化定时器，间隔100毫秒刷新一次，这个地方用second:1时间太长
     _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       // 更新自定义类的值
       countdown(Countdown(
-          days: (currentMarathon.time!.difference(DateTime.now()).inDays)
+          days: (db.allMarathons[widget.index].time!
+                  .difference(DateTime.now())
+                  .inDays)
               .toString(),
-          hours: Tools.diffHours(currentMarathon.time!),
-          minutes: Tools.diffMinutes(currentMarathon.time!),
-          seconds: Tools.diffSeconds(currentMarathon.time!)));
-      //print('时间：${countdown().seconds}');
+          hours: Tools.diffHours(db.allMarathons[widget.index].time!),
+          minutes: Tools.diffMinutes(db.allMarathons[widget.index].time!),
+          seconds: Tools.diffSeconds(db.allMarathons[widget.index].time!)));
     });
   }
 
@@ -76,10 +74,10 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            currentMarathon.name,
-            style: const TextStyle(fontSize: 18),
-          ),
+          title: Obx(() => Text(
+                db.allMarathons[widget.index].name,
+                style: const TextStyle(fontSize: 18),
+              )),
           centerTitle: true,
           leading: IconButton(
               onPressed: () => Get.back(),
@@ -109,14 +107,12 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                 },
                 onSelected: (Object object) {
                   if (object == 'edit') {
-                    Get.to(() => EditMarathonPage(marathon: currentMarathon));
+                    Get.to(() => EditMarathonPage(
+                        marathon: db.allMarathons[widget.index]));
                   } else if (object == 'delete') {
-                    db.deleteMarathon(currentMarathon.id);
+                    db.deleteMarathon(db.allMarathons[widget.index].id);
                     Get.back();
                   }
-                },
-                onCanceled: () {
-                  print("canceled");
                 },
                 color: Theme.of(context).colorScheme.primary,
                 shape: RoundedRectangleBorder(
@@ -132,7 +128,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              if (isExpired(currentMarathon)) ...[
+              if (isExpired(db.allMarathons[widget.index])) ...[
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -189,120 +185,121 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
               const SizedBox(
                 height: 30,
               ),
-              Container(
-                //height: 60,
-                width: double.infinity,
-                //alignment: Alignment.center,
-                // margin: const EdgeInsets.fromLTRB(20, 12, 20, 10),
-                padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  //border: Border.all(width: 1),
-                  borderRadius: const BorderRadius.all(Radius.circular(11)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context).colorScheme.shadow,
-                      offset: const Offset(2.0, 2.0),
-                      blurRadius: 10.0,
-                    )
-                  ],
-                  // gradient: const LinearGradient(
-                  //   colors: [Colors.red, Colors.orange],
-                  // ),
-                ),
-                //transform: Matrix4.rotationZ(0.02)
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          currentMarathon.start == ''
-                              ? '待公布'
-                              : currentMarathon.start!,
-                          style: const TextStyle(
-                              fontSize: 25, fontFamily: '方正大标宋'),
-                        ),
-                        const Icon(
-                          Icons.arrow_right_alt_rounded,
-                          size: 50,
-                        ),
-                        Text(
-                          currentMarathon.finish == ''
-                              ? '待公布'
-                              : currentMarathon.finish!,
-                          style: const TextStyle(
-                              fontSize: 25, fontFamily: '方正大标宋'),
-                        ),
+              Obx(() => Container(
+                    //height: 60,
+                    width: double.infinity,
+                    //alignment: Alignment.center,
+                    // margin: const EdgeInsets.fromLTRB(20, 12, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      //border: Border.all(width: 1),
+                      borderRadius: const BorderRadius.all(Radius.circular(11)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context).colorScheme.shadow,
+                          offset: const Offset(2.0, 2.0),
+                          blurRadius: 10.0,
+                        )
                       ],
+                      // gradient: const LinearGradient(
+                      //   colors: [Colors.red, Colors.orange],
+                      // ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
+                    //transform: Matrix4.rotationZ(0.02)
+                    child: Column(
                       children: [
-                        const Icon(Icons.date_range),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              db.allMarathons[widget.index].start == ''
+                                  ? '待公布'
+                                  : db.allMarathons[widget.index].start!,
+                              style: const TextStyle(
+                                  fontSize: 25, fontFamily: '方正大标宋'),
+                            ),
+                            const Icon(
+                              Icons.arrow_right_alt_rounded,
+                              size: 50,
+                            ),
+                            Text(
+                              db.allMarathons[widget.index].finish == ''
+                                  ? '待公布'
+                                  : db.allMarathons[widget.index].finish!,
+                              style: const TextStyle(
+                                  fontSize: 25, fontFamily: '方正大标宋'),
+                            ),
+                          ],
+                        ),
                         const SizedBox(
-                          width: 5,
+                          height: 20,
                         ),
-                        Text(
-                          Tools.getFullDateTime(currentMarathon.time!),
-                          style: const TextStyle(fontSize: 16),
+                        Row(
+                          children: [
+                            const Icon(Icons.date_range),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              Tools.getFullDateTime(
+                                  db.allMarathons[widget.index].time!),
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Row(
-                      children: [
-                        Icon(Icons.money),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "A19999",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.business_center),
                         const SizedBox(
-                          width: 5,
+                          height: 20,
                         ),
-                        Text(
-                          currentMarathon.packet == ''
-                              ? "待公布"
-                              : currentMarathon.packet!,
-                          style: const TextStyle(fontSize: 16),
+                        const Row(
+                          children: [
+                            Icon(Icons.money),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "A19999",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.hotel),
                         const SizedBox(
-                          width: 5,
+                          height: 20,
                         ),
-                        Text(
-                          currentMarathon.hotel == ''
-                              ? "待预订"
-                              : currentMarathon.hotel!,
-                          style: const TextStyle(fontSize: 16),
+                        Row(
+                          children: [
+                            const Icon(Icons.business_center),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              db.allMarathons[widget.index].packet == ''
+                                  ? "待公布"
+                                  : db.allMarathons[widget.index].packet!,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.hotel),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              db.allMarathons[widget.index].hotel == ''
+                                  ? "待预订"
+                                  : db.allMarathons[widget.index].hotel!,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
+                  )),
               const SizedBox(
                 height: 20,
               ),

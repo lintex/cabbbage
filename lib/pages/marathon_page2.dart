@@ -47,7 +47,6 @@ class MarathonPage2 extends StatelessWidget {
             //这一行Flex不要，会报错“Incorrect use of ParentDataWidget.”
             Expanded(
               child: GetBuilder<Database>(
-                init: Database(),
                 builder: (db) => ListView.builder(
                   shrinkWrap: true, //这一行不要列表无法显示
                   physics: const NeverScrollableScrollPhysics(), //不要无法滚动
@@ -56,7 +55,10 @@ class MarathonPage2 extends StatelessWidget {
                     final marathon = db.allMarathons[index];
                     return GestureDetector(
                       onTap: () => Get.to(
-                          () => MarathonDetailPage(marathonId: marathon.id)),
+                          () => MarathonDetailPage(
+                                index: index,
+                              ),
+                          arguments: db.allMarathons[index]),
                       child: MyMarathonListTile(marathon: marathon),
                     );
                   },
