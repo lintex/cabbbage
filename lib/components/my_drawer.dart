@@ -1,4 +1,5 @@
-import 'package:cabbage/pages/setting_page.dart';
+import 'package:cabbage/controllers/settings_controller.dart';
+import 'package:cabbage/pages/settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,10 +13,12 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 初始化SettingsController
+    final sc = Get.put(SettingsController());
     // 读取版本号
     GetStorage box = GetStorage();
-    String version = box.read('version');
-    String userName = box.read('userName');
+    sc.version.value = box.read('version');
+    sc.userName.value = box.read('userName');
 
     return Drawer(
       //backgroundColor: greyBg,
@@ -30,10 +33,10 @@ class MyDrawer extends StatelessWidget {
               onTap: () => Get.to(() => const SettingPage()),
               child: Padding(
                 padding: const EdgeInsets.only(left: 18),
-                child: Text(
-                  userName,
-                  style: const TextStyle(fontSize: 25, fontFamily: "方正大标宋"),
-                ),
+                child: Obx(() => Text(
+                      sc.userName.value,
+                      style: const TextStyle(fontSize: 25, fontFamily: "方正大标宋"),
+                    )),
               ),
             ),
             const SizedBox(
@@ -85,10 +88,11 @@ class MyDrawer extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15),
               child: GestureDetector(
                 onTap: () => Get.to(() => const AboutPage()),
-                child: Text(
-                  "Version: $version",
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
-                ),
+                child: Obx(() => Text(
+                      "Version: ${sc.version.value}",
+                      style:
+                          TextStyle(fontSize: 12, color: Colors.grey.shade400),
+                    )),
               ),
             ),
             const SizedBox(

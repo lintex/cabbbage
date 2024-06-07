@@ -1,4 +1,8 @@
+import 'package:cabbage/components/my_drawer.dart';
+import 'package:cabbage/controllers/settings_controller.dart';
 import 'package:cabbage/messages.dart';
+import 'package:cabbage/pages/marathon_page2.dart';
+import 'package:cabbage/pages/settings_page.dart';
 import 'package:cabbage/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,7 +28,28 @@ Future<void> main() async {
     darkTheme: darkMode,
     // 第一次运行程序，显示欢迎界面
     home: isFirstRun() ? const WelcomePage() : const DashboardPage(),
-
+    getPages: [
+      GetPage(
+        name: '/dashboard',
+        page: () => const DashboardPage(),
+        binding: ControllerBind(),
+      ),
+      GetPage(
+        name: '/drawer',
+        page: () => const MyDrawer(),
+        binding: ControllerBind(),
+      ),
+      GetPage(
+        name: '/settings',
+        page: () => const SettingPage(),
+        binding: ControllerBind(),
+      ),
+      GetPage(
+        name: '/marathon',
+        page: () => const MarathonPage2(),
+        binding: ControllerBind(),
+      ),
+    ],
     // 国际化支持
     translations: Messages(), // 你的翻译
     locale: const Locale('zh', 'CN'), // 默认中文
@@ -40,6 +65,13 @@ Future<void> main() async {
       Locale('en', 'US'), //支持列表，英文
     ],
   ));
+}
+
+class ControllerBind extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => SettingsController());
+  }
 }
 
 bool isFirstRun() {

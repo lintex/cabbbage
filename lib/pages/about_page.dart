@@ -1,5 +1,5 @@
+import 'package:cabbage/controllers/settings_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:cabbage/components/my_app_bar.dart';
@@ -22,6 +22,7 @@ class AboutPage extends StatelessWidget {
     // 读取版本号
     GetStorage box = GetStorage();
     String version = box.read('version') ?? 'null';
+    final SettingsController sc = Get.find();
     // 点击次数
     int clickTimes = 1;
 
@@ -54,12 +55,13 @@ class AboutPage extends StatelessWidget {
                       const Text("再菜也要用心卷",
                           style: TextStyle(fontFamily: '字语相思体', fontSize: 28)),
                       const SizedBox(height: 15),
-                      Text(
-                        "开笔记 $version",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.inversePrimary,
-                        ),
-                      ),
+                      Obx(() => Text(
+                            "开笔记 ${sc.version.value}",
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary,
+                            ),
+                          )),
                       const SizedBox(
                         height: 25,
                       ),

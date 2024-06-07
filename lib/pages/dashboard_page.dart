@@ -1,3 +1,4 @@
+import 'package:cabbage/controllers/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbage/components/my_dashboard_tile.dart';

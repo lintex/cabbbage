@@ -1,3 +1,4 @@
+import 'package:cabbage/controllers/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,6 +13,7 @@ class ManagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // 读取版本号
     GetStorage box = GetStorage();
+    final SettingsController sc = Get.find();
 
     final versionController = TextEditingController();
     versionController.text = box.read('version') ?? '';
@@ -35,6 +37,7 @@ class ManagePage extends StatelessWidget {
                   text: '保存',
                   onPressed: () {
                     box.write('version', versionController.text);
+                    sc.setNewVersion(versionController.text);
                     Get.snackbar('成功', "新版本号 ${versionController.text} 写入成功！");
                     // var snackBar = SnackBar(
                     //   content: Text('✅成功：新版本号 ${versionController.text} 写入成功！'),

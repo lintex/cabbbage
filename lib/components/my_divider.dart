@@ -6,7 +6,7 @@ class MyDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+      padding: const EdgeInsets.fromLTRB(35, 5, 35, 5),
       child: Expanded(
           child: Divider(
         thickness: 0.5,

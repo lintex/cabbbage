@@ -5,11 +5,13 @@ class MyButton extends StatelessWidget {
       {super.key,
       required this.text,
       required this.onPressed,
-      this.color = const Color.fromARGB(255, 222, 222, 222)});
+      this.color = const Color.fromARGB(255, 222, 222, 222),
+      this.textColor = Colors.black87});
   //final void Function()? onPressed;
   final VoidCallback onPressed;
   final String text;
-  final Color color;
+  final Color? color;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +20,11 @@ class MyButton extends StatelessWidget {
         minimumSize: MaterialStateProperty.all(const Size(100, 48)),
         backgroundColor: MaterialStateProperty.all(color),
         //文字颜色
-        foregroundColor: MaterialStateProperty.all(Colors.black87),
+        foregroundColor: MaterialStateProperty.all(textColor),
         //设置圆角
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
           ),
         ),
         //边框的宽度 和 颜色
