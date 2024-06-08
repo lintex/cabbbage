@@ -1,12 +1,11 @@
-import 'package:cabbage/controllers/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cabbage/components/my_dashboard_tile.dart';
-import 'package:cabbage/components/my_drawer.dart';
-import 'package:cabbage/models/database.dart';
-import 'package:cabbage/pages/marathon_page2.dart';
-import 'package:cabbage/pages/note_page.dart';
-import 'package:cabbage/tools/tools.dart';
+import 'package:cabbbage/components/my_dashboard_tile.dart';
+import 'package:cabbbage/components/my_drawer.dart';
+import 'package:cabbbage/models/database.dart';
+import 'package:cabbbage/pages/marathon_page2.dart';
+import 'package:cabbbage/pages/note_page.dart';
+import 'package:cabbbage/tools/tools.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});

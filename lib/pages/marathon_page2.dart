@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cabbage/components/my_text_divider.dart';
-import 'package:cabbage/models/database.dart';
-import 'package:cabbage/pages/marathonPage/marathon_detail_page.dart';
-import 'package:cabbage/pages/marathonPage/my_marathon_list_tile.dart';
-import 'package:cabbage/pages/marathonPage/new_marathon_page.dart';
+import 'package:cabbbage/components/my_text_divider.dart';
+import 'package:cabbbage/models/database.dart';
+import 'package:cabbbage/pages/marathonPage/marathon_detail_page.dart';
+import 'package:cabbbage/pages/marathonPage/my_marathon_list_tile.dart';
+import 'package:cabbbage/pages/marathonPage/new_marathon_page.dart';
 // 这个版本的马拉松助手采用数据库存储，方便排序及修改
 
 class MarathonPage2 extends StatelessWidget {

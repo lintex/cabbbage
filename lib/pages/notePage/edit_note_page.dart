@@ -1,5 +1,5 @@
-import 'package:cabbage/models/database.dart';
-import 'package:cabbage/models/note.dart';
+import 'package:cabbbage/models/database.dart';
+import 'package:cabbbage/models/note.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

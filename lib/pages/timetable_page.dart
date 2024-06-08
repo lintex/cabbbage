@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cabbage/components/my_app_bar.dart';
-import 'package:cabbage/pages/timetablePage/my_timetable_cell.dart';
-import 'package:cabbage/pages/timetablePage/my_timetable_column_cell.dart';
-import 'package:cabbage/pages/timetablePage/my_timetable_row_cell.dart';
+import 'package:cabbbage/components/my_app_bar.dart';
+import 'package:cabbbage/pages/timetablePage/my_timetable_cell.dart';
+import 'package:cabbbage/pages/timetablePage/my_timetable_column_cell.dart';
+import 'package:cabbbage/pages/timetablePage/my_timetable_row_cell.dart';
 
 class TimetablePage extends StatelessWidget {
   const TimetablePage({super.key});
@@ -61,10 +61,10 @@ class TimetablePage extends StatelessWidget {
                     ]),
                 TableRow(children: [
                   MyTimetableRowCell(num: 2),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
                   MyTimetableCell(
                     className: "9班",
                     bgColor: blueBg,
@@ -75,10 +75,10 @@ class TimetablePage extends StatelessWidget {
                 ]),
                 TableRow(children: [
                   MyTimetableRowCell(num: 3),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
                   MyTimetableCell(
                     className: "15班",
                     bgColor: blueBg,
@@ -89,9 +89,9 @@ class TimetablePage extends StatelessWidget {
                 ]),
                 TableRow(children: [
                   MyTimetableRowCell(num: 4),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
                   MyTimetableCell(
                     className: "18班",
                     bgColor: blueBg,
@@ -113,9 +113,9 @@ class TimetablePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4)),
                         color: Theme.of(context).colorScheme.outline),
                     children: [
-                      TableCell(child: Text("")),
-                      TableCell(child: Text("")),
-                      TableCell(child: Text("")),
+                      const TableCell(child: Text("")),
+                      const TableCell(child: Text("")),
+                      const TableCell(child: Text("")),
                       TableCell(
                           child: Text(
                         "午 休",
@@ -123,8 +123,8 @@ class TimetablePage extends StatelessWidget {
                             color: Theme.of(context).colorScheme.tertiary,
                             fontSize: 12),
                       )),
-                      TableCell(child: Text("")),
-                      TableCell(child: Text("")),
+                      const TableCell(child: Text("")),
+                      const TableCell(child: Text("")),
                     ]),
                 TableRow(children: [
                   MyTimetableRowCell(num: 5),
@@ -135,7 +135,7 @@ class TimetablePage extends StatelessWidget {
                     location: "三楼西2",
                     teacher: "李金玉",
                   ),
-                  MyTimetableCell(),
+                  const MyTimetableCell(),
                   MyTimetableCell(
                     className: "6班",
                     bgColor: pinkBg,
@@ -150,7 +150,7 @@ class TimetablePage extends StatelessWidget {
                     location: "一楼",
                     teacher: "宋全林",
                   ),
-                  MyTimetableCell(),
+                  const MyTimetableCell(),
                 ]),
                 TableRow(children: [
                   MyTimetableRowCell(num: 6),
@@ -161,18 +161,18 @@ class TimetablePage extends StatelessWidget {
                     location: "二楼东1",
                     teacher: "敖光辉",
                   ),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
                 ]),
                 TableRow(children: [
                   MyTimetableRowCell(num: 7),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
-                  MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
+                  const MyTimetableCell(),
                 ]),
               ],
             ),

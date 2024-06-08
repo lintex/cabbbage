@@ -1,9 +1,9 @@
-import 'package:cabbage/components/my_card.dart';
-import 'package:cabbage/components/my_float_action_button.dart';
-import 'package:cabbage/pages/notePage/new_note_page.dart';
+import 'package:cabbbage/components/my_card.dart';
+import 'package:cabbbage/components/my_float_action_button.dart';
+import 'package:cabbbage/pages/notePage/new_note_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cabbage/models/database.dart';
+import 'package:cabbbage/models/database.dart';
 
 // 笔记页面
 

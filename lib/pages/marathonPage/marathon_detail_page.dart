@@ -1,9 +1,9 @@
-import 'package:cabbage/models/database.dart';
+import 'package:cabbbage/models/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cabbage/models/marathon.dart';
-import 'package:cabbage/pages/marathonPage/edit_marathon_page.dart';
-import 'package:cabbage/tools/Tools.dart';
+import 'package:cabbbage/models/marathon.dart';
+import 'package:cabbbage/pages/marathonPage/edit_marathon_page.dart';
+import 'package:cabbbage/tools/Tools.dart';
 import 'dart:async';
 
 class MarathonDetailPage extends StatefulWidget {

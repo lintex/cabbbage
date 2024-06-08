@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cabbage/components/my_app_bar.dart';
-import 'package:cabbage/pages/paceCalculatePage/my_pace_calculate_textfield.dart';
+import 'package:cabbbage/components/my_app_bar.dart';
+import 'package:cabbbage/pages/paceCalculatePage/my_pace_calculate_textfield.dart';
 
 class PaceCalculatePage extends StatefulWidget {
   const PaceCalculatePage({super.key});
@@ -352,14 +352,14 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                Text("每公里用时："),
-                SizedBox(
+                const Text("每公里用时："),
+                const SizedBox(
                   height: 15,
                 ),
-                Text("大众等级成绩："),
+                const Text("大众等级成绩："),
               ],
             ),
           ),

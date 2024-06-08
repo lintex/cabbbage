@@ -1,10 +1,10 @@
-import 'package:cabbage/controllers/settings_controller.dart';
+import 'package:cabbbage/controllers/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:cabbage/components/my_app_bar.dart';
-import 'package:cabbage/components/my_button.dart';
-import 'package:cabbage/components/my_textfield2.dart';
+import 'package:cabbbage/components/my_app_bar.dart';
+import 'package:cabbbage/components/my_button.dart';
+import 'package:cabbbage/components/my_textfield2.dart';
 
 class ManagePage extends StatelessWidget {
   const ManagePage({super.key});

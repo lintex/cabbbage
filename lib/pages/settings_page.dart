@@ -1,7 +1,6 @@
-import 'package:cabbage/components/my_bottom_sheet.dart';
-import 'package:cabbage/components/my_divider.dart';
-import 'package:cabbage/components/my_settings_tile.dart';
-import 'package:cabbage/controllers/settings_controller.dart';
+import 'package:cabbbage/components/my_bottom_sheet.dart';
+import 'package:cabbbage/components/my_settings_tile.dart';
+import 'package:cabbbage/controllers/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

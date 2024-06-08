@@ -1,10 +1,9 @@
-import 'package:cabbage/tools/tools.dart';
+import 'package:cabbbage/tools/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:cabbage/models/marathon.dart';
-import 'package:cabbage/models/database.dart';
-import 'package:cabbage/pages/marathonPage/edit_marathon_page.dart';
+import 'package:cabbbage/models/marathon.dart';
+import 'package:cabbbage/models/database.dart';
 
 class MyMarathonListTile extends StatelessWidget {
   MyMarathonListTile({super.key, required this.marathon});
@@ -27,9 +26,9 @@ class MyMarathonListTile extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(18, 18, 18, 0),
       child: Slidable(
         endActionPane: ActionPane(motion: const StretchMotion(), children: [
-          const SizedBox(
-            width: 8,
-          ),
+          // const SizedBox(
+          //   width: 8,
+          // ),
           // 修改按钮
           // SlidableAction(
           //   onPressed: (e) {
@@ -40,16 +39,16 @@ class MyMarathonListTile extends StatelessWidget {
           //   backgroundColor: Colors.green.shade300,
           //   borderRadius: BorderRadius.circular(12),
           // ),
-          const SizedBox(
-            width: 8,
-          ),
+          // const SizedBox(
+          //   width: 8,
+          // ),
           // 删除按钮
           SlidableAction(
             onPressed: (e) {
               delete(marathon.id);
             },
             icon: Icons.highlight_remove_rounded,
-            backgroundColor: Colors.red.shade200,
+            backgroundColor: Colors.red.shade400,
             borderRadius: BorderRadius.circular(12),
           ),
         ]),

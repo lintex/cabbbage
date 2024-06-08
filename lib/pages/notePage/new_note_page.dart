@@ -1,10 +1,7 @@
-import 'package:cabbage/models/database.dart';
-import 'package:cabbage/pages/notePage/my_tools_bar.dart';
-import 'package:clipboard/clipboard.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cabbbage/models/database.dart';
+import 'package:cabbbage/pages/notePage/my_tools_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 // 初始化Controller读取输入框
 final noteTextController = TextEditingController();

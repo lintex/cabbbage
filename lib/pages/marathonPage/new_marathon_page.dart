@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cabbage/components/my_button.dart';
-import 'package:cabbage/components/my_textfield.dart';
-import 'package:cabbage/models/database.dart';
-import 'package:cabbage/tools/Tools.dart';
+import 'package:cabbbage/components/my_button.dart';
+import 'package:cabbbage/components/my_textfield.dart';
+import 'package:cabbbage/models/database.dart';
+import 'package:cabbbage/tools/Tools.dart';
 
 class NewMarathonPage extends StatelessWidget {
   NewMarathonPage({super.key});

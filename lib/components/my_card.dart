@@ -1,9 +1,9 @@
-import 'package:cabbage/components/my_button.dart';
-import 'package:cabbage/components/my_divider.dart';
-import 'package:cabbage/components/my_text_divider.dart';
-import 'package:cabbage/models/note.dart';
-import 'package:cabbage/pages/notePage/edit_note_page.dart';
-import 'package:cabbage/theme/theme.dart';
+import 'package:cabbbage/components/my_button.dart';
+import 'package:cabbbage/components/my_divider.dart';
+import 'package:cabbbage/models/database.dart';
+import 'package:cabbbage/models/note.dart';
+import 'package:cabbbage/pages/notePage/edit_note_page.dart';
+import 'package:cabbbage/theme/theme.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -65,19 +65,25 @@ class MyCard extends StatelessWidget {
                               onPressed: () {
                                 FlutterClipboard.copy(note.text)
                                     .then((value) => debugPrint('copied'));
-                                Get.snackbar("success", "笔记内容已复制到剪贴板！");
                                 Get.back();
+                                Get.snackbar("success", "笔记内容已复制到剪贴板！");
                               })),
                       const SizedBox(height: 10),
                       SizedBox(
                           width: double.infinity,
                           child: MyButton(
-                              text: "删除", onPressed: () => Get.back())),
+                              text: "删除",
+                              textColor: Colors.red[300],
+                              onPressed: () {
+                                Get.find<Database>().deleteNote(note.id);
+                                Get.back();
+                                Get.snackbar("success", "${note.text}删除成功！");
+                              })),
                       const MyDivider(),
                       SizedBox(
                           width: double.infinity,
                           child: MyButton(
-                              text: "分享", onPressed: () => Get.back())),
+                              text: "取消", onPressed: () => Get.back())),
                     ],
                   ),
                 ));
