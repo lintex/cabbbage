@@ -1,11 +1,15 @@
+import 'package:cabbbage/models/database.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MyToolsBar extends StatelessWidget {
-  const MyToolsBar({super.key, required this.noteTextController});
+  const MyToolsBar(
+      {super.key, required this.noteTextController, required this.noteId});
   final TextEditingController noteTextController;
+  final int noteId;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -46,7 +50,13 @@ class MyToolsBar extends StatelessWidget {
             },
             icon: const Icon(Icons.paste_rounded)),
         IconButton(onPressed: () {}, icon: const Icon(Icons.undo_rounded)),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.redo_rounded)),
+        IconButton(
+            onPressed: () {
+              Get.find<Database>().updateNote(noteId, noteTextController.text);
+              noteTextController.clear();
+              Navigator.pop(context);
+            },
+            icon: const Icon(CupertinoIcons.paperplane)),
       ],
     );
   }

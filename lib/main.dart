@@ -118,11 +118,14 @@ class ControllerBind extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => SettingsController());
+    Get.lazyPut(() => Database());
   }
 }
 
 bool isFirstRun() {
   // 判断App是否为第一次运行
   GetStorage box = GetStorage();
-  return !box.hasData('isFirstRun') || box.read('isFirstRun') == true;
+  return !box.hasData('isFirstRun') || // 运行welcome后失效
+      !box.hasData('isVersion11') || // 判断是否为新版本重现安装，数字为build-number
+      box.read('isFirstRun') == true; // 通过设置页面设置
 }

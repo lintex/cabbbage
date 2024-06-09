@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_app_bar.dart';
 import 'package:cabbbage/components/my_button.dart';
-import 'package:cabbbage/pages/manage_page.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 // 读取系统版本号
 
 Future<String> getAppVersion() async {
   final info = await PackageInfo.fromPlatform();
-  return info.version;
+  // 读取版本号
+  GetStorage box = GetStorage();
+  String version = box.read('version');
+  return '${info.version}.$version';
 }
 
 class AboutPage extends StatelessWidget {
@@ -24,9 +27,6 @@ class AboutPage extends StatelessWidget {
         color: Theme.of(context).colorScheme.inversePrimary,
         fontSize: 12,
         decoration: TextDecoration.underline);
-    // // 读取版本号
-    // GetStorage box = GetStorage();
-    // String version = box.read('version') ?? 'null';
 
     // final SettingsController sc = Get.find();
 
@@ -49,7 +49,7 @@ class AboutPage extends StatelessWidget {
                       // 点击7次跳转到管理界面
                       GestureDetector(
                         onTap: () => clickTimes == 7
-                            ? Get.to(() => const ManagePage())
+                            ? Get.toNamed('/manage')
                             : clickTimes++,
                         child: Image.asset(
                           "assets/images/logo.png",
@@ -93,7 +93,7 @@ class AboutPage extends StatelessWidget {
                       ),
                       MyButton(
                           text: "检查更新",
-                          color: Colors.green[300]!,
+                          color: Colors.lightGreen,
                           onPressed: () {}),
                       // Image.asset(
                       //   "assets/images/about.jpg",

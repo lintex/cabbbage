@@ -63,8 +63,9 @@ class MyCard extends StatelessWidget {
                           child: MyButton(
                               text: "复制",
                               onPressed: () {
-                                FlutterClipboard.copy(note.text)
-                                    .then((value) => debugPrint('copied'));
+                                FlutterClipboard.copy(note.text).then((value) =>
+                                    debugPrint(
+                                        'The contents of the note have been copied！'));
                                 Get.back();
                                 Get.snackbar("success", "笔记内容已复制到剪贴板！");
                               })),

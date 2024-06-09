@@ -25,7 +25,7 @@ class ManagePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyTextField2(
+              MyTextFieldWithLabel(
                 controller: versionController,
                 hintText: '输入版本号',
                 labelText: '版本号',
@@ -33,17 +33,31 @@ class ManagePage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              MyButton(
-                  text: '保存',
-                  onPressed: () {
-                    box.write('version', versionController.text);
-                    sc.setNewVersion(versionController.text);
-                    Get.snackbar('成功', "新版本号 ${versionController.text} 写入成功！");
-                    // var snackBar = SnackBar(
-                    //   content: Text('✅成功：新版本号 ${versionController.text} 写入成功！'),
-                    // );
-                    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  })
+              Row(
+                children: [
+                  Expanded(
+                    child: MyButton(
+                        text: '保存',
+                        color: Colors.lightGreen,
+                        onPressed: () {
+                          box.write('version', versionController.text);
+                          sc.setNewVersion(versionController.text);
+                          Get.snackbar('Success',
+                              "新版本号 ${versionController.text} 写入成功！");
+                        }),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: MyButton(
+                        text: '返回',
+                        onPressed: () {
+                          Get.back();
+                        }),
+                  ),
+                ],
+              )
             ],
           ),
         ));

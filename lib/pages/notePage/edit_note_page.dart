@@ -159,7 +159,10 @@ class EditNotePage extends StatelessWidget {
                   //     TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
                 ),
               ),
-              MyToolsBar(noteTextController: noteTextController),
+              MyToolsBar(
+                noteTextController: noteTextController,
+                noteId: note.id,
+              ),
             ],
           ),
         ));

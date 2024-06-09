@@ -21,6 +21,7 @@ class MyDrawer extends StatelessWidget {
     sc.userName.value = box.read('userName');
 
     return Drawer(
+      width: 250,
       //backgroundColor: greyBg,
       child: Container(
         color: Theme.of(context).colorScheme.background,

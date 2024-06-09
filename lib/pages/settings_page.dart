@@ -3,7 +3,7 @@ import 'package:cabbbage/components/my_settings_tile.dart';
 import 'package:cabbbage/components/my_trailing.dart';
 import 'package:cabbbage/controllers/settings_controller.dart';
 import 'package:cabbbage/theme/theme.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -30,7 +30,6 @@ class SettingPage extends StatelessWidget {
     // SwitchController sxc = Get.put(SwitchController());
 
     return Scaffold(
-      //appBar: MyAppBar(title: "设置"),
       body: CustomScrollView(slivers: [
         SliverAppBar(
           automaticallyImplyLeading: false,
@@ -43,7 +42,7 @@ class SettingPage extends StatelessWidget {
             var top = constraints.biggest.height;
             // print(top);
             return FlexibleSpaceBar(
-              centerTitle: false,
+              centerTitle: true,
               expandedTitleScale: 1.4,
               stretchModes: const [
                 StretchMode.fadeTitle,
@@ -51,12 +50,13 @@ class SettingPage extends StatelessWidget {
 
               // 要设置titlePadding不然无法居中，默认start：72
               titlePadding:
-                  const EdgeInsetsDirectional.only(start: 72, bottom: 16),
-              title: top < 130
+                  const EdgeInsetsDirectional.only(start: 0, bottom: 16),
+
+              title: top < 150
                   ? const Text("设置")
                   : Container(
                       alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.only(left: 0),
+                      padding: const EdgeInsets.only(left: 30),
                       child: const Text("个人信息"),
                     ),
             );
@@ -65,7 +65,7 @@ class SettingPage extends StatelessWidget {
         SliverList(
           delegate: SliverChildListDelegate([
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             Obx(() => MySettingsTile(
                   title: '昵称',
@@ -81,10 +81,15 @@ class SettingPage extends StatelessWidget {
               title: 'UUID',
               subtitle: '系统自动生成',
               trailing: MyTrailing(text: '${uuid.substring(0, 8)}...'),
-              onPressed: () {},
+              onPressed: () {
+                FlutterClipboard.copy(uuid)
+                    .then((value) => debugPrint('uuid is copied'));
+                Get.snackbar("success", "uuid已复制到剪贴板！");
+              },
             ),
             MySettingsTile(
               title: '第一次登录',
+              subtitle: '会重置部分系统设置',
               trailing: ValueBuilder<bool?>(
                 initialValue: isFirstRun,
                 builder: (value, update) => Switch(
@@ -101,7 +106,8 @@ class SettingPage extends StatelessWidget {
               onPressed: () {},
             ),
             MySettingsTile(
-              title: '自动切换黑暗模式',
+              title: '自动切换黑夜模式',
+              subtitle: '更随系统自动切换模式',
               trailing: ValueBuilder<bool?>(
                 initialValue: autoDarkMode.value,
                 builder: (value, update) => Switch(
@@ -121,7 +127,8 @@ class SettingPage extends StatelessWidget {
             Obx(() => Offstage(
                   offstage: autoDarkMode.value,
                   child: MySettingsTile(
-                    title: '黑暗模式',
+                    title: '黑夜模式',
+                    subtitle: '手动切换黑夜和白天模式',
                     trailing: ValueBuilder<bool?>(
                       initialValue: isDarkMode,
                       builder: (value, update) => Switch(
@@ -131,6 +138,7 @@ class SettingPage extends StatelessWidget {
                       ),
                       onUpdate: (value) {
                         isDarkMode = !isDarkMode;
+                        box.write('isDarkMode', isDarkMode);
                         isDarkMode
                             ? Get.changeTheme(darkMode)
                             : Get.changeTheme(lightMode);
@@ -141,43 +149,9 @@ class SettingPage extends StatelessWidget {
                   ),
                 )),
             MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: const MyTrailing(text: '测试'),
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: const MyTrailing(text: '测试'),
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: const MyTrailing(text: '测试'),
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: const MyTrailing(text: '测试'),
-              onPressed: () {},
+              title: '系统管理',
+              subtitle: '系统参数设置',
+              onPressed: () => Get.toNamed('/manage'),
             ),
           ]),
         ),

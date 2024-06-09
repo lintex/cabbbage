@@ -78,7 +78,10 @@ class NewNotePage extends StatelessWidget {
                   //     TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
                 ),
               ),
-              MyToolsBar(noteTextController: noteTextController),
+              MyToolsBar(
+                noteTextController: noteTextController,
+                noteId: 0, //!error
+              ),
             ],
           ),
         ));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyTextField2 extends StatelessWidget {
-  const MyTextField2(
+class MyTextFieldWithLabel extends StatelessWidget {
+  const MyTextFieldWithLabel(
       {super.key,
       required this.controller,
       this.hintText = '',
@@ -13,13 +13,13 @@ class MyTextField2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var roundBorder = OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         borderSide: const BorderSide(style: BorderStyle.none));
 
     return TextField(
       controller: controller,
       autofocus: true,
-      cursorColor: Colors.green,
+      cursorColor: Colors.lightGreen,
       decoration: InputDecoration(
         isCollapsed: true, //根据文字大小调整输入框高度
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 15, 15),
@@ -28,9 +28,9 @@ class MyTextField2 extends StatelessWidget {
         enabledBorder: roundBorder,
         filled: true, // * 只有filled为true时，下面的fillColor才有效
         fillColor: Theme.of(context).colorScheme.primary,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.green.shade600, width: 2),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.lightGreen, width: 2),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
         // hitText 和 labelText 同时存在有些问题
         hintText: hintText,

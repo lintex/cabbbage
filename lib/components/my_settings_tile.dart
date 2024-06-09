@@ -17,6 +17,7 @@ class MySettingsTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
