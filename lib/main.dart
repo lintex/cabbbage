@@ -124,5 +124,5 @@ class ControllerBind extends Bindings {
 bool isFirstRun() {
   // 判断App是否为第一次运行
   GetStorage box = GetStorage();
-  return !box.hasData('isFirstRun');
+  return !box.hasData('isFirstRun') || box.read('isFirstRun') == true;
 }

@@ -1,3 +1,4 @@
+import 'package:cabbbage/components/my_trailing.dart';
 import 'package:flutter/material.dart';
 
 class MySettingsTile extends StatelessWidget {
@@ -5,9 +6,10 @@ class MySettingsTile extends StatelessWidget {
       {super.key,
       required this.title,
       this.subtitle = '',
-      this.trailing = '',
+      this.trailing = const MyTrailing(),
       required this.onPressed});
-  final String title, subtitle, trailing;
+  final String title, subtitle;
+  final Widget trailing;
   final VoidCallback onPressed;
 
   @override
@@ -35,25 +37,7 @@ class MySettingsTile extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              children: [
-                Text(
-                  trailing,
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                      overflow: TextOverflow.ellipsis),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 16,
-                  color: Colors.grey[600],
-                )
-              ],
-            )
+            trailing,
           ],
         ),
       ),

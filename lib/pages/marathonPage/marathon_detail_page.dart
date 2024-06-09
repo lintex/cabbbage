@@ -1,4 +1,5 @@
 import 'package:cabbbage/models/database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/models/marathon.dart';
@@ -128,6 +129,29 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('距离'),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    Tools.getFullDateTime(db.allMarathons[widget.index].time!),
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Text('还有'),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               if (isExpired(db.allMarathons[widget.index])) ...[
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -143,10 +167,6 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
-                          "倒计时:",
-                          style: countdownTextStyle,
-                        ),
                         Text(
                           countdown.value.days,
                           style: countdownNumStyle,
@@ -183,7 +203,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                     )),
               ],
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               Obx(() => Container(
                     //height: 60,
@@ -194,7 +214,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primaryContainer,
                       //border: Border.all(width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(11)),
+                      borderRadius: const BorderRadius.all(Radius.circular(15)),
                       boxShadow: [
                         BoxShadow(
                           color: Theme.of(context).colorScheme.shadow,
@@ -212,39 +232,37 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              db.allMarathons[widget.index].start == ''
-                                  ? '待公布'
-                                  : db.allMarathons[widget.index].start!,
-                              style: const TextStyle(
-                                  fontSize: 25, fontFamily: '方正大标宋'),
+                            Column(
+                              children: [
+                                const Text(
+                                  "起点",
+                                ),
+                                Text(
+                                  db.allMarathons[widget.index].start == ''
+                                      ? '待公布'
+                                      : db.allMarathons[widget.index].start!,
+                                  style: const TextStyle(
+                                      fontSize: 25, fontFamily: '方正大标宋'),
+                                ),
+                              ],
                             ),
                             const Icon(
-                              Icons.arrow_right_alt_rounded,
-                              size: 50,
+                              Icons.directions_run_rounded,
+                              size: 40,
                             ),
-                            Text(
-                              db.allMarathons[widget.index].finish == ''
-                                  ? '待公布'
-                                  : db.allMarathons[widget.index].finish!,
-                              style: const TextStyle(
-                                  fontSize: 25, fontFamily: '方正大标宋'),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.date_range),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              Tools.getFullDateTime(
-                                  db.allMarathons[widget.index].time!),
-                              style: const TextStyle(fontSize: 16),
+                            Column(
+                              children: [
+                                const Text(
+                                  "终点",
+                                ),
+                                Text(
+                                  db.allMarathons[widget.index].finish == ''
+                                      ? '待公布'
+                                      : db.allMarathons[widget.index].finish!,
+                                  style: const TextStyle(
+                                      fontSize: 25, fontFamily: '方正大标宋'),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -252,14 +270,19 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                           height: 20,
                         ),
                         const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.money),
+                            Column(
+                              children: [Icon(Icons.money), Text('参赛号')],
+                            ),
                             SizedBox(
-                              width: 5,
+                              width: 8,
                             ),
                             Text(
                               "A19999",
-                              style: TextStyle(fontSize: 16),
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(fontSize: 50, fontFamily: '方正大标宋'),
                             ),
                           ],
                         ),
@@ -267,33 +290,35 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                           height: 20,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Icon(Icons.business_center),
-                            const SizedBox(
-                              width: 5,
+                            Row(
+                              children: [
+                                const Icon(Icons.business_center),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  db.allMarathons[widget.index].packet == ''
+                                      ? "待公布"
+                                      : db.allMarathons[widget.index].packet!,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
                             ),
-                            Text(
-                              db.allMarathons[widget.index].packet == ''
-                                  ? "待公布"
-                                  : db.allMarathons[widget.index].packet!,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.hotel),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              db.allMarathons[widget.index].hotel == ''
-                                  ? "待预订"
-                                  : db.allMarathons[widget.index].hotel!,
-                              style: const TextStyle(fontSize: 16),
+                            Row(
+                              children: [
+                                const Icon(Icons.hotel),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  db.allMarathons[widget.index].hotel == ''
+                                      ? "待预订"
+                                      : db.allMarathons[widget.index].hotel!,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
                             ),
                           ],
                         ),

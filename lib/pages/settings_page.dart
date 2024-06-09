@@ -1,9 +1,17 @@
 import 'package:cabbbage/components/my_bottom_sheet.dart';
 import 'package:cabbbage/components/my_settings_tile.dart';
+import 'package:cabbbage/components/my_trailing.dart';
 import 'package:cabbbage/controllers/settings_controller.dart';
+import 'package:cabbbage/theme/theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
+// class SwitchController extends GetxController {
+//   RxBool isFirstRun = true.obs;
+//   void isFirstRunToggle() => isFirstRun.value = !isFirstRun.value;
+// }
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -15,6 +23,11 @@ class SettingPage extends StatelessWidget {
     // 读取UUID
     GetStorage box = GetStorage();
     String uuid = box.read('uuid');
+    bool isFirstRun = box.read('isFirstRun');
+    var autoDarkMode = true.obs;
+    autoDarkMode.value = box.read('autoDarkMode');
+    bool isDarkMode = box.read('isDarkMode');
+    // SwitchController sxc = Get.put(SwitchController());
 
     return Scaffold(
       //appBar: MyAppBar(title: "设置"),
@@ -56,7 +69,7 @@ class SettingPage extends StatelessWidget {
             ),
             Obx(() => MySettingsTile(
                   title: '昵称',
-                  trailing: sc.userName.value,
+                  trailing: MyTrailing(text: sc.userName.value),
                   onPressed: () {
                     Get.bottomSheet(MyBottomSheet(
                       title: '设置昵称',
@@ -67,22 +80,69 @@ class SettingPage extends StatelessWidget {
             MySettingsTile(
               title: 'UUID',
               subtitle: '系统自动生成',
-              trailing: '${uuid.substring(0, 8)}...',
+              trailing: MyTrailing(text: '${uuid.substring(0, 8)}...'),
               onPressed: () {},
             ),
             MySettingsTile(
-              title: '测试',
-              trailing: '测试',
+              title: '第一次登录',
+              trailing: ValueBuilder<bool?>(
+                initialValue: isFirstRun,
+                builder: (value, update) => Switch(
+                  value: value!,
+                  onChanged: (flag) => update(flag),
+                  activeColor: Colors.green,
+                ),
+                onUpdate: (value) {
+                  box.write('isFirstRun', !isFirstRun);
+                  debugPrint('autoDarkMode:${!isFirstRun}');
+                },
+                onDispose: () => print("Widget unmounted"),
+              ),
               onPressed: () {},
             ),
             MySettingsTile(
-              title: '测试',
-              trailing: '测试',
+              title: '自动切换黑暗模式',
+              trailing: ValueBuilder<bool?>(
+                initialValue: autoDarkMode.value,
+                builder: (value, update) => Switch(
+                  value: value!,
+                  onChanged: (flag) => update(flag),
+                  activeColor: Colors.green,
+                ),
+                onUpdate: (value) {
+                  autoDarkMode.value = !autoDarkMode.value;
+                  box.write('autoDarkMode', autoDarkMode.value);
+                  debugPrint('autoDarkMode:${autoDarkMode.value}');
+                },
+                onDispose: () => print("Widget unmounted"),
+              ),
               onPressed: () {},
             ),
+            Obx(() => Offstage(
+                  offstage: autoDarkMode.value,
+                  child: MySettingsTile(
+                    title: '黑暗模式',
+                    trailing: ValueBuilder<bool?>(
+                      initialValue: isDarkMode,
+                      builder: (value, update) => Switch(
+                        value: value!,
+                        onChanged: (flag) => update(flag),
+                        activeColor: Colors.green,
+                      ),
+                      onUpdate: (value) {
+                        isDarkMode = !isDarkMode;
+                        isDarkMode
+                            ? Get.changeTheme(darkMode)
+                            : Get.changeTheme(lightMode);
+                      },
+                      onDispose: () => print("Widget unmounted"),
+                    ),
+                    onPressed: () {},
+                  ),
+                )),
             MySettingsTile(
               title: '测试',
-              trailing: '测试',
+              subtitle: '测试！！！！',
               onPressed: () {},
             ),
             MySettingsTile(
@@ -98,60 +158,25 @@ class SettingPage extends StatelessWidget {
             MySettingsTile(
               title: '测试',
               subtitle: '测试！！！！',
+              trailing: const MyTrailing(text: '测试'),
               onPressed: () {},
             ),
             MySettingsTile(
               title: '测试',
               subtitle: '测试！！！！',
-              trailing: '测试',
+              trailing: const MyTrailing(text: '测试'),
               onPressed: () {},
             ),
             MySettingsTile(
               title: '测试',
               subtitle: '测试！！！！',
-              trailing: '测试',
+              trailing: const MyTrailing(text: '测试'),
               onPressed: () {},
             ),
             MySettingsTile(
               title: '测试',
               subtitle: '测试！！！！',
-              trailing: '测试',
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: '测试',
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: '测试',
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: '测试',
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: '测试',
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: '测试',
-              onPressed: () {},
-            ),
-            MySettingsTile(
-              title: '测试',
-              subtitle: '测试！！！！',
-              trailing: '测试',
+              trailing: const MyTrailing(text: '测试'),
               onPressed: () {},
             ),
           ]),

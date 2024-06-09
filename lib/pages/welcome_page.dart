@@ -13,18 +13,39 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: const Text("Welcome")),
         body: Center(
-          child: MyButton(
-              text: "进入程序",
-              onPressed: () {
-                GetStorage box = GetStorage();
-                box.write('isFirstRun', false);
-                box.write('version', '0.0.9.240606');
-                box.write('userName', 'Guest');
-                // 生成UUID
-                box.write('uuid', Tools.getUUID());
-                // TODO 初始化数据库数据，添加测试数据
-                Get.off(const DashboardPage());
-              }),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/logo.png",
+                width: 100,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              MyButton(
+                  text: "进入程序",
+                  color: Colors.lightGreen[300],
+                  onPressed: () {
+                    GetStorage box = GetStorage();
+                    // TODO 每次更新重写版本号
+                    box.write('version', '240609');
+
+                    if (!box.hasData('userName')) {
+                      box.write('userName', 'Guest');
+                    }
+                    // 生成UUID
+                    if (!box.hasData('uuid')) {
+                      box.write('uuid', Tools.getUUID());
+                    }
+                    box.write('isFirstRun', false);
+                    box.write('autoDarkMode', true);
+                    box.write('isDarkMode', false);
+
+                    Get.offNamed('/dashboard');
+                  }),
+            ],
+          ),
         ));
   }
 }
