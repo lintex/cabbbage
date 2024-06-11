@@ -246,9 +246,9 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                                 ),
                               ],
                             ),
-                            const Icon(
-                              Icons.directions_run_rounded,
-                              size: 40,
+                            Image.asset(
+                              'assets/images/rightArrow.png',
+                              width: 50,
                             ),
                             Column(
                               children: [
@@ -294,7 +294,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                           children: [
                             Row(
                               children: [
-                                const Icon(Icons.business_center),
+                                const Icon(Icons.luggage_outlined),
                                 const SizedBox(
                                   width: 5,
                                 ),
@@ -308,7 +308,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                             ),
                             Row(
                               children: [
-                                const Icon(Icons.hotel),
+                                const Icon(Icons.bed_outlined),
                                 const SizedBox(
                                   width: 5,
                                 ),

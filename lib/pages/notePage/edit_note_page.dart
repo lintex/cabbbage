@@ -40,7 +40,7 @@ class EditNotePage extends StatelessWidget {
               child: PopupMenuButton(
                 icon: const Icon(
                   Icons.more_vert,
-                  size: 30,
+                  size: 25,
                 ),
                 itemBuilder: (BuildContext context) {
                   return [
@@ -48,7 +48,13 @@ class EditNotePage extends StatelessWidget {
                       value: "top",
                       child: Row(
                         children: [
-                          Icon(Icons.publish_outlined),
+                          Icon(
+                            Icons.publish_outlined,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Text("置顶"),
                         ],
                       ),
@@ -57,7 +63,13 @@ class EditNotePage extends StatelessWidget {
                       value: "share",
                       child: Row(
                         children: [
-                          Icon(Icons.share_outlined),
+                          Icon(
+                            Icons.share_outlined,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Text("分享"),
                         ],
                       ),
@@ -66,7 +78,13 @@ class EditNotePage extends StatelessWidget {
                       value: "copy",
                       child: Row(
                         children: [
-                          Icon(Icons.copy_rounded),
+                          Icon(
+                            Icons.copy_rounded,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Text("复制内容"),
                         ],
                       ),
@@ -75,7 +93,13 @@ class EditNotePage extends StatelessWidget {
                       value: "save",
                       child: Row(
                         children: [
-                          Icon(Icons.save_outlined),
+                          Icon(
+                            Icons.save_outlined,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Text("保存"),
                         ],
                       ),
@@ -84,7 +108,13 @@ class EditNotePage extends StatelessWidget {
                       value: "delete",
                       child: Row(
                         children: [
-                          Icon(Icons.delete_outline),
+                          Icon(
+                            Icons.delete_outline,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Text("删除"),
                         ],
                       ),

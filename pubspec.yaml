@@ -82,6 +82,7 @@ flutter:
     - assets/images/avatar.jpg
     - assets/images/logo.png
     - assets/images/ruler.png
+    - assets/images/rightArrow.png
     - assets/weatherAnimation/
 
   # An image asset can refer to one or more resolution-specific "variants", see

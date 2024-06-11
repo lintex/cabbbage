@@ -17,6 +17,10 @@ class ManagePage extends StatelessWidget {
 
     final versionController = TextEditingController();
     versionController.text = box.read('version') ?? '';
+    final buildNameController = TextEditingController();
+    buildNameController.text = box.read('buildName') ?? '';
+    final buildNumberController = TextEditingController();
+    buildNumberController.text = box.read('buildNumber').toString();
 
     return Scaffold(
         appBar: const MyAppBar(title: "管理页面"),
@@ -28,7 +32,23 @@ class ManagePage extends StatelessWidget {
               MyTextFieldWithLabel(
                 controller: versionController,
                 hintText: '输入版本号',
-                labelText: '版本号',
+                labelText: 'version',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              MyTextFieldWithLabel(
+                controller: buildNameController,
+                hintText: '输入版本号',
+                labelText: 'buildName',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              MyTextFieldWithLabel(
+                controller: buildNumberController,
+                hintText: '输入版本号',
+                labelText: 'buildNumber',
               ),
               const SizedBox(
                 height: 20,
@@ -41,9 +61,13 @@ class ManagePage extends StatelessWidget {
                         color: Colors.lightGreen,
                         onPressed: () {
                           box.write('version', versionController.text);
-                          sc.setNewVersion(versionController.text);
-                          Get.snackbar('Success',
-                              "新版本号 ${versionController.text} 写入成功！");
+                          box.write('buildName', buildNameController.text);
+                          box.write('buildNumber', buildNumberController);
+                          sc.setNewVersion(
+                              versionController.text,
+                              buildNameController.text,
+                              int.parse(buildNumberController.text));
+                          Get.snackbar('Success', "新版本号 写入成功！");
                         }),
                   ),
                   const SizedBox(

@@ -142,7 +142,7 @@ class Database extends GetxController {
     List<Note> fetchNotes =
         await isar.notes.where().sortByCreatedTimeDesc().limit(1).findAll();
     lastNote.value = fetchNotes[0].text;
-    debugPrint("noteIsar读取成功！内容为${fetchNotes[0].text}");
+    debugPrint("note最后一条信息读取成功！");
   }
 
   // 修改数据

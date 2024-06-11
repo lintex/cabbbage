@@ -27,8 +27,11 @@ class WelcomePage extends StatelessWidget {
                   color: Colors.lightGreen[300],
                   onPressed: () {
                     GetStorage box = GetStorage();
+                    box.write('isFirstRun', false);
                     // TODO 每次更新重写版本号
-                    box.write('version', '240609');
+                    box.write('version', '240611');
+                    box.write('buildNumber', 11);
+                    box.write('buildName', '0.1.0');
 
                     if (!box.hasData('userName')) {
                       box.write('userName', 'Guest');
@@ -37,9 +40,13 @@ class WelcomePage extends StatelessWidget {
                     if (!box.hasData('uuid')) {
                       box.write('uuid', Tools.getUUID());
                     }
-                    box.write('isFirstRun', false);
-                    box.write('autoDarkMode', true);
-                    box.write('isDarkMode', false);
+
+                    if (!box.hasData('autoDarkMode')) {
+                      box.write('autoDarkMode', true);
+                    }
+                    if (!box.hasData('isDarkMode')) {
+                      box.write('isDarkMode', false);
+                    }
 
                     Get.offNamed('/dashboard');
                   }),

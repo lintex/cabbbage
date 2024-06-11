@@ -98,7 +98,7 @@ class NewMarathonPage extends StatelessWidget {
                     marathonNameController.clear();
                     Navigator.pop(context);
                   },
-                  icon: const Icon(Icons.done, size: 30)),
+                  icon: const Icon(Icons.done_rounded, size: 30)),
             )
           ],
         ),

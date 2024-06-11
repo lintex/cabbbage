@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyCicleButton extends StatelessWidget {
-  const MyCicleButton(
+class MyCircleButton extends StatelessWidget {
+  const MyCircleButton(
       {super.key, required this.buttonIcon, required this.onPressed});
   final IconData buttonIcon;
   final void Function()? onPressed;

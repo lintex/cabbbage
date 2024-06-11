@@ -17,8 +17,10 @@ class MyDrawer extends StatelessWidget {
     final sc = Get.put(SettingsController());
     // 读取版本号
     GetStorage box = GetStorage();
-    sc.version.value = box.read('version');
     sc.userName.value = box.read('userName');
+    sc.version.value = box.read('version');
+    sc.buildName.value = box.read('buildName');
+    sc.buildNumber.value = box.read('buildNumber');
 
     return Drawer(
       width: 250,
@@ -31,7 +33,7 @@ class MyDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: () => Get.to(() => const SettingPage()),
+              onTap: () => Get.toNamed('setting'),
               child: Padding(
                 padding: const EdgeInsets.only(left: 18),
                 child: Obx(() => Text(
@@ -59,7 +61,7 @@ class MyDrawer extends StatelessWidget {
                   ListTile(
                     leading: const Icon(CupertinoIcons.doc_text),
                     title: const Text("笔记 "),
-                    onTap: () => Get.to(() => const NotePage()),
+                    onTap: () => Get.toNamed('/note'),
                   ),
                   ListTile(
                     leading: const Icon(Icons.check_box_outlined),
@@ -70,12 +72,12 @@ class MyDrawer extends StatelessWidget {
                     // leading: const Icon(Icons.scatter_plot_outlined),
                     leading: const Icon(CupertinoIcons.circle_grid_3x3),
                     title: const Text("全部功能"),
-                    onTap: () => Get.to(() => const GridPage()),
+                    onTap: () => Get.toNamed('/grid'),
                   ),
                   ListTile(
                     leading: const Icon(CupertinoIcons.gear_alt),
                     title: const Text("设置"),
-                    onTap: () => Get.to(() => const SettingPage()),
+                    onTap: () => Get.toNamed('/setting'),
                   ),
                   ListTile(
                     leading: const Icon(CupertinoIcons.ellipses_bubble),
@@ -90,7 +92,7 @@ class MyDrawer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => Get.to(() => const AboutPage()),
                 child: Obx(() => Text(
-                      "Version: ${sc.version.value}",
+                      "Version: ${sc.buildName.value}.${sc.version.value}",
                       style:
                           TextStyle(fontSize: 12, color: Colors.grey.shade400),
                     )),
