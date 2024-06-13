@@ -1,12 +1,10 @@
+import 'package:cabbbage/components/my_icon.dart';
 import 'package:cabbbage/controllers/settings_controller.dart';
-import 'package:cabbbage/pages/settings_page.dart';
+import 'package:feedback/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:cabbbage/pages/about_page.dart';
-import 'package:cabbbage/pages/grid_page.dart';
-import 'package:cabbbage/pages/note_page.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -25,6 +23,8 @@ class MyDrawer extends StatelessWidget {
     return Drawer(
       width: 250,
       //backgroundColor: greyBg,
+      shadowColor: Colors.lightGreen[300],
+      surfaceTintColor: Colors.lightGreen[300],
       child: Container(
         color: Theme.of(context).colorScheme.background,
         // 使用Container控制边距
@@ -33,7 +33,7 @@ class MyDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: () => Get.toNamed('setting'),
+              onTap: () => Get.toNamed('/settings'),
               child: Padding(
                 padding: const EdgeInsets.only(left: 18),
                 child: Obx(() => Text(
@@ -49,40 +49,65 @@ class MyDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   ListTile(
-                    leading: const Icon(Icons.space_dashboard_outlined),
+                    leading: const MyIcon(
+                      Icons.space_dashboard_outlined,
+                      color: Colors.lightBlue,
+                    ),
                     title: const Text("仪表盘"),
                     onTap: () => Get.back(),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.insights_outlined),
+                    leading: const MyIcon(
+                      Icons.insights_outlined,
+                      color: Colors.blue,
+                    ),
                     title: const Text("时刻"),
-                    onTap: () => Get.to(() => const NotePage()),
+                    onTap: () => Get.toNamed('/timeline'),
                   ),
                   ListTile(
-                    leading: const Icon(CupertinoIcons.doc_text),
+                    leading: const MyIcon(
+                      CupertinoIcons.doc_text,
+                      color: Colors.green,
+                    ),
                     title: const Text("笔记 "),
                     onTap: () => Get.toNamed('/note'),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.check_box_outlined),
+                    leading: const MyIcon(
+                      Icons.check_box_outlined,
+                      color: Colors.lightGreen,
+                    ),
                     title: const Text("待办"),
-                    onTap: () => Get.to(() => const NotePage()),
+                    onTap: () => Get.toNamed('/todo'),
                   ),
                   ListTile(
                     // leading: const Icon(Icons.scatter_plot_outlined),
-                    leading: const Icon(CupertinoIcons.circle_grid_3x3),
+                    leading: const MyIcon(
+                      Icons.apps_rounded,
+                      color: Colors.indigo,
+                    ),
                     title: const Text("全部功能"),
                     onTap: () => Get.toNamed('/grid'),
                   ),
                   ListTile(
-                    leading: const Icon(CupertinoIcons.gear_alt),
+                    leading: const MyIcon(
+                      CupertinoIcons.gear_alt,
+                      color: Colors.teal,
+                    ),
                     title: const Text("设置"),
-                    onTap: () => Get.toNamed('/setting'),
+                    onTap: () => Get.toNamed('/settings'),
                   ),
                   ListTile(
-                    leading: const Icon(CupertinoIcons.ellipses_bubble),
+                    leading: const MyIcon(
+                      CupertinoIcons.ellipses_bubble,
+                      color: Colors.cyan,
+                    ),
                     title: const Text("反馈"),
-                    onTap: () => Get.to(() => const GridPage()),
+                    onTap: () {
+                      BetterFeedback.of(context).show((UserFeedback feedback) {
+                        // Do something with the feedback
+                      });
+                    },
                   ),
                 ],
               ),
@@ -90,7 +115,7 @@ class MyDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: GestureDetector(
-                onTap: () => Get.to(() => const AboutPage()),
+                onTap: () => Get.toNamed('/about'),
                 child: Obx(() => Text(
                       "Version: ${sc.buildName.value}.${sc.version.value}",
                       style:

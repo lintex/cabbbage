@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_text_divider.dart';
 import 'package:cabbbage/models/database.dart';
-import 'package:cabbbage/pages/marathonPage/marathon_detail_page.dart';
 import 'package:cabbbage/pages/marathonPage/my_marathon_list_tile.dart';
 import 'package:cabbbage/pages/marathonPage/new_marathon_page.dart';
 // 这个版本的马拉松助手采用数据库存储，方便排序及修改
@@ -31,7 +30,7 @@ class MarathonPage2 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
-                onPressed: () => Get.to(() => NewMarathonPage()),
+                onPressed: () => Get.toNamed('/newMarathon'),
                 icon: const Icon(
                   Icons.add,
                   size: 30,
@@ -54,10 +53,7 @@ class MarathonPage2 extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     final marathon = db.allMarathons[index];
                     return GestureDetector(
-                      onTap: () => Get.to(
-                          () => MarathonDetailPage(
-                                index: index,
-                              ),
+                      onTap: () => Get.toNamed('/marathonDetail',
                           arguments: db.allMarathons[index]),
                       child: MyMarathonListTile(marathon: marathon),
                     );

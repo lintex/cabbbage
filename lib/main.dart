@@ -1,3 +1,4 @@
+import 'package:feedback/feedback.dart';
 import 'messages.dart';
 import 'pages/unknown_route_page.dart';
 import 'package:flutter/material.dart';
@@ -17,39 +18,41 @@ Future<void> main() async {
   // 初始化GetStorage，不然读取不到配置信息
   await GetStorage.init();
 
-  runApp(GetMaterialApp(
-    title: '开笔记',
-    debugShowCheckedModeBanner: false,
-    theme: lightMode,
-    darkTheme: darkMode,
-    // 第一次运行程序，显示欢迎界面
-    // home: isFirstRun() ? const WelcomePage() : const DashboardPage(),
-    initialRoute: isFirstRun() ? '/welcome' : '/',
-    // 404页面
-    unknownRoute:
-        GetPage(name: '/notFound', page: () => const UnknownRoutePage()),
-    // 中间件
-    routingCallback: (routing) {
-      if (routing?.current == '/welcome') {
-        // openAds();
-      }
-    },
-    // 路由配置表
-    getPages: Routes.pages,
-    // 国际化支持
-    translations: Messages(), // 你的翻译
-    locale: const Locale('zh', 'CN'), // 默认中文
-    fallbackLocale: const Locale('en', 'US'), // 中文不存在时，使用英文
+  runApp(BetterFeedback(
+    child: GetMaterialApp(
+      title: '开笔记',
+      debugShowCheckedModeBanner: false,
+      theme: lightMode,
+      darkTheme: darkMode,
+      // 第一次运行程序，显示欢迎界面
+      // home: isFirstRun() ? const WelcomePage() : const DashboardPage(),
+      initialRoute: isFirstRun() ? '/welcome' : '/',
+      // 404页面
+      unknownRoute:
+          GetPage(name: '/notFound', page: () => const UnknownRoutePage()),
+      // 中间件
+      // routingCallback: (routing) {
+      //   if (routing?.current == '/welcome') {
+      //     // openAds();
+      //   }
+      // },
+      // 路由配置表
+      getPages: Routes.pages,
+      // 国际化支持
+      translations: Messages(), // 你的翻译
+      locale: const Locale('zh', 'CN'), // 默认中文
+      fallbackLocale: const Locale('en', 'US'), // 中文不存在时，使用英文
 
-    localizationsDelegates: const [
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ],
-    supportedLocales: const [
-      Locale('zh', 'CH'), //支持列表，中文
-      Locale('en', 'US'), //支持列表，英文
-    ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('zh', 'CH'), //支持列表，中文
+        Locale('en', 'US'), //支持列表，英文
+      ],
+    ),
   ));
 }
 

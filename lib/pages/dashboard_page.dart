@@ -1,7 +1,6 @@
 import 'package:cabbbage/components/my_circle_tool_button.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_dashboard_tile.dart';
 import 'package:cabbbage/components/my_drawer.dart';
@@ -51,12 +50,15 @@ class DashboardPage extends StatelessWidget {
           ),
           MyCircleToolButton(
             icon: Icons.paste_rounded,
-            iconSize: 24,
-            onPressed: () {},
+            onPressed: () {
+              FlutterClipboard.paste().then((value) {
+                db.addNote(value);
+                Get.snackbar("success", "笔记快捷添加成功！");
+              });
+            },
           ),
           MyCircleToolButton(
             icon: Icons.add_rounded,
-            iconSize: 32,
             onPressed: () {},
           ),
         ],
@@ -75,7 +77,7 @@ class DashboardPage extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       SizedBox(
-                                        width: 30,
+                                        width: 40,
                                         child: Text(
                                           textAlign: TextAlign.right,
                                           Tools.diffDays(m.time!),
@@ -121,7 +123,7 @@ class DashboardPage extends StatelessWidget {
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: Theme.of(context).colorScheme.secondary),
+                            color: const Color.fromARGB(255, 241, 240, 231)),
                         child: Center(child: Text("data$index")),
                       );
                     },

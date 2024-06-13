@@ -8,8 +8,9 @@ import 'package:cabbbage/models/database.dart';
 import 'package:cabbbage/tools/Tools.dart';
 
 class EditMarathonPage extends StatelessWidget {
-  final Marathon marathon;
-  EditMarathonPage({super.key, required this.marathon});
+  EditMarathonPage({
+    super.key,
+  });
   final marathonNameController = TextEditingController();
   final marathonStartController = TextEditingController();
   final marathonFinishController = TextEditingController();
@@ -20,6 +21,7 @@ class EditMarathonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Marathon marathon = Get.arguments;
     //添加马拉松举行时间
     DateTime? initDate = marathon.time;
     var marathonDate = initDate.obs;

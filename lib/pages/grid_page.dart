@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_app_bar.dart';
 import 'package:cabbbage/components/my_grid_tile.dart';
-import 'package:cabbbage/pages/manage_page.dart';
-import 'package:cabbbage/pages/marathon_page2.dart';
-import 'package:cabbbage/pages/note_page.dart';
-import 'package:cabbbage/pages/pace_calculate_page.dart';
-import 'package:cabbbage/pages/ruler_page.dart';
-import 'package:cabbbage/pages/timetable_page.dart';
 
 class GridPage extends StatelessWidget {
   const GridPage({super.key});
@@ -53,17 +47,17 @@ class GridPage extends StatelessWidget {
                   children: <Widget>[
                     MyGridTile(
                       title: 'Todo',
-                      onPressed: () => Get.to(() => const NotePage()),
+                      onPressed: () => Get.toNamed('/todo'),
                       icon: Icons.check_box_outlined,
                     ),
                     MyGridTile(
                       title: '笔记',
-                      onPressed: () => Get.to(() => const NotePage()),
+                      onPressed: () => Get.toNamed('/note'),
                       icon: Icons.article_outlined,
                     ),
                     MyGridTile(
                       title: '管理',
-                      onPressed: () => Get.to(() => const ManagePage()),
+                      onPressed: () => Get.toNamed('/manage'),
                       icon: Icons.manage_accounts_outlined,
                     ),
                   ],
@@ -100,22 +94,22 @@ class GridPage extends StatelessWidget {
                   children: <Widget>[
                     MyGridTile(
                       title: '马拉松助手',
-                      onPressed: () => Get.to(() => const MarathonPage2()),
+                      onPressed: () => Get.toNamed('/marathon'),
                       icon: Icons.run_circle_outlined,
                     ),
                     MyGridTile(
                       title: '配速计算器',
-                      onPressed: () => Get.to(() => const PaceCalculatePage()),
+                      onPressed: () => Get.toNamed('/pace'),
                       icon: Icons.calculate_outlined,
                     ),
                     MyGridTile(
                       title: '课程表',
-                      onPressed: () => Get.to(() => const TimetablePage()),
+                      onPressed: () => Get.toNamed('/timeTable'),
                       icon: Icons.calendar_month_outlined,
                     ),
                     MyGridTile(
                       title: '尺子',
-                      onPressed: () => Get.to(() => const RulerPage()),
+                      onPressed: () => Get.toNamed('ruler'),
                       icon: Icons.format_align_left,
                     ),
                   ],

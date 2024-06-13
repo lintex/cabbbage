@@ -26,22 +26,6 @@ class MyMarathonListTile extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(18, 18, 18, 0),
       child: Slidable(
         endActionPane: ActionPane(motion: const StretchMotion(), children: [
-          // const SizedBox(
-          //   width: 8,
-          // ),
-          // 修改按钮
-          // SlidableAction(
-          //   onPressed: (e) {
-          //     // 跳转到修改信息页面
-          //     Get.to(() => EditMarathonPage(marathon: marathon));
-          //   },
-          //   icon: Icons.edit_calendar_outlined,
-          //   backgroundColor: Colors.green.shade300,
-          //   borderRadius: BorderRadius.circular(12),
-          // ),
-          // const SizedBox(
-          //   width: 8,
-          // ),
           // 删除按钮
           SlidableAction(
             onPressed: (e) {
@@ -57,13 +41,6 @@ class MyMarathonListTile extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Theme.of(context).colorScheme.primary,
-              //     blurRadius: 2,
-              //     offset: const Offset(1.0, 1.0),
-              //   ),
-              // ],
               borderRadius: BorderRadius.circular(12),
               //根据天数改变背景色
               color: DateTime.parse(marathon.time.toString())
@@ -91,8 +68,8 @@ class MyMarathonListTile extends StatelessWidget {
                   ),
                   // 显示马拉松举办时间和地点
                   Text(
-                    "${marathon.time?.month.toString()}月${marathon.time?.day.toString()}日 ${marathon.time?.hour.toString()}:${marathon.time?.minute.toString().padLeft(2, '0')} | ${marathon.start}",
-                    // .toString().padLeft(2, '0')
+                    getDateAndLocation(marathon.time!,
+                        marathon.start == '' ? '' : ' | ${marathon.start}'),
                     style: TextStyle(
                         fontSize: 12,
                         fontFamily: "霞鹜文楷",
@@ -142,5 +119,13 @@ class MyMarathonListTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getDateAndLocation(DateTime time, String start) {
+    String date = '${time.month}月';
+    date += '${time.day}日 ';
+    date += '${time.hour}:';
+    date += time.minute.toString().padLeft(2, '0');
+    return date + start;
   }
 }

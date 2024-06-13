@@ -1,17 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_app_bar.dart';
 import 'package:cabbbage/components/my_button.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 // 读取系统版本号
 
 Future<String> getAppVersion() async {
   final info = await PackageInfo.fromPlatform();
-  // 读取版本号
-  GetStorage box = GetStorage();
-  String version = box.read('version');
-  return '${info.version}.$version';
+  return '${info.version}+${info.buildNumber}';
 }
 
 class AboutPage extends StatelessWidget {
@@ -94,7 +93,27 @@ class AboutPage extends StatelessWidget {
                       MyButton(
                           text: "检查更新",
                           color: Colors.lightGreen,
-                          onPressed: () {}),
+                          onPressed: () {
+                            UserProvider().getHello().then((value) {
+                              Map<String, dynamic> js = json.decode(value.body);
+                              Version v = Version.fromJson(js);
+                              Get.defaultDialog(
+                                  title: '最新版本',
+                                  titleStyle: const TextStyle(fontSize: 20),
+                                  content: Column(
+                                    children: [
+                                      Text('BuildNumber: ${v.buildNumber}'),
+                                      Text('最新版本: ${v.buildName}'),
+                                    ],
+                                  ),
+                                  confirm: MyButton(
+                                      text: '确定',
+                                      color: Colors.lightGreen,
+                                      onPressed: () {
+                                        Get.back();
+                                      }));
+                            });
+                          }),
                       // Image.asset(
                       //   "assets/images/about.jpg",
                       //   width: 200,
@@ -148,5 +167,30 @@ class AboutPage extends StatelessWidget {
             ),
           ),
         ));
+  }
+}
+
+class UserProvider extends GetConnect {
+  // Get request
+  Future<Response> getHello() => get('https://cabbbage.com/hello');
+  // Future<Response> getHello() => get('https://cabbbage.com/api/hello.js');
+}
+
+class Version {
+  int? buildNumber;
+  String? buildName;
+
+  Version({this.buildNumber, this.buildName});
+
+  Version.fromJson(Map<String, dynamic> json) {
+    buildNumber = json['buildNumber'];
+    buildName = json['buildName'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['buildNumber'] = buildNumber;
+    data['buildName'] = buildName;
+    return data;
   }
 }

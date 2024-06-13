@@ -50,13 +50,16 @@ class MyToolsBar extends StatelessWidget {
             },
             icon: const Icon(Icons.paste_rounded)),
         IconButton(onPressed: () {}, icon: const Icon(Icons.undo_rounded)),
-        IconButton(
-            onPressed: () {
-              Get.find<Database>().updateNote(noteId, noteTextController.text);
-              noteTextController.clear();
-              Navigator.pop(context);
-            },
-            icon: const Icon(CupertinoIcons.paperplane)),
+        noteId == 0
+            ? const Icon(Icons.favorite)
+            : IconButton(
+                onPressed: () {
+                  Get.find<Database>()
+                      .updateNote(noteId, noteTextController.text);
+                  noteTextController.clear();
+                  Navigator.pop(context);
+                },
+                icon: const Icon(CupertinoIcons.paperplane)),
       ],
     );
   }

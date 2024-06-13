@@ -134,7 +134,7 @@ class SettingPage extends StatelessWidget {
                       builder: (value, update) => Switch(
                         value: value!,
                         onChanged: (flag) => update(flag),
-                        activeColor: Colors.green,
+                        activeColor: Colors.lightGreen,
                       ),
                       onUpdate: (value) {
                         isDarkMode = !isDarkMode;
