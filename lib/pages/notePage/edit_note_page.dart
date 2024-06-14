@@ -189,6 +189,7 @@ class EditNotePage extends StatelessWidget {
                   //     TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
                 ),
               ),
+              // 文本输入框下部工具栏按钮
               MyToolsBar(
                 noteTextController: noteTextController,
                 noteId: note.id,

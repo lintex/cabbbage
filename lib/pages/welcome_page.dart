@@ -29,9 +29,9 @@ class WelcomePage extends StatelessWidget {
                     GetStorage box = GetStorage();
                     box.write('isFirstRun', false);
                     // TODO 每次更新重写版本号
-                    box.write('version', '240611');
+                    box.write('version', '240613');
                     box.write('buildNumber', 11);
-                    box.write('buildName', '0.1.0');
+                    box.write('buildName', '0.1.1');
 
                     if (!box.hasData('userName')) {
                       box.write('userName', 'Guest');

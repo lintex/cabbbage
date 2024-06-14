@@ -19,7 +19,10 @@ class NotePage extends StatelessWidget {
 
       body: CustomScrollView(slivers: [
         const SliverAppBar(
-          title: Text("笔记"),
+          title: Text(
+            "笔记",
+            style: TextStyle(fontSize: 20),
+          ),
           centerTitle: true,
           floating: true,
         ),

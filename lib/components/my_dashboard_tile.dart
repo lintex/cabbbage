@@ -11,7 +11,7 @@ class MyDashboardTile extends StatelessWidget {
         color: Theme.of(context).colorScheme.primary,
       ),
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(25, 15, 20, 15),
+      padding: const EdgeInsets.fromLTRB(5, 15, 5, 15),
       margin: const EdgeInsets.fromLTRB(18, 14, 18, 0),
       child: child,
     );

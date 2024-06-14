@@ -29,6 +29,8 @@ class SettingPage extends StatelessWidget {
     bool isDarkMode = box.read('isDarkMode');
     // SwitchController sxc = Get.put(SwitchController());
 
+    TextEditingController controller = TextEditingController();
+
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
@@ -74,6 +76,15 @@ class SettingPage extends StatelessWidget {
                     Get.bottomSheet(MyBottomSheet(
                       title: '设置昵称',
                       text: sc.userName.value,
+                      controller: controller,
+                      onPressed: () {
+                        GetStorage box = GetStorage();
+                        box.write('userName', controller.text);
+                        sc.setUserName(controller.text);
+                        debugPrint(sc.userName.value);
+                        Get.back();
+                        Get.snackbar("success", "昵称已设置为：${controller.text}");
+                      },
                     ));
                   },
                 )),
