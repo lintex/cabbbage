@@ -65,10 +65,11 @@ class DashboardPage extends StatelessWidget {
             onPressed: () {
               Get.bottomSheet(MyBottomSheet(
                 title: '添加待办',
-                text: '请输入待办内容...',
+                text: '',
                 controller: controller,
                 onPressed: () {
-                  db.addNote(controller.text, cabId: 2);
+                  db.addNote(controller.text, cabId: 0);
+                  controller.clear();
                   Get.back();
                 },
               ));

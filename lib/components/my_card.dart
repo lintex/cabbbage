@@ -7,7 +7,6 @@ import 'package:cabbbage/pages/notePage/edit_note_page.dart';
 import 'package:cabbbage/theme/theme.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class MyCard extends StatelessWidget {
@@ -33,16 +32,15 @@ class MyCard extends StatelessWidget {
               blurRadius: 10.0,
             )
           ],
-          // gradient: const LinearGradient(
-          //   colors: [Colors.red, Colors.orange],
-          // ),
         ),
         //transform: Matrix4.rotationZ(0.02)
         child: Stack(
           children: [
             GestureDetector(
               behavior: HitTestBehavior.opaque,
-              onTap: () => Get.to(() => EditNotePage(note: note)),
+              // 双击修改Note
+              onDoubleTap: () => Get.to(() => EditNotePage(note: note)),
+              // 长按弹出 bottomSheet
               onLongPress: () {
                 Get.bottomSheet(Container(
                   padding: const EdgeInsets.all(25),
@@ -94,6 +92,7 @@ class MyCard extends StatelessWidget {
                 child: MyCardContent(note: note),
               ),
             ),
+            // 显示右上角“置顶”按钮
             Align(
               alignment: Alignment.topRight,
               child: PopupMenuButton(

@@ -109,9 +109,10 @@ class Database extends GetxController {
   // ----------------------------------------------
   final List currentNotes = [].obs;
   final List lastNotes = [].obs;
+  final List todos = [].obs;
 
   // 添加数据
-  Future<void> addNote(String textFromUser, {int cabId = 0}) async {
+  Future<void> addNote(String textFromUser, {int cabId = 250}) async {
     final newNote = Note()
       ..text = textFromUser
       ..createdTime = DateTime.now()
@@ -134,6 +135,7 @@ class Database extends GetxController {
     currentNotes.clear();
     currentNotes.addAll(fetchNotes);
     fetchLastNote();
+    fetchTodos();
     debugPrint("noteIsar读取成功！");
   }
 
@@ -145,6 +147,19 @@ class Database extends GetxController {
     lastNotes.clear();
     lastNotes.addAll(fetchNotes);
     debugPrint("note最后5条信息读取成功！");
+  }
+
+  // 读取Todo数据
+  Future<void> fetchTodos() async {
+    List<Note> fetchNotes = await isar.notes
+        .filter()
+        .cabIdLessThan(2)
+        .sortByCabId()
+        .thenByCreatedTimeDesc()
+        .findAll();
+    todos.clear();
+    todos.addAll(fetchNotes);
+    debugPrint("todo信息读取成功！");
   }
 
   // 修改数据
@@ -177,9 +192,21 @@ class Database extends GetxController {
   Future<void> cancelTopNote(int id) async {
     final existingNote = await isar.notes.get(id);
     if (existingNote != null) {
-      existingNote.cabId = 0;
+      existingNote.cabId = 250;
       await isar.writeTxn(() => isar.notes.put(existingNote));
       debugPrint("note取消置顶成功！");
+      update();
+      fetchNotes();
+    }
+  }
+
+  // 改变CabId切换类型
+  Future<void> changeCabId(int id, int newCabId) async {
+    final existingNote = await isar.notes.get(id);
+    if (existingNote != null) {
+      existingNote.cabId = newCabId;
+      await isar.writeTxn(() => isar.notes.put(existingNote));
+      debugPrint("CabId切换为$newCabId！");
       update();
       fetchNotes();
     }

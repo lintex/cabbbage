@@ -1,6 +1,7 @@
 import 'package:cabbbage/models/database.dart';
 import 'package:cabbbage/models/note.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,6 +36,63 @@ class EditNotePage extends StatelessWidget {
                 size: 25,
               )),
           actions: [
+            PopupMenuButton(
+              icon: const Icon(
+                CupertinoIcons.arrow_2_squarepath,
+                size: 25,
+              ),
+              itemBuilder: (BuildContext context) {
+                return [
+                  const PopupMenuItem(
+                    value: "toTodo",
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.check_box_outlined,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('转成待办'),
+                      ],
+                    ),
+                  ),
+                  const PopupMenuItem(
+                    value: "toNote",
+                    child: Row(
+                      children: [
+                        Icon(
+                          CupertinoIcons.doc,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("转成笔记"),
+                      ],
+                    ),
+                  ),
+                ];
+              },
+              onSelected: (Object object) {
+                switch (object) {
+                  case 'toTodo':
+                    ndb.changeCabId(note.id, 1);
+                    Get.snackbar("success", "笔记已经转成待办！");
+                    break;
+                  case 'toNote':
+                    ndb.changeCabId(note.id, 250);
+                    Get.snackbar("success", "待办已经转成笔记！");
+                    break;
+                }
+              },
+              color: Theme.of(context).colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide.none,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: PopupMenuButton(

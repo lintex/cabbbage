@@ -25,31 +25,35 @@ class MyTodoTile extends StatelessWidget {
             onPressed: deleteFunction,
             icon: Icons.delete,
             backgroundColor: Colors.red.shade300,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           )
         ]),
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: Colors.yellow[200],
-              borderRadius: BorderRadius.circular(12)),
+              color: Colors.lightGreen[100],
+              borderRadius: BorderRadius.circular(16)),
           child: Row(
             children: [
               Checkbox(
                 value: taskCompleted,
                 onChanged: onChanged,
-                activeColor: Colors.yellow[700],
+                activeColor: Colors.lightGreen[700],
                 checkColor: Colors.black,
                 focusColor: Colors.black,
                 hoverColor: Colors.black,
               ),
-              Text(
-                taskName,
-                style: TextStyle(
-                    decoration: taskCompleted
-                        ? TextDecoration.lineThrough //显示删除线
-                        : TextDecoration.none,
-                    color: Colors.black87),
+              Expanded(
+                child: Text(
+                  taskName,
+                  style: TextStyle(
+                      decoration: taskCompleted
+                          ? TextDecoration.lineThrough //显示删除线
+                          : TextDecoration.none,
+                      color: Colors.black87),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               )
             ],
           ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cabbbage/models/note.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MyCardContent extends StatelessWidget {
   final Note note;
@@ -16,11 +17,18 @@ class MyCardContent extends StatelessWidget {
           width: 150,
           fit: BoxFit.cover,
         );
-      case 2:
+      // 0 为未完成待办
+      case 0 || 1:
+        // todo 这个地方应该改成MyTodoTile
         return Row(
           children: [
-            Checkbox(value: false, onChanged: (b) {}),
-            Text(note.text),
+            Checkbox(value: note.cabId == 1 ? true : false, onChanged: (b) {}),
+            Expanded(
+                child: Text(
+              note.text,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )),
           ],
         );
       default:
