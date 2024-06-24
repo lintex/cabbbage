@@ -32,7 +32,7 @@ class ControllerBind extends Bindings {
 class Routes {
   static final pages = [
     GetPage(
-      name: '/',
+      name: '/dashboard',
       page: () => const DashboardPage(),
       binding: ControllerBind(),
       // middlewares: ,

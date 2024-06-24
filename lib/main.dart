@@ -26,7 +26,7 @@ Future<void> main() async {
       darkTheme: darkMode,
       // 第一次运行程序，显示欢迎界面
       // home: isFirstRun() ? const WelcomePage() : const DashboardPage(),
-      initialRoute: isFirstRun() ? '/welcome' : '/',
+      initialRoute: isFirstRun() ? '/welcome' : '/dashboard',
       // 404页面
       unknownRoute:
           GetPage(name: '/notFound', page: () => const UnknownRoutePage()),

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cabbbage/models/note.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class MyCardContent extends StatelessWidget {
   final Note note;
@@ -32,14 +31,16 @@ class MyCardContent extends StatelessWidget {
           ],
         );
       default:
-        return Text(
-          // Row里面的Text要包在Expanded里面，不然不换行
-          note.text,
-          style: const TextStyle(
-              fontSize: 16,
-              fontFamily: '霞鹜文楷',
-              //fontWeight: FontWeight.bold,
-              color: Colors.black),
+        return Center(
+          child: Text(
+            note.text,
+            maxLines: 7,
+            style: const TextStyle(
+                fontSize: 16,
+                fontFamily: '霞鹜文楷',
+                color: Colors.black,
+                overflow: TextOverflow.ellipsis),
+          ),
         );
     }
   }

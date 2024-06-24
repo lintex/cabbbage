@@ -1,6 +1,7 @@
 import 'package:cabbbage/components/my_bottom_sheet.dart';
 import 'package:cabbbage/components/my_card_content.dart';
 import 'package:cabbbage/components/my_circle_tool_button.dart';
+import 'package:cabbbage/pages/dashboardPage/my_dashboard_marathon_tile.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,6 @@ class DashboardPage extends StatelessWidget {
     Database db = Get.put(Database());
     // 获取马拉松数据，显示还未过期三条记录
     db.fetchMarathons();
-    List loopList = [].obs;
-    debugPrint("列表长度为：${db.stillMarathons.length}");
-    loopList = db.stillMarathons;
     TextEditingController controller = TextEditingController();
     // 读取最后一条note，读取数据存储在db.lastNote，已经是obs
     db.fetchLastNote();
@@ -103,35 +101,8 @@ class DashboardPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 15, 0),
                     child: Column(
-                        children: loopList
-                            .map((m) => Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 4),
-                                  child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        SizedBox(
-                                          width: 40,
-                                          child: Text(
-                                            textAlign: TextAlign.right,
-                                            Tools.diffDays(m.time!),
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontFamily: 'DigitalNumbers',
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          ' 天 距离 ',
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .tertiary),
-                                        ),
-                                        Text(m.name)
-                                      ]),
-                                ))
+                        children: db.stillMarathons
+                            .map((m) => MyDashboardMarathonTile(marathon: m))
                             .toList()),
                   ),
                 ),

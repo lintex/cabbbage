@@ -15,7 +15,7 @@ class Database extends GetxController {
   static Future<void> initialize() async {
     final dir = await getApplicationDocumentsDirectory();
     isar = await Isar.open([MarathonSchema, NoteSchema], directory: dir.path);
-    debugPrint("Isar初始化成功！");
+    debugPrint("[成功]Isar初始化成功！");
   }
   // ----------------------------------------------
   //  Marathon表相关操作
@@ -38,15 +38,16 @@ class Database extends GetxController {
       ..packet = packet;
 
     await isar.writeTxn(() => isar.marathons.put(newMarathon));
-    debugPrint("Marathon Isar写入成功！");
+    debugPrint("[成功][Marathon]添加比赛数据成功！");
     update();
     fetchMarathons();
   }
 
-  // 读取数据
+  // 读取马拉松比赛数据
   Future<void> fetchMarathons() async {
+    // 获取50条记录
     List<Marathon> fetchMarathons =
-        await isar.marathons.where().sortByTime().findAll();
+        await isar.marathons.where().sortByTime().limit(50).findAll();
     allMarathons.clear();
     allMarathons.addAll(fetchMarathons);
     // 获取还未到达日期的最近三条记录
@@ -58,7 +59,7 @@ class Database extends GetxController {
         .findAll();
     stillMarathons.clear();
     stillMarathons.addAll(fetchMarathons);
-    debugPrint("Marathon Isar读取成功！");
+    debugPrint("[成功][Marathon]马拉松比赛数据读取成功！");
   }
 
   // 通过id读取一条马拉松数据
@@ -67,10 +68,10 @@ class Database extends GetxController {
         await isar.marathons.where().idEqualTo(id).findAll();
     currentMarathon.clear();
     currentMarathon.addAll(fetchMarathons);
-    debugPrint("通过id读取Marathon成功！");
+    debugPrint("[成功][Marathon]通过id读取一条Marathon成功！");
   }
 
-  // 修改数据
+  // 修改马拉松比赛数据
   Future<void> updateMarathon(
     int id,
     String name,
@@ -90,7 +91,7 @@ class Database extends GetxController {
         ..hotel = hotel
         ..packet = packet;
       await isar.writeTxn(() => isar.marathons.put(existingMarathon));
-      debugPrint("Marathon Isar修改成功！");
+      debugPrint("[成功][Marathon]马拉松比赛数据修改成功！");
       update();
       fetchMarathons();
     }
@@ -99,7 +100,7 @@ class Database extends GetxController {
   // 删除数据
   Future<void> deleteMarathon(int id) async {
     await isar.writeTxn(() => isar.marathons.delete(id));
-    debugPrint("Marathon Isar删除成功！");
+    debugPrint("[成功][Marathon]删除马拉松成功！");
     update();
     fetchMarathons();
   }
@@ -111,7 +112,7 @@ class Database extends GetxController {
   final List lastNotes = [].obs;
   final List todos = [].obs;
 
-  // 添加数据
+  // 添加Note数据
   Future<void> addNote(String textFromUser, {int cabId = 250}) async {
     final newNote = Note()
       ..text = textFromUser
@@ -119,34 +120,40 @@ class Database extends GetxController {
       ..cabId = cabId;
 
     await isar.writeTxn(() => isar.notes.put(newNote));
-    debugPrint("noteIsar写入成功！");
+    debugPrint("[成功][Note]添加Note成功！");
     // 必须update不然页面不会更新
     update();
     fetchNotes();
   }
 
-  // 读取数据
+  // 读取Note数据
   Future<void> fetchNotes() async {
     List<Note> fetchNotes = await isar.notes
-        .where()
+        .filter()
+        .cabIdGreaterThan(249)
         .sortByCabIdDesc()
         .thenByCreatedTimeDesc()
+        .limit(50)
         .findAll();
     currentNotes.clear();
     currentNotes.addAll(fetchNotes);
     fetchLastNote();
     fetchTodos();
-    debugPrint("noteIsar读取成功！");
+    debugPrint("[成功][Note]Note数据读取成功！");
   }
 
   // 读取最后一条Note数据
   Future<void> fetchLastNote() async {
     // 这个地方不能用Id排序很是困惑，只能用时间倒序取最后一条记录
-    List<Note> fetchNotes =
-        await isar.notes.where().sortByCreatedTimeDesc().limit(5).findAll();
+    List<Note> fetchNotes = await isar.notes
+        .filter()
+        .cabIdGreaterThan(249)
+        .sortByCreatedTimeDesc()
+        .limit(5)
+        .findAll();
     lastNotes.clear();
     lastNotes.addAll(fetchNotes);
-    debugPrint("note最后5条信息读取成功！");
+    debugPrint("[成功][Note]Note最后5条信息读取成功！");
   }
 
   // 读取Todo数据
@@ -156,10 +163,11 @@ class Database extends GetxController {
         .cabIdLessThan(2)
         .sortByCabId()
         .thenByCreatedTimeDesc()
+        .limit(50)
         .findAll();
     todos.clear();
     todos.addAll(fetchNotes);
-    debugPrint("todo信息读取成功！");
+    debugPrint("[成功][Todo]Todo信息读取成功！");
   }
 
   // 修改数据
@@ -170,7 +178,7 @@ class Database extends GetxController {
         ..text = newText
         ..lastEditedTime = DateTime.now();
       await isar.writeTxn(() => isar.notes.put(existingNote));
-      debugPrint("noteIsar修改成功！");
+      debugPrint("[成功][Note]Note数据修改成功！");
       update();
       fetchNotes();
     }
@@ -182,7 +190,7 @@ class Database extends GetxController {
     if (existingNote != null) {
       existingNote.cabId = 255;
       await isar.writeTxn(() => isar.notes.put(existingNote));
-      debugPrint("note置顶成功！");
+      debugPrint("[成功][Note]note置顶成功！");
       update();
       fetchNotes();
     }
@@ -194,7 +202,7 @@ class Database extends GetxController {
     if (existingNote != null) {
       existingNote.cabId = 250;
       await isar.writeTxn(() => isar.notes.put(existingNote));
-      debugPrint("note取消置顶成功！");
+      debugPrint("[成功][Note]note取消置顶成功！");
       update();
       fetchNotes();
     }
@@ -206,7 +214,7 @@ class Database extends GetxController {
     if (existingNote != null) {
       existingNote.cabId = newCabId;
       await isar.writeTxn(() => isar.notes.put(existingNote));
-      debugPrint("CabId切换为$newCabId！");
+      debugPrint("[成功][Note]CabId切换为$newCabId！");
       update();
       fetchNotes();
     }
@@ -215,7 +223,7 @@ class Database extends GetxController {
   // 删除数据
   Future<void> deleteNote(int id) async {
     await isar.writeTxn(() => isar.notes.delete(id));
-    debugPrint("noteIsar删除成功！");
+    debugPrint("[成功][Note]note删除成功！");
     update();
     fetchNotes();
   }
