@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class MyFloatActionButton extends StatelessWidget {
-  const MyFloatActionButton({super.key, required this.toPage});
-  final Widget toPage;
+  const MyFloatActionButton({
+    super.key,
+    required this.onPressed,
+  });
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: (() => Get.to(() => toPage, transition: Transition.downToUp)),
+      onPressed: onPressed,
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       // 关闭阴影
       elevation: 0,

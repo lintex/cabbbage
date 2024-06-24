@@ -1,8 +1,10 @@
 import 'package:cabbbage/components/my_icon.dart';
 import 'package:cabbbage/controllers/settings_controller.dart';
+import 'package:cabbbage/tools/tools.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -61,7 +63,7 @@ class MyDrawer extends StatelessWidget {
                       Icons.insights_outlined,
                       color: Colors.blue,
                     ),
-                    title: const Text("时刻"),
+                    title: const Text("时间线"),
                     onTap: () => Get.toNamed('/timeline'),
                   ),
                   ListTile(
@@ -104,8 +106,32 @@ class MyDrawer extends StatelessWidget {
                     ),
                     title: const Text("反馈"),
                     onTap: () {
-                      BetterFeedback.of(context).show((UserFeedback feedback) {
-                        // Do something with the feedback
+                      BetterFeedback.of(context)
+                          .show((UserFeedback feedback) async {
+                        // draft an email and send to developer
+                        final screenshotFilePath =
+                            await Tools.writeImageToStorage(
+                                feedback.screenshot);
+
+                        final Email email = Email(
+                          body: feedback.text,
+                          subject: 'Cabbbage Feedback',
+                          recipients: ['cabbbage@qq.com'],
+                          attachmentPaths: [screenshotFilePath],
+                          isHTML: false,
+                        );
+
+                        String platformResponse;
+                        try {
+                          await FlutterEmailSender.send(email);
+                          platformResponse = 'success';
+                        } catch (error) {
+                          debugPrint(error.toString());
+                          platformResponse = error.toString();
+                        }
+                        if (platformResponse == 'success') {
+                          Get.snackbar("Thanks", "感谢你的反馈!");
+                        }
                       });
                     },
                   ),

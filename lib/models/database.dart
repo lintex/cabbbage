@@ -111,6 +111,16 @@ class Database extends GetxController {
   final List currentNotes = [].obs;
   final List lastNotes = [].obs;
   final List todos = [].obs;
+  final List allNotes = [].obs;
+
+  // 读取Note所有数据，包括笔记待办图片
+  Future<void> fetchAllNotes() async {
+    List<Note> fetchNotes =
+        await isar.notes.where().sortByCreatedTimeDesc().limit(50).findAll();
+    allNotes.clear();
+    allNotes.addAll(fetchNotes);
+    debugPrint("[成功][Note]所有类型Note数据读取成功！");
+  }
 
   // 添加Note数据
   Future<void> addNote(String textFromUser, {int cabId = 250}) async {
@@ -139,6 +149,7 @@ class Database extends GetxController {
     currentNotes.addAll(fetchNotes);
     fetchLastNote();
     fetchTodos();
+    fetchAllNotes();
     debugPrint("[成功][Note]Note数据读取成功！");
   }
 
@@ -162,7 +173,7 @@ class Database extends GetxController {
         .filter()
         .cabIdLessThan(2)
         .sortByCabId()
-        .thenByCreatedTimeDesc()
+        .thenByLastEditedTimeDesc()
         .limit(50)
         .findAll();
     todos.clear();

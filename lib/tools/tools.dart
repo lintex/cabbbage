@@ -1,3 +1,8 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/cupertino.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 class Tools {
@@ -48,5 +53,25 @@ class Tools {
   //* 生成UUID
   static String getUUID() {
     return const Uuid().v1();
+  }
+
+  //* 图片保存到临时目录
+  static Future<String> writeImageToStorage(
+      Uint8List feedbackScreenshot) async {
+    final Directory output = await getTemporaryDirectory();
+    final String screenshotFilePath = '${output.path}/feedback.png';
+    final File screenshotFile = File(screenshotFilePath);
+    String response;
+    try {
+      await screenshotFile.writeAsBytes(feedbackScreenshot);
+      response = 'success';
+    } catch (error) {
+      debugPrint("[Error]${error.toString()}");
+      response = error.toString();
+    }
+    if (response == "success") {
+      debugPrint("[Tools]图片保存成功！");
+    }
+    return screenshotFilePath;
   }
 }

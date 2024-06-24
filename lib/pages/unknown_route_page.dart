@@ -1,7 +1,9 @@
 import 'package:cabbbage/components/my_button.dart';
+import 'package:cabbbage/tools/tools.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:cabbbage/components/my_app_bar.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/get.dart';
 
 class UnknownRoutePage extends StatelessWidget {
@@ -33,8 +35,30 @@ class UnknownRoutePage extends StatelessWidget {
                     style: TextStyle(color: Colors.lightGreen.shade900),
                   ),
                   onPressed: () {
-                    BetterFeedback.of(context).show((UserFeedback feedback) {
-                      // Do something with the feedback
+                    BetterFeedback.of(context)
+                        .show((UserFeedback feedback) async {
+                      // draft an email and send to developer
+                      final screenshotFilePath =
+                          await Tools.writeImageToStorage(feedback.screenshot);
+
+                      final Email email = Email(
+                        body: feedback.text,
+                        subject: 'Cabbbage Feedback',
+                        recipients: ['cabbbage@qq.com'],
+                        attachmentPaths: [screenshotFilePath],
+                        isHTML: false,
+                      );
+                      String platformResponse;
+                      try {
+                        await FlutterEmailSender.send(email);
+                        platformResponse = 'success';
+                      } catch (error) {
+                        debugPrint(error.toString());
+                        platformResponse = error.toString();
+                      }
+                      if (platformResponse == 'success') {
+                        Get.snackbar("Thanks", "感谢你的反馈!");
+                      }
                     });
                   }),
               const SizedBox(

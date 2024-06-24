@@ -1,6 +1,7 @@
 import 'package:cabbbage/pages/marathonPage/edit_marathon_page.dart';
 import 'package:cabbbage/pages/marathonPage/marathon_detail_page.dart';
 import 'package:cabbbage/pages/marathonPage/new_marathon_page.dart';
+import 'package:cabbbage/pages/notePage/new_note_page.dart';
 import 'package:cabbbage/pages/todo_page.dart';
 
 import 'pages/timeline_page.dart';
@@ -100,6 +101,11 @@ class Routes {
     GetPage(
       name: '/note',
       page: () => const NotePage(),
+      binding: ControllerBind(),
+    ),
+    GetPage(
+      name: '/newNote',
+      page: () => const NewNotePage(),
       binding: ControllerBind(),
     ),
     GetPage(

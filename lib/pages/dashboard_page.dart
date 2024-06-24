@@ -53,7 +53,7 @@ class DashboardPage extends StatelessWidget {
                 // _saveImagePath(pickedImage.path);
                 debugPrint('pickedImage:${pickedImage.path}');
                 db.addNote(pickedImage.path, cabId: 8);
-                Get.back();
+                Get.snackbar("success", "图片添加成功！");
               }
             },
           ),
@@ -89,7 +89,7 @@ class DashboardPage extends StatelessWidget {
           ),
           MyCircleToolButton(
             icon: CupertinoIcons.add,
-            onPressed: () {},
+            onPressed: () => Get.toNamed('/newNote'),
           ),
         ],
         body: Obx(
@@ -113,26 +113,28 @@ class DashboardPage extends StatelessWidget {
                   child: Text('hello'.tr),
                 ),
               ),
-              MyDashboardTile(
-                child: SizedBox(
-                  height: 200,
-                  child: Obx(() => ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: db.lastNotes.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            width: 200,
-                            margin: const EdgeInsets.all(10),
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color:
-                                    const Color.fromARGB(255, 241, 240, 231)),
+              Container(
+                padding: const EdgeInsets.all(8),
+                height: 200,
+                child: Obx(() => ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: db.lastNotes.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          width: 200,
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: const Color.fromARGB(255, 241, 240, 231)),
+                          child: Center(
+                              child: GestureDetector(
+                            onTap: () => Get.toNamed('/note'),
                             child: MyCardContent(note: db.lastNotes[index]),
-                          );
-                        },
-                      )),
-                ),
+                          )),
+                        );
+                      },
+                    )),
               ),
             ],
           ),

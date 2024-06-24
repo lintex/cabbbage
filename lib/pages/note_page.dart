@@ -37,7 +37,8 @@ class NotePage extends StatelessWidget {
                 )),
       ]),
 
-      floatingActionButton: const MyFloatActionButton(toPage: NewNotePage()),
+      floatingActionButton:
+          MyFloatActionButton(onPressed: () => Get.toNamed('/newNote')),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

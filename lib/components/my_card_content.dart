@@ -1,7 +1,8 @@
 import 'dart:io';
-
 import 'package:cabbbage/models/note.dart';
+import 'package:cabbbage/models/database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyCardContent extends StatelessWidget {
   final Note note;
@@ -11,17 +12,27 @@ class MyCardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (note.cabId) {
       case 8:
-        return Image.file(
-          File(note.text),
+        // 这个地方图片应该缩小
+        return SizedBox(
           width: 150,
-          fit: BoxFit.cover,
+          height: 150,
+          child: Image.file(
+            File(note.text),
+            fit: BoxFit.cover,
+          ),
         );
       // 0 为未完成待办
       case 0 || 1:
-        // todo 这个地方应该改成MyTodoTile
+        bool taskCompleted = note.cabId == 1 ? true : false;
         return Row(
           children: [
-            Checkbox(value: note.cabId == 1 ? true : false, onChanged: (b) {}),
+            Checkbox(
+                activeColor: Colors.lightGreen[700],
+                value: taskCompleted,
+                onChanged: (b) {
+                  Get.find<Database>()
+                      .changeCabId(note.id, taskCompleted ? 0 : 1);
+                }),
             Expanded(
                 child: Text(
               note.text,
@@ -31,10 +42,11 @@ class MyCardContent extends StatelessWidget {
           ],
         );
       default:
-        return Center(
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(5, 8, 5, 8),
           child: Text(
             note.text,
-            maxLines: 7,
+            maxLines: 6,
             style: const TextStyle(
                 fontSize: 16,
                 fontFamily: '霞鹜文楷',

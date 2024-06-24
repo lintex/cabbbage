@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class MyTimelineTile extends StatelessWidget {
   const MyTimelineTile(
-    this.text, {
+    this.child, {
     super.key,
   });
-  final String text;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Icon(
-            Icons.arrow_right_rounded,
-            size: 25,
-          ),
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(fontSize: 16),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+      child: IntrinsicHeight(
+        //* 这个控件可以让左边指示条高度跟右边内容高度保持一致
+        child: Row(
+          children: [
+            // 左边指示条
+            Container(
+              decoration:
+                  BoxDecoration(color: Theme.of(context).colorScheme.primary),
+              width: 10,
+              margin: const EdgeInsets.only(right: 10),
             ),
-          )
-        ],
+            // 右边内容显示
+            Expanded(
+              child: child,
+            )
+          ],
+        ),
       ),
     );
   }
