@@ -39,7 +39,7 @@ class MyCard extends StatelessWidget {
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               // 双击修改Note
-              onDoubleTap: () => Get.to(() => EditNotePage(note: note)),
+              onDoubleTap: () => Get.toNamed('/editNote', arguments: note),
               // 长按弹出 bottomSheet
               onLongPress: () {
                 Get.bottomSheet(Container(

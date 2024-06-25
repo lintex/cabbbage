@@ -3,6 +3,7 @@ import 'package:cabbbage/components/my_card_content.dart';
 import 'package:cabbbage/components/my_circle_tool_button.dart';
 import 'package:cabbbage/pages/dashboardPage/my_dashboard_marathon_tile.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,15 @@ class DashboardPage extends StatelessWidget {
     TextEditingController controller = TextEditingController();
     // 读取最后一条note，读取数据存储在db.lastNote，已经是obs
     db.fetchLastNote();
+    List myBarData = [
+      4.5,
+      54.7,
+      22.6,
+      78.9,
+      99.5,
+      19.5,
+      89.2,
+    ];
 
     return Theme(
       // 这段代码是为了去除persistentFooterButtons顶部一条分割线
@@ -92,54 +102,164 @@ class DashboardPage extends StatelessWidget {
             onPressed: () => Get.toNamed('/newNote'),
           ),
         ],
-        body: Obx(
-          () => Column(
-            children: [
-              GestureDetector(
-                onTap: () => Get.toNamed('/marathon'),
-                child: MyDashboardTile(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 15, 0),
-                    child: Column(
-                        children: db.stillMarathons
-                            .map((m) => MyDashboardMarathonTile(marathon: m))
-                            .toList()),
+        body: SingleChildScrollView(
+          child: Obx(
+            () => Column(
+              children: [
+                MyDashboardTile(
+                    child: Container(
+                  height: 150,
+                  // width: 230,
+                  margin: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.all(8),
+                  child: BarChart(
+                    BarChartData(
+                      alignment: BarChartAlignment.spaceAround, // 柱状图的对齐方式
+                      maxY: 100, //Y轴的最大值
+                      gridData: const FlGridData(show: false), // 去除内部网格线
+                      borderData: FlBorderData(show: false), // 去除外边框线
+                      // 设置四个方向的文字
+                      titlesData: const FlTitlesData(
+                        show: true,
+                        topTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false)),
+                        leftTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false)),
+                        rightTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false)),
+                        bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                                showTitles: true,
+                                getTitlesWidget: getBottomTitles)),
+                      ),
+                      //提示框样式
+                      barTouchData: BarTouchData(
+                          enabled: true,
+                          // 改变提示框背景，要用这种奇葩的写法
+                          touchTooltipData: BarTouchTooltipData(
+                              getTooltipColor: (group) =>
+                                  Colors.lightGreen.shade200)),
+
+                      // 条形图的数据
+                      // map遍历获取List的索引值，只能用List.asMap().keys.map这种奇怪的写法
+                      barGroups: myBarData.asMap().keys.map((index) {
+                        return BarChartGroupData(x: index, barRods: [
+                          BarChartRodData(
+                              color: Colors.lightGreen.shade700,
+                              toY: myBarData[index],
+                              width: 10,
+                              backDrawRodData: BackgroundBarChartRodData(
+                                  show: true,
+                                  toY: 100,
+                                  color: Colors.lightGreen.shade200))
+                        ]);
+                      }).toList(),
+                    ),
+                    swapAnimationDuration: const Duration(microseconds: 500),
+                    swapAnimationCurve: Curves.easeInOut,
+                  ),
+                )),
+                GestureDetector(
+                  onTap: () => Get.toNamed('/marathon'),
+                  child: MyDashboardTile(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 15, 0),
+                      child: Column(
+                          children: db.stillMarathons
+                              .map((m) => MyDashboardMarathonTile(marathon: m))
+                              .toList()),
+                    ),
                   ),
                 ),
-              ),
-              MyDashboardTile(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text('hello'.tr),
+                MyDashboardTile(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text('hello'.tr),
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                height: 200,
-                child: Obx(() => ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: db.lastNotes.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: 200,
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: const Color.fromARGB(255, 241, 240, 231)),
-                          child: Center(
-                              child: GestureDetector(
-                            onTap: () => Get.toNamed('/note'),
-                            child: MyCardContent(note: db.lastNotes[index]),
-                          )),
-                        );
-                      },
-                    )),
-              ),
-            ],
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  height: 200,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: db.lastNotes.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        width: 200,
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: const Color.fromARGB(255, 241, 240, 231)),
+                        child: Center(
+                            child: GestureDetector(
+                          onTap: () => Get.toNamed('/note'),
+                          child: MyCardContent(note: db.lastNotes[index]),
+                        )),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+}
+
+Widget getBottomTitles(double value, TitleMeta meta) {
+  const style = TextStyle(fontSize: 12);
+
+  Widget text;
+  switch (value.toInt()) {
+    case 0:
+      text = const Text(
+        '一',
+        style: style,
+      );
+      break;
+    case 1:
+      text = const Text(
+        '二',
+        style: style,
+      );
+      break;
+    case 2:
+      text = const Text(
+        '三',
+        style: style,
+      );
+      break;
+    case 3:
+      text = const Text(
+        '四',
+        style: style,
+      );
+      break;
+    case 4:
+      text = const Text(
+        '五',
+        style: style,
+      );
+      break;
+    case 5:
+      text = const Text(
+        '六',
+        style: style,
+      );
+      break;
+    case 6:
+      text = const Text(
+        '日',
+        style: style,
+      );
+      break;
+    default:
+      text = const Text('');
+      break;
+  }
+
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }

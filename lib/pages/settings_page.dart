@@ -112,7 +112,7 @@ class SettingPage extends StatelessWidget {
                   box.write('isFirstRun', !isFirstRun);
                   debugPrint('autoDarkMode:${!isFirstRun}');
                 },
-                onDispose: () => print("Widget unmounted"),
+                // onDispose: () => print("Widget unmounted"),
               ),
               onPressed: () {},
             ),
@@ -131,7 +131,7 @@ class SettingPage extends StatelessWidget {
                   box.write('autoDarkMode', autoDarkMode.value);
                   debugPrint('autoDarkMode:${autoDarkMode.value}');
                 },
-                onDispose: () => print("Widget unmounted"),
+                // onDispose: () => print("Widget unmounted"),
               ),
               onPressed: () {},
             ),
@@ -154,7 +154,7 @@ class SettingPage extends StatelessWidget {
                             ? Get.changeTheme(darkMode)
                             : Get.changeTheme(lightMode);
                       },
-                      onDispose: () => print("Widget unmounted"),
+                      // onDispose: () => print("Widget unmounted"),
                     ),
                     onPressed: () {},
                   ),

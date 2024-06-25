@@ -88,7 +88,11 @@ class TimelinePage extends StatelessWidget {
                       itemCount: db.allNotes.length,
                       itemBuilder: (BuildContext context, int index) {
                         final currentNote = db.allNotes[index];
-                        return MyTimelineTile(MyCardContent(note: currentNote));
+                        return GestureDetector(
+                            onTap: () => Get.toNamed('/editNote',
+                                arguments: currentNote),
+                            child: MyTimelineTile(
+                                MyCardContent(note: currentNote)));
                       },
                     )),
           )),

@@ -13,11 +13,11 @@ final noteTextController = TextEditingController();
 final Database ndb = Get.find();
 
 class EditNotePage extends StatelessWidget {
-  const EditNotePage({super.key, required this.note});
-  final Note note;
+  const EditNotePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Note note = Get.arguments;
     noteTextController.text = note.text;
     var roundBorder = OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
@@ -43,42 +43,49 @@ class EditNotePage extends StatelessWidget {
               ),
               itemBuilder: (BuildContext context) {
                 return [
-                  const PopupMenuItem(
-                    value: "toTodo",
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.check_box_outlined,
-                          size: 18,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text('转成待办'),
-                      ],
+                  // 判断是note还是todo 使用...排列运算符插入列表
+                  // if () ...[
+                  // ] else ...[
+                  // ]
+                  if (note.cabId >= 250) ...[
+                    const PopupMenuItem(
+                      value: "toTodo",
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.check_box_outlined,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('转成待办'),
+                        ],
+                      ),
                     ),
-                  ),
-                  const PopupMenuItem(
-                    value: "toNote",
-                    child: Row(
-                      children: [
-                        Icon(
-                          CupertinoIcons.doc,
-                          size: 18,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text("转成笔记"),
-                      ],
+                  ] else ...[
+                    const PopupMenuItem(
+                      value: "toNote",
+                      child: Row(
+                        children: [
+                          Icon(
+                            CupertinoIcons.doc,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text("转成笔记"),
+                        ],
+                      ),
                     ),
-                  ),
+                  ]
                 ];
               },
               onSelected: (Object object) {
                 switch (object) {
                   case 'toTodo':
-                    ndb.changeCabId(note.id, 1);
+                    ndb.changeCabId(note.id, 0);
                     Get.snackbar("success", "笔记已经转成待办！");
                     break;
                   case 'toNote':

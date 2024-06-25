@@ -1,6 +1,5 @@
 import 'package:cabbbage/components/my_card.dart';
 import 'package:cabbbage/components/my_float_action_button.dart';
-import 'package:cabbbage/pages/notePage/new_note_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/models/database.dart';

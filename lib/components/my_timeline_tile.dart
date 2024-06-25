@@ -19,7 +19,7 @@ class MyTimelineTile extends StatelessWidget {
             Container(
               decoration:
                   BoxDecoration(color: Theme.of(context).colorScheme.primary),
-              width: 10,
+              width: 8,
               margin: const EdgeInsets.only(right: 10),
             ),
             // 右边内容显示

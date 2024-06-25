@@ -1,6 +1,7 @@
 import 'package:cabbbage/pages/marathonPage/edit_marathon_page.dart';
 import 'package:cabbbage/pages/marathonPage/marathon_detail_page.dart';
 import 'package:cabbbage/pages/marathonPage/new_marathon_page.dart';
+import 'package:cabbbage/pages/notePage/edit_note_page.dart';
 import 'package:cabbbage/pages/notePage/new_note_page.dart';
 import 'package:cabbbage/pages/todo_page.dart';
 
@@ -109,6 +110,11 @@ class Routes {
       binding: ControllerBind(),
     ),
     GetPage(
+      name: '/editNote',
+      page: () => const EditNotePage(),
+      binding: ControllerBind(),
+    ),
+    GetPage(
       name: '/pace',
       page: () => const PaceCalculatePage(),
       binding: ControllerBind(),
@@ -121,11 +127,6 @@ class Routes {
     GetPage(
       name: '/timeTable',
       page: () => const TimetablePage(),
-      binding: ControllerBind(),
-    ),
-    GetPage(
-      name: '/welcome',
-      page: () => const WelcomePage(),
       binding: ControllerBind(),
     ),
     GetPage(
