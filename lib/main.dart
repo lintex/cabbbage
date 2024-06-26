@@ -60,6 +60,7 @@ bool isFirstRun() {
   // 判断App是否为第一次运行
   GetStorage box = GetStorage();
   return !box.hasData('isFirstRun') || // 运行welcome后失效
-      (box.read('buildNumber') ?? 0) < 11 || // 判断是否为新版本重现安装，数字为build-number
+      (box.read('buildNumber') ?? 0) < 12 || // TODO 每次发布改为最新build-number
+      // 判断是否为新版本重现安装，数字为build-number
       box.read('isFirstRun') == true; // 通过设置页面设置
 }
