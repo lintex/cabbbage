@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cabbbage/components/my_bottom_sheet.dart';
 import 'package:cabbbage/components/my_card_content.dart';
 import 'package:cabbbage/components/my_circle_tool_button.dart';
@@ -6,12 +8,14 @@ import 'package:clipboard/clipboard.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_dashboard_tile.dart';
 import 'package:cabbbage/components/my_drawer.dart';
 import 'package:cabbbage/models/database.dart';
 import 'package:cabbbage/tools/tools.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -33,7 +37,8 @@ class DashboardPage extends StatelessWidget {
       19.5,
       89.2,
     ];
-
+    // 马拉松倒计时，用于CircularPercentIndicator显示数据
+    List<int> marathonStillDays = [];
     return Theme(
       // 这段代码是为了去除persistentFooterButtons顶部一条分割线
       data: Theme.of(context).copyWith(
@@ -138,7 +143,7 @@ class DashboardPage extends StatelessWidget {
                           // 改变提示框背景，要用这种奇葩的写法
                           touchTooltipData: BarTouchTooltipData(
                               getTooltipColor: (group) =>
-                                  Colors.lightGreen.shade200)),
+                                  Colors.lightGreen.shade100)),
 
                       // 条形图的数据
                       // map遍历获取List的索引值，只能用List.asMap().keys.map这种奇怪的写法
@@ -159,15 +164,86 @@ class DashboardPage extends StatelessWidget {
                     swapAnimationCurve: Curves.easeInOut,
                   ),
                 )),
+                // 马拉松倒计时模块
                 GestureDetector(
                   onTap: () => Get.toNamed('/marathon'),
                   child: MyDashboardTile(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 15, 0),
-                      child: Column(
-                          children: db.stillMarathons
-                              .map((m) => MyDashboardMarathonTile(marathon: m))
-                              .toList()),
+                      // 使用Stack堆叠一个percent指示器
+                      child: Stack(
+                        children: [
+                          Column(
+                              children: db.stillMarathons.map((m) {
+                            marathonStillDays.add(
+                              int.parse(Tools.diffDays(m.time!)),
+                            );
+                            return MyDashboardMarathonTile(marathon: m);
+                          }).toList()),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: CircularPercentIndicator(
+                                      radius: 45.0,
+                                      animation: true,
+                                      animationDuration: 1200,
+                                      lineWidth: 8.0,
+                                      percent: marathonStillDays[0] / 100,
+                                      center: Text(
+                                          "${marathonStillDays.reduce(min)}天"),
+                                      progressColor: Colors.lightGreen.shade500,
+                                      backgroundColor:
+                                          Colors.lightGreen.shade200,
+                                      circularStrokeCap:
+                                          CircularStrokeCap.round,
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: CircularPercentIndicator(
+                                      radius: 36.5,
+                                      animation: true,
+                                      animationDuration: 1200,
+                                      lineWidth: 8.0,
+                                      percent: marathonStillDays[1] / 100,
+                                      center: Text(
+                                          "${marathonStillDays.reduce(min)}天"),
+                                      progressColor: Colors.lightGreen.shade600,
+                                      backgroundColor:
+                                          Colors.lightGreen.shade200,
+                                      circularStrokeCap:
+                                          CircularStrokeCap.round,
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: CircularPercentIndicator(
+                                      radius: 28.0,
+                                      animation: true,
+                                      animationDuration: 1200,
+                                      lineWidth: 8.0,
+                                      percent: marathonStillDays[2] / 100,
+                                      center: Text(
+                                          "${marathonStillDays.reduce(min)}天"),
+                                      progressColor: Colors.lightGreen.shade700,
+                                      backgroundColor:
+                                          Colors.lightGreen.shade200,
+                                      circularStrokeCap:
+                                          CircularStrokeCap.round,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
