@@ -36,23 +36,25 @@ class MyCardContent extends StatelessWidget {
             Expanded(
                 child: Text(
               note.text,
+              style: TextStyle(
+                decoration: taskCompleted
+                    ? TextDecoration.lineThrough //显示删除线
+                    : TextDecoration.none,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             )),
           ],
         );
       default:
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(5, 8, 5, 8),
-          child: Text(
-            note.text,
-            maxLines: 6,
-            style: const TextStyle(
-                fontSize: 16,
-                fontFamily: '霞鹜文楷',
-                color: Colors.black,
-                overflow: TextOverflow.ellipsis),
-          ),
+        return Text(
+          note.text,
+          maxLines: 6,
+          style: const TextStyle(
+              fontSize: 16,
+              fontFamily: '霞鹜文楷',
+              color: Colors.black,
+              overflow: TextOverflow.ellipsis),
         );
     }
   }

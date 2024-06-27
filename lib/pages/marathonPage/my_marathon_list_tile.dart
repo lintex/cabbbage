@@ -36,7 +36,7 @@ class MyMarathonListTile extends StatelessWidget {
               delete(marathon.id);
             },
             icon: Icons.highlight_remove_rounded,
-            backgroundColor: Colors.red.shade400,
+            backgroundColor: Colors.red.shade300,
             borderRadius: BorderRadius.circular(12),
           ),
         ]),
@@ -120,9 +120,10 @@ class MyMarathonListTile extends StatelessWidget {
                   lineHeight: 6.0,
                   percent: stillMinutes < 0
                       ? 0
-                      : (stillDays < 100 ? (stillDays / 100) : 1),
+                      : (stillDays < 100 ? 1 - (stillDays / 100) : 0),
                   animation: true,
-                  isRTL: true, // 从右向左调转方向
+                  //isRTL: true, // 从右向左调转方向
+                  animationDuration: 1200,
                   padding: const EdgeInsets.all(0),
                   backgroundColor: Colors.grey.shade200,
                   progressColor: Colors.lightGreen.shade300,

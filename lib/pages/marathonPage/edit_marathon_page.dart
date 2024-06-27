@@ -45,10 +45,11 @@ class EditMarathonPage extends StatelessWidget {
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.dateAndTime, //只显示日期，不显示时间
                 initialDateTime: marathonDate.value, //初始时间
+                minuteInterval: 30, //设置后分钟只有30和00两个选项
                 // maximumYear: DateTime.now().year + 1,
                 // minimumYear: DateTime.now().year,
-                minimumDate:
-                    DateTime.now().add(const Duration(days: -10)), //最小数值date
+                // minimumDate:
+                //     DateTime.now().add(const Duration(days: -10)), //最小数值date
                 // maximumDate: DateTime.now().add(const Duration(days: 500)),
                 use24hFormat: true, // 是否使用24小时制
                 dateOrder: DatePickerDateOrder.dmy, // 日期选择器排序方式 默认年/月/日
@@ -71,9 +72,9 @@ class EditMarathonPage extends StatelessWidget {
           confirm: MyButton(
             text: "确定",
             onPressed: () {
-              Navigator.pop(context);
+              Get.back();
             },
-            color: Colors.blue,
+            color: Colors.lightGreen,
           ));
     }
 

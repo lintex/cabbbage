@@ -44,6 +44,8 @@ class TodoPage extends StatelessWidget {
               Get.find<Database>().addNote(controller.text, cabId: 0);
               controller.clear();
               Get.back();
+              Get.snackbar('success', '待办添加成功！',
+                  duration: const Duration(seconds: 2));
             },
           ));
         },

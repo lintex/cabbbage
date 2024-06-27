@@ -47,10 +47,10 @@ class MyTodoTile extends StatelessWidget {
                 child: Text(
                   taskName,
                   style: TextStyle(
-                      decoration: taskCompleted
-                          ? TextDecoration.lineThrough //显示删除线
-                          : TextDecoration.none,
-                      color: Colors.black87),
+                    decoration: taskCompleted
+                        ? TextDecoration.lineThrough //显示删除线
+                        : TextDecoration.none,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

@@ -126,7 +126,6 @@ class Database extends GetxController {
   Future<void> addNote(String textFromUser, {int cabId = 250}) async {
     final newNote = Note()
       ..text = textFromUser
-      ..createdTime = DateTime.now()
       ..cabId = cabId;
 
     await isar.writeTxn(() => isar.notes.put(newNote));
@@ -219,11 +218,13 @@ class Database extends GetxController {
     }
   }
 
-  // 改变CabId切换类型
+  // 改变CabId切换类型，待办完成也是在这里修改cabId
   Future<void> changeCabId(int id, int newCabId) async {
     final existingNote = await isar.notes.get(id);
     if (existingNote != null) {
-      existingNote.cabId = newCabId;
+      existingNote
+        ..cabId = newCabId
+        ..lastEditedTime = DateTime.now();
       await isar.writeTxn(() => isar.notes.put(existingNote));
       debugPrint("[成功][Note]CabId切换为$newCabId！");
       update();

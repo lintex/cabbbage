@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -73,5 +74,14 @@ class Tools {
       debugPrint("[Tools]图片保存成功！");
     }
     return screenshotFilePath;
+  }
+
+// ? 自定义snackbar Instance member 'mySnackbar' can't be accessed using static access.
+  void mySnackbar(String title, String message) {
+    Get.snackbar(
+      title,
+      message,
+      duration: const Duration(seconds: 2),
+    );
   }
 }

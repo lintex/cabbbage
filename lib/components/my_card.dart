@@ -8,6 +8,7 @@ import 'package:cabbbage/theme/theme.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vibration/vibration.dart';
 
 class MyCard extends StatelessWidget {
   const MyCard({super.key, required this.note});
@@ -19,8 +20,8 @@ class MyCard extends StatelessWidget {
         //height: 60,
         width: double.infinity,
         //alignment: Alignment.center,
-        margin: const EdgeInsets.fromLTRB(20, 12, 20, 10),
-        padding: const EdgeInsets.fromLTRB(15, 8, 8, 18),
+        margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+        padding: const EdgeInsets.fromLTRB(15, 15, 10, 15),
         decoration: const BoxDecoration(
           color: Colors.white,
           //border: Border.all(width: 1),
@@ -42,6 +43,7 @@ class MyCard extends StatelessWidget {
               onDoubleTap: () => Get.toNamed('/editNote', arguments: note),
               // 长按弹出 bottomSheet
               onLongPress: () {
+                Vibration.vibrate(); // 震动一下
                 Get.bottomSheet(Container(
                   padding: const EdgeInsets.all(25),
                   height: 300,
@@ -88,7 +90,7 @@ class MyCard extends StatelessWidget {
                 ));
               },
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
                 child: MyCardContent(note: note),
               ),
             ),
@@ -101,15 +103,48 @@ class MyCard extends StatelessWidget {
                     note.cabId == 255
                         ? const PopupMenuItem(
                             value: "cancelSetTop",
-                            child: Text("取消置顶"),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.get_app_rounded,
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text("取消置顶"),
+                              ],
+                            ),
                           )
                         : const PopupMenuItem(
                             value: "setTop",
-                            child: Text("置顶"),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.publish_rounded,
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text("置顶"),
+                              ],
+                            ),
                           ),
                     const PopupMenuItem(
                       value: "share",
-                      child: Text("分享"),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.share_rounded,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text("分享"),
+                        ],
+                      ),
                     ),
                   ];
                 },

@@ -114,7 +114,7 @@ class EditNotePage extends StatelessWidget {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.publish_outlined,
+                            Icons.publish_rounded,
                             size: 18,
                           ),
                           SizedBox(
@@ -129,7 +129,7 @@ class EditNotePage extends StatelessWidget {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.share_outlined,
+                            Icons.share_rounded,
                             size: 18,
                           ),
                           SizedBox(
@@ -159,7 +159,7 @@ class EditNotePage extends StatelessWidget {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.save_outlined,
+                            Icons.save_rounded,
                             size: 18,
                           ),
                           SizedBox(
@@ -174,7 +174,7 @@ class EditNotePage extends StatelessWidget {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.delete_outline,
+                            Icons.delete_rounded,
                             size: 18,
                           ),
                           SizedBox(

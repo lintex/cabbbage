@@ -20,7 +20,9 @@ class NewMarathonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //添加马拉松举行时间
-    DateTime initDate = DateTime.now();
+    DateTime now = DateTime.now();
+    // 构建当天7点的DateTime对象
+    DateTime initDate = DateTime(now.year, now.month, now.day, 7, 30);
     var marathonDate = initDate.obs;
 
     pickTime() {
@@ -37,6 +39,7 @@ class NewMarathonPage extends StatelessWidget {
                 initialDateTime: marathonDate.value, //初始时间
                 // maximumYear: DateTime.now().year + 1,
                 // minimumYear: DateTime.now().year,
+                minuteInterval: 30, //设置后分钟只有30和00两个选项
                 minimumDate:
                     DateTime.now().add(const Duration(days: -10)), //最小数值date
                 // maximumDate: DateTime.now().add(const Duration(days: 500)),
@@ -63,7 +66,7 @@ class NewMarathonPage extends StatelessWidget {
             onPressed: () {
               Get.back();
             },
-            color: Colors.blue,
+            color: Colors.lightGreen,
           ));
     }
 

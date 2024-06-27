@@ -19,7 +19,8 @@ class MyTextFieldWithLabel extends StatelessWidget {
     return TextField(
       controller: controller,
       autofocus: true,
-      cursorColor: Colors.lightGreen,
+      cursorColor: Colors.lightGreen.shade700,
+      enableInteractiveSelection: false, //不允许复制粘贴，避免安卓出现水滴状图标
       decoration: InputDecoration(
         isCollapsed: true, //根据文字大小调整输入框高度
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 15, 15),

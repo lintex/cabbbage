@@ -57,6 +57,8 @@ class TimelinePage extends StatelessWidget {
                     db.addNote(controller.text, cabId: 0);
                     controller.clear();
                     Get.back();
+                    Get.snackbar('success', '待办添加成功！',
+                        duration: const Duration(seconds: 2));
                   },
                 ));
               },
@@ -69,7 +71,7 @@ class TimelinePage extends StatelessWidget {
                   if (value.trim() == '') {
                     Get.snackbar("error", "剪贴板内容为空！");
                   } else {
-                    db.addNote(value);
+                    db.addNote(value.trim());
                     Get.snackbar("success", "笔记快捷添加成功！");
                   }
                 });

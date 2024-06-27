@@ -84,6 +84,8 @@ class DashboardPage extends StatelessWidget {
                   db.addNote(controller.text, cabId: 0);
                   controller.clear();
                   Get.back();
+                  Get.snackbar('success', '待办添加成功！',
+                      duration: const Duration(seconds: 2));
                 },
               ));
             },
@@ -96,7 +98,7 @@ class DashboardPage extends StatelessWidget {
                 if (value.trim() == '') {
                   Get.snackbar("error", "剪贴板内容为空！");
                 } else {
-                  db.addNote(value);
+                  db.addNote(value.trim()); //去除首尾空格换行
                   Get.snackbar("success", "笔记快捷添加成功！");
                 }
               });
@@ -194,7 +196,7 @@ class DashboardPage extends StatelessWidget {
                                       animation: true,
                                       animationDuration: 1200,
                                       lineWidth: 8.0,
-                                      percent: marathonStillDays[0] / 100,
+                                      percent: 1 - marathonStillDays[2] / 100,
                                       center: Text(
                                           "${marathonStillDays.reduce(min)}天"),
                                       progressColor: Colors.lightGreen.shade500,
@@ -211,7 +213,7 @@ class DashboardPage extends StatelessWidget {
                                       animation: true,
                                       animationDuration: 1200,
                                       lineWidth: 8.0,
-                                      percent: marathonStillDays[1] / 100,
+                                      percent: 1 - marathonStillDays[1] / 100,
                                       center: Text(
                                           "${marathonStillDays.reduce(min)}天"),
                                       progressColor: Colors.lightGreen.shade600,
@@ -228,7 +230,7 @@ class DashboardPage extends StatelessWidget {
                                       animation: true,
                                       animationDuration: 1200,
                                       lineWidth: 8.0,
-                                      percent: marathonStillDays[2] / 100,
+                                      percent: 1 - marathonStillDays[0] / 100,
                                       center: Text(
                                           "${marathonStillDays.reduce(min)}天"),
                                       progressColor: Colors.lightGreen.shade700,
