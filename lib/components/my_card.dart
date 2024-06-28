@@ -21,7 +21,7 @@ class MyCard extends StatelessWidget {
         width: double.infinity,
         //alignment: Alignment.center,
         margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        padding: const EdgeInsets.fromLTRB(15, 15, 10, 15),
+        padding: const EdgeInsets.fromLTRB(12, 10, 10, 10),
         decoration: const BoxDecoration(
           color: Colors.white,
           //border: Border.all(width: 1),
@@ -43,7 +43,7 @@ class MyCard extends StatelessWidget {
               onDoubleTap: () => Get.toNamed('/editNote', arguments: note),
               // 长按弹出 bottomSheet
               onLongPress: () {
-                Vibration.vibrate(); // 震动一下
+                Vibration.vibrate(duration: 300); // 震动一下
                 Get.bottomSheet(Container(
                   padding: const EdgeInsets.all(25),
                   height: 300,
@@ -89,6 +89,7 @@ class MyCard extends StatelessWidget {
                   ),
                 ));
               },
+              // * 内容
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
                 child: MyCardContent(note: note),

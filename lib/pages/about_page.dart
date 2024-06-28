@@ -1,16 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_app_bar.dart';
 import 'package:cabbbage/components/my_button.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-// 读取系统版本号
 
+String currentVersion = '';
+
+// 读取系统版本号
 Future<String> getAppVersion() async {
   final info = await PackageInfo.fromPlatform();
-  return '${info.version}+${info.buildNumber}';
+  currentVersion = info.version;
+  return '${info.version}.${info.buildNumber}';
 }
 
 class AboutPage extends StatelessWidget {
@@ -94,30 +96,28 @@ class AboutPage extends StatelessWidget {
                           text: "检查更新",
                           color: Colors.lightGreen,
                           onPressed: () {
-                            UserProvider().getHello().then((value) {
+                            UserProvider().getVersion().then((value) {
                               Map<String, dynamic> js = json.decode(value.body);
                               Version v = Version.fromJson(js);
                               Get.defaultDialog(
                                   title: '最新版本',
-                                  titleStyle: const TextStyle(fontSize: 20),
+                                  titleStyle: const TextStyle(fontSize: 16),
+                                  titlePadding: const EdgeInsets.only(top: 20),
+                                  contentPadding: const EdgeInsets.all(30),
                                   content: Column(
                                     children: [
-                                      Text('BuildNumber: ${v.buildNumber}'),
+                                      Text('已安装版本: $currentVersion'),
                                       Text('最新版本: ${v.buildName}'),
                                     ],
                                   ),
                                   confirm: MyButton(
                                       text: '确定',
-                                      color: Colors.lightGreen,
+                                      color: Colors.lightGreen.shade300,
                                       onPressed: () {
                                         Get.back();
                                       }));
                             });
                           }),
-                      // Image.asset(
-                      //   "assets/images/about.jpg",
-                      //   width: 200,
-                      // ),
                     ],
                   ),
                 ),
@@ -172,8 +172,11 @@ class AboutPage extends StatelessWidget {
 
 class UserProvider extends GetConnect {
   // Get request
-  Future<Response> getHello() => get('https://cabbbage.com/hello');
-  // Future<Response> getHello() => get('https://cabbbage.com/api/hello.js');
+  // Future<Response> getHello() => get('https://cabbbage.com/hello');
+  // Future<Response> getVersion() =>
+  //     get('https://cabbbage.vercel.app/api/version.js');
+  Future<Response> getVersion() => get(
+      'https://service-1x0z407g-1259231124.gz.tencentapigw.com.cn/release/');
 }
 
 class Version {

@@ -9,6 +9,7 @@ class MyTodoTile extends StatelessWidget {
     required this.onChanged,
     required this.deleteFunction,
   });
+
   final String taskName;
   final bool taskCompleted;
   final void Function(bool?)? onChanged;
@@ -20,6 +21,14 @@ class MyTodoTile extends StatelessWidget {
       padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
       //滑动删除按钮包裹
       child: Slidable(
+        // startActionPane: ActionPane(motion: const StretchMotion(), children: [
+        //   SlidableAction(
+        //     onPressed: deleteFunction,
+        //     icon: Icons.check_box_outlined,
+        //     backgroundColor: Colors.lightGreen,
+        //     borderRadius: BorderRadius.circular(16),
+        //   )
+        // ]),
         endActionPane: ActionPane(motion: const StretchMotion(), children: [
           SlidableAction(
             onPressed: deleteFunction,
@@ -54,7 +63,7 @@ class MyTodoTile extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-              )
+              ),
             ],
           ),
         ),

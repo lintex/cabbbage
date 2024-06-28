@@ -21,16 +21,23 @@ class TodoPage extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final currentTodo = db.todos[index];
                   bool taskCompleted = currentTodo.cabId == 1 ? true : false;
-                  return MyTodoTile(
-                    taskName: currentTodo.text,
-                    taskCompleted: taskCompleted,
-                    onChanged: (bool) {
-                      db.changeCabId(currentTodo.id, taskCompleted ? 0 : 1);
-                    },
-                    deleteFunction: (v) {
-                      db.deleteNote(currentTodo.id);
-                      Get.snackbar("success", "${currentTodo.text}删除成功！");
-                    },
+                  return GestureDetector(
+                    onTap: () =>
+                        db.changeCabId(currentTodo.id, taskCompleted ? 0 : 1),
+                    onDoubleTap: () =>
+                        Get.toNamed('/editNote', arguments: currentTodo),
+                    child: MyTodoTile(
+                      taskName: currentTodo.text,
+                      taskCompleted: taskCompleted,
+                      onChanged: (bool) {
+                        db.changeCabId(currentTodo.id, taskCompleted ? 0 : 1);
+                      },
+                      deleteFunction: (v) {
+                        db.deleteNote(currentTodo.id);
+                        Get.snackbar("success", "${currentTodo.text}删除成功！",
+                            duration: const Duration(seconds: 1));
+                      },
+                    ),
                   );
                 },
               )),
@@ -45,7 +52,7 @@ class TodoPage extends StatelessWidget {
               controller.clear();
               Get.back();
               Get.snackbar('success', '待办添加成功！',
-                  duration: const Duration(seconds: 2));
+                  duration: const Duration(seconds: 1));
             },
           ));
         },

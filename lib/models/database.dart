@@ -111,6 +111,7 @@ class Database extends GetxController {
   final List currentNotes = [].obs;
   final List lastNotes = [].obs;
   final List todos = [].obs;
+  final List lastTodos = [].obs;
   final List allNotes = [].obs;
 
   // 读取Note所有数据，包括笔记待办图片
@@ -149,6 +150,7 @@ class Database extends GetxController {
     fetchLastNote();
     fetchTodos();
     fetchAllNotes();
+    fetchLastTodos();
     debugPrint("[成功][Note]Note数据读取成功！");
   }
 
@@ -163,7 +165,7 @@ class Database extends GetxController {
         .findAll();
     lastNotes.clear();
     lastNotes.addAll(fetchNotes);
-    debugPrint("[成功][Note]Note最后5条信息读取成功！");
+    debugPrint("[成功][Note]最后5条Note读取成功！");
   }
 
   // 读取Todo数据
@@ -180,6 +182,20 @@ class Database extends GetxController {
     debugPrint("[成功][Todo]Todo信息读取成功！");
   }
 
+  // 读取最后三条Todo数据
+  Future<void> fetchLastTodos() async {
+    List<Note> fetchNotes = await isar.notes
+        .filter()
+        .cabIdLessThan(2)
+        .sortByCabId()
+        .thenByLastEditedTimeDesc()
+        .limit(3)
+        .findAll();
+    lastTodos.clear();
+    lastTodos.addAll(fetchNotes);
+    debugPrint("[成功][Todo]最后三条Todo读取成功！");
+  }
+
   // 修改数据
   Future<void> updateNote(int id, String newText) async {
     final existingNote = await isar.notes.get(id);
@@ -188,7 +204,7 @@ class Database extends GetxController {
         ..text = newText
         ..lastEditedTime = DateTime.now();
       await isar.writeTxn(() => isar.notes.put(existingNote));
-      debugPrint("[成功][Note]Note数据修改成功！");
+      debugPrint("[成功][Note]数据修改成功！");
       update();
       fetchNotes();
     }
@@ -196,26 +212,14 @@ class Database extends GetxController {
 
   // 置顶note
   Future<void> setTopNote(int id) async {
-    final existingNote = await isar.notes.get(id);
-    if (existingNote != null) {
-      existingNote.cabId = 255;
-      await isar.writeTxn(() => isar.notes.put(existingNote));
-      debugPrint("[成功][Note]note置顶成功！");
-      update();
-      fetchNotes();
-    }
+    changeCabId(id, 255);
+    debugPrint("[成功][Note]置顶成功！");
   }
 
   // 取消置顶note
   Future<void> cancelTopNote(int id) async {
-    final existingNote = await isar.notes.get(id);
-    if (existingNote != null) {
-      existingNote.cabId = 250;
-      await isar.writeTxn(() => isar.notes.put(existingNote));
-      debugPrint("[成功][Note]note取消置顶成功！");
-      update();
-      fetchNotes();
-    }
+    changeCabId(id, 250);
+    debugPrint("[成功][Note]取消置顶成功！");
   }
 
   // 改变CabId切换类型，待办完成也是在这里修改cabId

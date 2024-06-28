@@ -54,6 +54,7 @@ dependencies:
   fl_chart: ^0.68.0
   percent_indicator: ^4.2.3
   vibration: ^1.9.0
+  readmore: ^3.0.0
     
 dev_dependencies:
   flutter_test:

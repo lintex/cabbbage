@@ -22,7 +22,7 @@ class MyDashboardMarathonTile extends StatelessWidget {
           ),
         ),
         Text(
-          ' 天 距离 ',
+          ' 天 ',
           style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
         ),
         Text(marathon.name)
