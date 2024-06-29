@@ -6,8 +6,8 @@ class MyTodoTile extends StatelessWidget {
     super.key,
     required this.taskName,
     required this.taskCompleted,
-    required this.onChanged,
-    required this.deleteFunction,
+    this.onChanged,
+    this.deleteFunction,
   });
 
   final String taskName;
@@ -48,9 +48,6 @@ class MyTodoTile extends StatelessWidget {
                 value: taskCompleted,
                 onChanged: onChanged,
                 activeColor: Colors.lightGreen[700],
-                checkColor: Colors.black,
-                focusColor: Colors.black,
-                hoverColor: Colors.black,
               ),
               Expanded(
                 child: Text(

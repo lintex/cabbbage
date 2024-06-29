@@ -31,6 +31,8 @@ class MyTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       autofocus: true,
+      minLines: 1,
+      maxLines: 5,
       cursorColor: Colors.lightGreen.shade700,
       enableInteractiveSelection: false, //不允许复制粘贴，避免安卓出现水滴状图标
       decoration: InputDecoration(

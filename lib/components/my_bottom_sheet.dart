@@ -18,12 +18,13 @@ class MyBottomSheet extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(25),
       margin: const EdgeInsets.fromLTRB(20, 20, 20, 40),
-      height: 220,
+      // height: 220,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         borderRadius: const BorderRadius.all(Radius.circular(35)),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min, //Column根据子控件自动调高度
         children: [
           Text(
             title,

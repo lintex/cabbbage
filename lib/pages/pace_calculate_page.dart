@@ -21,19 +21,84 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
   var distance = 0.0.obs;
   var speed = 0.0.obs;
 
-  everyHourCostTime() {
-    for (int i = 1; i < distance.value; i++) {
-      print("$i公里用时：${i / speed.value * 60}分");
+  List<List<String>> costTimeList = [
+    ['公里', '用时'],
+  ].obs;
+  var speedLevelText = ''.obs;
+
+  final List speedList = [
+    [DateTime(2000, 1, 1, 3, 15), '精英级'], //3小时15分 40岁 精英级
+    [DateTime(2000, 1, 1, 3, 45), '大众一级'],
+    [DateTime(2000, 1, 1, 4, 15), '大众二级'],
+  ];
+
+  countSpeedLevel(int hour, int minute) {
+    DateTime mySpeed = DateTime(2000, 1, 1, hour, minute);
+    for (List s in speedList) {
+      if (mySpeed.isBefore(s[0])) {
+        speedLevelText.value = s[1];
+        break;
+      }
+    }
+  }
+
+  addCostTime(int paceMinute, int paceSecond) {
+    costTimeList.clear();
+    costTimeList.add(['公里', '用时', '公里', '用时']);
+
+    for (int i = 1; i <= distance.value ~/ 2; i++) {
+      // int hour = i ~/ speed.value;
+      // int minute = (i / speed.value * 60 - hour * 60).toInt();
+      // int second =
+      //     (i / speed.value * 60 * 60 - hour * 60 * 60 - minute * 60).toInt();
+      int i2 = distance.value ~/ 2 + i;
+      int allSecond = i * (paceMinute * 60 + paceSecond);
+      int hour = allSecond ~/ 3600;
+      int minute = (allSecond - hour * 3600) ~/ 60;
+      int second = (allSecond - minute * 60 - hour * 3600);
+
+      int allSecond2 = i2 * (paceMinute * 60 + paceSecond);
+      int hour2 = allSecond2 ~/ 3600;
+      int minute2 = (allSecond2 - hour2 * 3600) ~/ 60;
+      int second2 = (allSecond2 - minute2 * 60 - hour2 * 3600);
+
+      costTimeList.add([
+        i.toString(),
+        '${hour == 0 ? "" : "$hour:"}${hour == 0 ? minute : minute.toString().padLeft(2, '0')}:${second.toString().padLeft(2, '0')}',
+        i2.toString(),
+        '${hour2 == 0 ? "" : "$hour2:"}${hour2 == 0 ? minute2 : minute2.toString().padLeft(2, '0')}:${second2.toString().padLeft(2, '0')}',
+      ]);
+      // print("$i公里用时：${i / speed.value * 60}分");
     }
   }
 
   void timeToPace() {
-    if (distanceController.text != "" && hourController.text != "") {
+    if (distanceController.text != "" &&
+        (hourController.text != "" || minuteController.text != '')) {
       distance.value = double.parse(distanceController.text);
-      double hours = double.parse(hourController.text);
-      double minutes = double.parse(minuteController.text);
-      double seconds = double.parse(secondController.text);
-
+      // 解决输入框为空的问题
+      if (hourController.text == '') {
+        hourController.text = '0';
+      }
+      if (minuteController.text == '') {
+        minuteController.text = '0';
+      }
+      if (secondController.text == '') {
+        secondController.text = '0';
+      }
+      int hours = int.parse(hourController.text);
+      int minutes = int.parse(minuteController.text);
+      int seconds = int.parse(secondController.text);
+      if (minutes > 60) {
+        minuteController.text = '59';
+        minutes = 59;
+        Get.snackbar("error", "分钟不能大于60");
+      }
+      if (seconds > 60) {
+        secondController.text = '59';
+        seconds = 59;
+        Get.snackbar("error", "秒不能大于60");
+      }
       double secondsPerKM =
           (hours * 3600 + minutes * 60 + seconds) / distance.value;
       int paceMinute = secondsPerKM ~/ 60;
@@ -44,15 +109,37 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
       // 时速计算
       speed.value = distance / (hours + minutes / 60 + seconds / 3600);
       speedController.text = speed.value.toStringAsFixed(2);
-      everyHourCostTime();
+
+      addCostTime(paceMinute, paceSecond);
+      countSpeedLevel(hours, minutes);
     }
   }
 
   void paceToTime() {
-    if (distanceController.text != "" && paceMinuteController.text != "") {
+    if (distanceController.text != "" &&
+        (paceMinuteController.text != "" || paceSecondController.text != "")) {
       distance.value = double.parse(distanceController.text);
-      double paceMinute = double.parse(paceMinuteController.text);
-      double paceSecond = double.parse(paceSecondController.text);
+      if (paceMinuteController.text == '') {
+        paceMinuteController.text = '0';
+      }
+      if (paceSecondController.text == '') {
+        paceSecondController.text = '0';
+      }
+      int paceMinute = int.parse(paceMinuteController.text);
+      int paceSecond = int.parse(paceSecondController.text);
+
+      if (paceSecond > 60) {
+        paceSecondController.text = '59';
+        paceSecond = 59;
+        Get.snackbar("error", "配速秒不能大于60");
+      }
+
+      if (paceMinute < 2) {
+        Get.snackbar("alert", "配速过快！超过人类最快速度...");
+      }
+      if (paceMinute >= 9) {
+        Get.snackbar("alert", "配速过慢！超过马拉松关门时间...");
+      }
 
       double secondsAll = (paceMinute * 60 + paceSecond) * distance.value;
       int hours = secondsAll ~/ 3600;
@@ -66,7 +153,9 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
       // 时速计算
       speed.value = distance / (hours + minutes / 60 + seconds / 3600);
       speedController.text = speed.value.toStringAsFixed(2);
-      everyHourCostTime();
+
+      addCostTime(paceMinute, paceSecond);
+      countSpeedLevel(hours, minutes);
     }
   }
 
@@ -75,11 +164,11 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
     //一般我们设置默认显示的内容时可以这样
     //_textEditingController.text ="早起的年轻人";
     //这样导致的问题就是设置值后，输入框的光标会显示在文本最前面，用户体验不好，我们期望的是光标保持在文本最后，所以可以这样来设置
-    String textStr = "42.195";
+    var textStr = "42.195".obs;
     distanceController.value = TextEditingValue(
-        text: textStr,
+        text: textStr.value,
         selection: TextSelection.fromPosition(TextPosition(
-            offset: textStr.length, affinity: TextAffinity.downstream)));
+            offset: textStr.value.length, affinity: TextAffinity.downstream)));
     hourController.text = "0";
     minuteController.text = "0";
     secondController.text = "0";
@@ -162,104 +251,128 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    OutlinedButton(
-                      onPressed: () {
-                        distanceController.text = "42.195";
-                      },
-                      style: ButtonStyle(
-                        side: MaterialStateProperty.all(
-                          BorderSide(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer, // 设置边框颜色为蓝色
-                              width: 1),
+                Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {
+                            distanceController.text = "42.195";
+                            textStr.value = "42.195";
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                textStr.value == "42.195"
+                                    ? Colors.lightGreen.shade200
+                                    : Colors.transparent),
+                            side: MaterialStateProperty.all(
+                              BorderSide(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer, // 设置边框颜色为蓝色
+                                  width: 1),
+                            ),
+                            padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          ),
+                          child: Text(
+                            "全马",
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary),
+                          ),
                         ),
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      ),
-                      child: Text(
-                        "全马",
-                        style: TextStyle(
-                            color:
-                                Theme.of(context).colorScheme.inversePrimary),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    OutlinedButton(
-                      onPressed: () {
-                        distanceController.text = "21.0975";
-                      },
-                      style: ButtonStyle(
-                        side: MaterialStateProperty.all(
-                          BorderSide(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer, // 设置边框颜色为蓝色
-                              width: 1),
+                        const SizedBox(
+                          width: 5,
                         ),
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      ),
-                      child: Text(
-                        "半马",
-                        style: TextStyle(
-                            color:
-                                Theme.of(context).colorScheme.inversePrimary),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    OutlinedButton(
-                      onPressed: () {
-                        distanceController.text = "10.00";
-                      },
-                      style: ButtonStyle(
-                        side: MaterialStateProperty.all(
-                          BorderSide(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer,
-                              width: 1),
+                        OutlinedButton(
+                          onPressed: () {
+                            distanceController.text = "21.0975";
+                            textStr.value = "21.0975";
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                textStr.value == "21.0975"
+                                    ? Colors.lightGreen.shade200
+                                    : Colors.transparent),
+                            side: MaterialStateProperty.all(
+                              BorderSide(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer, // 设置边框颜色为蓝色
+                                  width: 1),
+                            ),
+                            padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          ),
+                          child: Text(
+                            "半马",
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary),
+                          ),
                         ),
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      ),
-                      child: Text(
-                        "十公里",
-                        style: TextStyle(
-                            color:
-                                Theme.of(context).colorScheme.inversePrimary),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    OutlinedButton(
-                      onPressed: () {
-                        distanceController.text = "5.00";
-                      },
-                      style: ButtonStyle(
-                        side: MaterialStateProperty.all(
-                          BorderSide(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer, // 设置边框颜色为蓝色
-                              width: 1),
+                        const SizedBox(
+                          width: 5,
                         ),
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      ),
-                      child: Text(
-                        "五公里",
-                        style: TextStyle(
-                            color:
-                                Theme.of(context).colorScheme.inversePrimary),
-                      ),
-                    ),
-                  ],
-                ),
+                        OutlinedButton(
+                          onPressed: () {
+                            distanceController.text = "10.00";
+                            textStr.value = "10.00";
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                textStr.value == "10.00"
+                                    ? Colors.lightGreen.shade200
+                                    : Colors.transparent),
+                            side: MaterialStateProperty.all(
+                              BorderSide(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer,
+                                  width: 1),
+                            ),
+                            padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          ),
+                          child: Text(
+                            "十公里",
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        OutlinedButton(
+                          onPressed: () {
+                            distanceController.text = "5.00";
+                            textStr.value = "5.00";
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                textStr.value == "5.00"
+                                    ? Colors.lightGreen.shade200
+                                    : Colors.transparent),
+                            side: MaterialStateProperty.all(
+                              BorderSide(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer, // 设置边框颜色为蓝色
+                                  width: 1),
+                            ),
+                            padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          ),
+                          child: Text(
+                            "五公里",
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary),
+                          ),
+                        ),
+                      ],
+                    )),
                 const SizedBox(
                   height: 20,
                 ),
@@ -353,16 +466,87 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
-                const Text("每公里用时："),
+                Obx(() => Text(
+                      "大众等级成绩：$speedLevelText",
+                      style: const TextStyle(fontFamily: '方正大标宋', fontSize: 20),
+                    )),
                 const SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
-                const Text("大众等级成绩："),
+                const Text(
+                  "每公里用时表",
+                  style: TextStyle(fontFamily: '方正大标宋', fontSize: 20),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Obx(() => Table(
+                      border: TableBorder.all(
+                          color: Colors.lightGreen.shade200,
+                          width: 1,
+                          borderRadius: BorderRadius.circular(8)),
+                      children: costTimeList
+                          .map((row) => TableRow(
+                                children: row
+                                    .map((cell) => TableCell(
+                                            child: Center(
+                                                child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 4),
+                                          child: Text(
+                                            cell,
+                                          ),
+                                        ))))
+                                    .toList(),
+                              ))
+                          .toList(),
+                    )),
+                const SizedBox(
+                  height: 40,
+                ),
               ],
             ),
           ),
         ));
   }
 }
+
+
+// 不知道怎么把obs变量当作参数传递
+
+// class MyOutlinedButton extends StatelessWidget {
+//   const MyOutlinedButton(
+//       {super.key, required this.distance, required this.text, required this.controller});
+//   final String distance;
+//   final String text;
+//   final TextEditingController controller;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return OutlinedButton(
+//       onPressed: () {
+//         controller.text = distance;
+//         textStr.value = distance;
+//       },
+//       style: ButtonStyle(
+//         backgroundColor: MaterialStatePropertyAll(textStr.value == distance
+//             ? Colors.lightGreen.shade200
+//             : Colors.transparent),
+//         side: MaterialStateProperty.all(
+//           BorderSide(
+//               color: Theme.of(context)
+//                   .colorScheme
+//                   .onSecondaryContainer, // 设置边框颜色为蓝色
+//               width: 1),
+//         ),
+//         padding: MaterialStateProperty.all(EdgeInsets.zero),
+//       ),
+//       child: Text(
+//         text,
+//         style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
+//       ),
+//     );
+//   }
+// }

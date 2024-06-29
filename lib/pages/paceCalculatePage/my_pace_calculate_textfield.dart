@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyPaceCalculateTextField extends StatelessWidget {
   const MyPaceCalculateTextField(
@@ -19,16 +20,16 @@ class MyPaceCalculateTextField extends StatelessWidget {
           controller.text = "0";
         }
       },
-
-      // onChanged: (value) {
-      //   setState(() {
-      //     if (int.parse(value) > 6) {
-      //       _hourErrorText = value;
-      //     } else {
-      //       _hourErrorText = '';
-      //     }
-      //   });
-      // },
+      onChanged: (value) {
+        if (value.isNotEmpty && RegExp(r'^\d+$').hasMatch(value)) {
+          if (int.parse(value) > 59) {
+            controller.text = "59";
+          }
+        } else {
+          controller.text = '';
+          Get.snackbar("error", "只能输入数字！");
+        }
+      },
       controller: controller,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.go,

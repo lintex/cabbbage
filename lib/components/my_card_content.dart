@@ -29,7 +29,20 @@ class MyCardContent extends StatelessWidget {
         return Row(
           children: [
             Checkbox(
-                activeColor: Colors.lightGreen[700],
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                activeColor: Colors.lightGreen.shade400,
+                // checkColor: Colors.lightGreen.shade800,
+                side: MaterialStateBorderSide.resolveWith(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.selected)) {
+                      //修改勾选时边框颜色
+                      return BorderSide(
+                          width: 2, color: Colors.lightGreen.shade400);
+                    }
+                    //修改默认时边框颜色
+                    return const BorderSide(width: 2, color: Colors.grey);
+                  },
+                ),
                 value: taskCompleted,
                 onChanged: (b) {
                   Get.find<Database>()
@@ -48,11 +61,11 @@ class MyCardContent extends StatelessWidget {
             )),
           ],
         );
-      default:
+      case >= 250:
         return ReadMoreText(
           note.text,
           trimMode: TrimMode.Line,
-          trimLines: 6,
+          trimLines: 5,
           colorClickableText: Colors.lightGreen.shade800,
           trimCollapsedText: '\n⌄展开',
           trimExpandedText: '\n⌃收起',
@@ -84,12 +97,14 @@ class MyCardContent extends StatelessWidget {
                   },
               ),
             ),
+            // 标题加粗
             Annotation(
               regExp: RegExp(r'\*\*.+?\*\*'), // **粗体**
               spanBuilder: ({required String text, TextStyle? textStyle}) =>
                   TextSpan(
                 text: text.replaceAll("*", ""),
-                style: textStyle?.copyWith(fontWeight: FontWeight.bold),
+                style: textStyle?.copyWith(
+                    fontFamily: '方正大标宋', fontWeight: FontWeight.bold),
               ),
             ),
             Annotation(
@@ -103,6 +118,8 @@ class MyCardContent extends StatelessWidget {
             ),
           ],
         );
+      default:
+        return Text(note.text);
     }
   }
 }

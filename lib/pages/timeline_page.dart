@@ -3,7 +3,6 @@ import 'package:cabbbage/components/my_card_content.dart';
 import 'package:cabbbage/components/my_circle_tool_button.dart';
 import 'package:cabbbage/components/my_timeline_tile.dart';
 import 'package:cabbbage/models/database.dart';
-
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,11 +53,17 @@ class TimelinePage extends StatelessWidget {
                   text: '',
                   controller: controller,
                   onPressed: () {
-                    db.addNote(controller.text, cabId: 0);
-                    controller.clear();
-                    Get.back();
-                    Get.snackbar('success', '待办添加成功！',
-                        duration: const Duration(seconds: 2));
+                    String content = controller.text.trim();
+                    if (content.isNotEmpty) {
+                      db.addNote(controller.text.trim(), cabId: 0);
+                      controller.clear();
+                      Get.back();
+                      Get.snackbar('success', '待办添加成功！',
+                          duration: const Duration(seconds: 1));
+                    } else {
+                      Get.snackbar('error', '内容为空！',
+                          duration: const Duration(seconds: 1));
+                    }
                   },
                 ));
               },
@@ -72,15 +77,34 @@ class TimelinePage extends StatelessWidget {
                     Get.snackbar("error", "剪贴板内容为空！");
                   } else {
                     db.addNote(value.trim());
-                    Get.snackbar("success", "笔记快捷添加成功！");
+                    Get.snackbar("success", "笔记快捷添加成功！",
+                        duration: const Duration(seconds: 1));
                   }
                 });
               },
             ),
             MyCircleToolButton(
-              icon: CupertinoIcons.add,
-              onPressed: () => Get.toNamed('/newNote'),
-            ),
+                icon: CupertinoIcons.add,
+                onPressed: () => Get.bottomSheet(
+                      MyBottomSheet(
+                        title: '添加草稿',
+                        text: '',
+                        controller: controller,
+                        onPressed: () {
+                          String content = controller.text.trim();
+                          if (content.isNotEmpty) {
+                            db.addNote(controller.text.trim(), cabId: 10);
+                            controller.clear();
+                            Get.back();
+                            Get.snackbar('success', '草稿添加成功！',
+                                duration: const Duration(seconds: 1));
+                          } else {
+                            Get.snackbar('error', '内容为空！',
+                                duration: const Duration(seconds: 1));
+                          }
+                        },
+                      ),
+                    )),
           ],
           body: Padding(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -91,10 +115,12 @@ class TimelinePage extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final currentNote = db.allNotes[index];
                         return GestureDetector(
-                            onTap: () => Get.toNamed('/editNote',
+                            onDoubleTap: () => Get.toNamed('/editNote',
                                 arguments: currentNote),
-                            child: MyTimelineTile(
-                                MyCardContent(note: currentNote)));
+                            child:
+                                MyTimelineTile(MyCardContent(note: currentNote)
+                                    // Text(currentNote.text)
+                                    ));
                       },
                     )),
           )),

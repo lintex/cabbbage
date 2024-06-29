@@ -47,50 +47,69 @@ class EditNotePage extends StatelessWidget {
                   // if () ...[
                   // ] else ...[
                   // ]
-                  if (note.cabId >= 250) ...[
-                    const PopupMenuItem(
-                      value: "toTodo",
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.check_box_outlined,
-                            size: 18,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text('转成待办'),
-                        ],
-                      ),
+                  PopupMenuItem(
+                    enabled: note.cabId < 250 ? true : false,
+                    value: "toNote",
+                    child: const Row(
+                      children: [
+                        Icon(
+                          CupertinoIcons.doc,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("转成笔记"),
+                      ],
                     ),
-                  ] else ...[
-                    const PopupMenuItem(
-                      value: "toNote",
-                      child: Row(
-                        children: [
-                          Icon(
-                            CupertinoIcons.doc,
-                            size: 18,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text("转成笔记"),
-                        ],
-                      ),
+                  ),
+                  PopupMenuItem(
+                    enabled: note.cabId == 0 || note.cabId == 1 ? false : true,
+                    value: "toTodo",
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.check_box_outlined,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('转成待办'),
+                      ],
                     ),
-                  ]
+                  ),
+                  PopupMenuItem(
+                    enabled: note.cabId == 10 ? false : true,
+                    value: "toDraft",
+                    child: const Row(
+                      children: [
+                        Icon(
+                          CupertinoIcons.scribble,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("转成草稿"),
+                      ],
+                    ),
+                  ),
                 ];
               },
               onSelected: (Object object) {
                 switch (object) {
                   case 'toTodo':
                     ndb.changeCabId(note.id, 0);
-                    Get.snackbar("success", "笔记已经转成待办！");
+                    Get.snackbar("success", "已经转成待办！");
                     break;
                   case 'toNote':
                     ndb.changeCabId(note.id, 250);
-                    Get.snackbar("success", "待办已经转成笔记！");
+                    Get.snackbar("success", "已经转成笔记！");
+                    break;
+                  case 'toDraft':
+                    ndb.changeCabId(note.id, 10);
+                    Get.snackbar("success", "已经转成笔记！");
                     break;
                 }
               },
@@ -226,7 +245,7 @@ class EditNotePage extends StatelessWidget {
                 controller: noteTextController,
                 autofocus: true,
                 minLines: 5,
-                maxLines: 10,
+                maxLines: 20,
                 onChanged: (v) {
                   // 输入改变时将内容存入数据库
                   ndb.updateNote(note.id, v);
