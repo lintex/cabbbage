@@ -3,6 +3,7 @@ import 'package:cabbbage/pages/marathonPage/marathon_detail_page.dart';
 import 'package:cabbbage/pages/marathonPage/new_marathon_page.dart';
 import 'package:cabbbage/pages/notePage/edit_note_page.dart';
 import 'package:cabbbage/pages/notePage/new_note_page.dart';
+import 'package:cabbbage/pages/notePage/note_detail_page.dart';
 import 'package:cabbbage/pages/todo_page.dart';
 
 import 'pages/timeline_page.dart';
@@ -45,7 +46,6 @@ class Routes {
       page: () => const TimelinePage(),
       binding: ControllerBind(),
       // middlewares: ,
-      transition: Transition.cupertino,
     ),
     GetPage(
       name: '/todo',
@@ -112,6 +112,11 @@ class Routes {
     GetPage(
       name: '/editNote',
       page: () => const EditNotePage(),
+      binding: ControllerBind(),
+    ),
+    GetPage(
+      name: '/noteDetail',
+      page: () => const NoteDetailPage(),
       binding: ControllerBind(),
     ),
     GetPage(

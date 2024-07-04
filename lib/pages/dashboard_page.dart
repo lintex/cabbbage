@@ -55,9 +55,12 @@ class DashboardPage extends StatelessWidget {
         appBar: AppBar(
             centerTitle: true,
             backgroundColor: Theme.of(context).colorScheme.background,
-            title: Text(
-              Tools.getTitle(),
-              style: const TextStyle(fontSize: 18),
+            title: GestureDetector(
+              onTap: () => Get.toNamed('/timeline'),
+              child: Text(
+                Tools.getTitle(),
+                style: const TextStyle(fontSize: 18),
+              ),
             )),
         drawer: const MyDrawer(),
         persistentFooterAlignment: AlignmentDirectional.center,

@@ -74,8 +74,7 @@ class MyMarathonListTile extends StatelessWidget {
                         getDateAndLocation(marathon.time!,
                             marathon.start == '' ? '' : ' | ${marathon.start}'),
                         style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: "霞鹜文楷",
+                            fontSize: 14,
                             color:
                                 Theme.of(context).colorScheme.inversePrimary),
                       ),
@@ -87,7 +86,8 @@ class MyMarathonListTile extends StatelessWidget {
                     children: [
                       Text(
                         stillMinutes < 0 ? "过了" : "还有",
-                        style: const TextStyle(fontSize: 9, color: Colors.grey),
+                        style:
+                            const TextStyle(fontSize: 11, color: Colors.grey),
                       ),
                       const SizedBox(
                         width: 5,
@@ -107,7 +107,8 @@ class MyMarathonListTile extends StatelessWidget {
                       ),
                       Text(
                         stillDays == 0 ? "小时" : "天",
-                        style: const TextStyle(fontSize: 9, color: Colors.grey),
+                        style:
+                            const TextStyle(fontSize: 11, color: Colors.grey),
                       ),
                     ],
                   ),

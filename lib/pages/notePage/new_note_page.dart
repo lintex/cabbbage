@@ -79,7 +79,7 @@ class NewNotePage extends StatelessWidget {
                 ),
               ),
               MyToolsBar(
-                noteTextController: noteTextController,
+                controller: noteTextController,
                 noteId: 0, //!error
               ),
             ],

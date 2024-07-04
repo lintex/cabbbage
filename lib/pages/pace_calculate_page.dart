@@ -483,6 +483,10 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                   height: 10,
                 ),
                 Obx(() => Table(
+                      columnWidths: const {
+                        0: FixedColumnWidth(60),
+                        2: FixedColumnWidth(60),
+                      },
                       border: TableBorder.all(
                           color: Colors.lightGreen.shade200,
                           width: 1,

@@ -27,7 +27,8 @@ class TodoPage extends StatelessWidget {
                     onDoubleTap: () =>
                         Get.toNamed('/editNote', arguments: currentTodo),
                     child: MyTodoTile(
-                      taskName: currentTodo.text,
+                      taskName:
+                          currentTodo.text.replaceAll('\n', ' '), // 多行待办显示成一行,
                       taskCompleted: taskCompleted,
                       onChanged: (bool) {
                         db.changeCabId(currentTodo.id, taskCompleted ? 0 : 1);

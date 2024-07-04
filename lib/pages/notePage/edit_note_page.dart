@@ -275,7 +275,7 @@ class EditNotePage extends StatelessWidget {
               ),
               // 文本输入框下部工具栏按钮
               MyToolsBar(
-                noteTextController: noteTextController,
+                controller: noteTextController,
                 noteId: note.id,
               ),
             ],

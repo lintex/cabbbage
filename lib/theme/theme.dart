@@ -29,37 +29,48 @@ Color greyText = const Color.fromARGB(255, 50, 50, 50);
 Color whiteText = const Color.fromARGB(255, 229, 229, 229);
 
 ThemeData lightMode = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.light,
-    appBarTheme: AppBarTheme(backgroundColor: bg),
-    scaffoldBackgroundColor: bg,
-    colorScheme: ColorScheme.light(
-        background: const Color.fromARGB(255, 247, 247, 247),
-        primary: const Color.fromARGB(255, 233, 233, 233),
-        secondary: Colors.grey.shade400,
-        tertiary: Colors.grey.shade500,
-        primaryContainer: const Color.fromARGB(200, 190, 227, 191),
-        inversePrimary: Colors.black87,
-        outline: const Color.fromARGB(255, 235, 235, 235),
-        shadow: const Color.fromARGB(255, 222, 222, 222),
-        // floatActionButton 颜色
-        secondaryContainer: Colors.green.shade600,
-        onSecondaryContainer: Colors.green));
+  useMaterial3: true,
+  brightness: Brightness.light,
+  appBarTheme: AppBarTheme(backgroundColor: bg),
+  dividerTheme: const DividerThemeData(color: Colors.transparent), // 去除底部分隔线颜色
+  // scaffoldBackgroundColor: bg,
+  colorScheme: ColorScheme.light(
+      background: const Color.fromARGB(255, 247, 247, 247),
+      primary: const Color.fromARGB(255, 233, 233, 233),
+      secondary: Colors.grey.shade400,
+      tertiary: Colors.grey.shade500,
+      primaryContainer: const Color.fromARGB(200, 190, 227, 191),
+      inversePrimary: Colors.black87,
+      outline: const Color.fromARGB(255, 235, 235, 235),
+      shadow: const Color.fromARGB(255, 222, 222, 222),
+      // floatActionButton 颜色
+      secondaryContainer: Colors.green.shade600,
+      onSecondaryContainer: Colors.green),
+  textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Colors.lightGreen.shade700,
+      selectionColor: Colors.lightGreen.shade200,
+      selectionHandleColor: Colors.lightGreen.shade700), // * 文字选择手柄颜色
+);
 
 ThemeData darkMode = ThemeData(
-    brightness: Brightness.dark,
-    appBarTheme: AppBarTheme(backgroundColor: blackBg),
-    scaffoldBackgroundColor: blackBg,
-    colorScheme: ColorScheme.dark(
-        background: blackBg,
-        primary: const Color.fromARGB(255, 50, 50, 50),
-        secondary: Colors.grey.shade800,
-        tertiary: Colors.grey.shade500,
-        // list tile 背景色
-        primaryContainer: const Color.fromARGB(255, 14, 32, 32),
-        inversePrimary: const Color.fromARGB(255, 229, 229, 229),
-        outline: const Color.fromARGB(255, 70, 70, 70),
-        shadow: const Color.fromARGB(255, 12, 12, 12),
-        // floatActionButton 颜色
-        secondaryContainer: const Color.fromARGB(255, 16, 55, 19),
-        onSecondaryContainer: Colors.green.shade600));
+  brightness: Brightness.dark,
+  appBarTheme: AppBarTheme(backgroundColor: blackBg),
+  // scaffoldBackgroundColor: blackBg,
+  colorScheme: ColorScheme.dark(
+      background: blackBg,
+      primary: const Color.fromARGB(255, 50, 50, 50),
+      secondary: Colors.grey.shade800,
+      tertiary: Colors.grey.shade500,
+      // list tile 背景色
+      primaryContainer: const Color.fromARGB(255, 14, 32, 32),
+      inversePrimary: const Color.fromARGB(255, 229, 229, 229),
+      outline: const Color.fromARGB(255, 70, 70, 70),
+      shadow: const Color.fromARGB(255, 12, 12, 12),
+      // floatActionButton 颜色
+      secondaryContainer: const Color.fromARGB(255, 16, 55, 19),
+      onSecondaryContainer: Colors.green.shade600),
+  textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Colors.lightGreen.shade700,
+      selectionColor: Colors.lightGreen.shade200,
+      selectionHandleColor: Colors.lightGreen.shade700),
+);
