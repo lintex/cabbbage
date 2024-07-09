@@ -12,7 +12,8 @@ class MyFloatActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: onPressed,
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+      backgroundColor:
+          Theme.of(context).floatingActionButtonTheme.backgroundColor,
       // 关闭阴影
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -20,7 +21,7 @@ class MyFloatActionButton extends StatelessWidget {
       ),
       child: Icon(
         Icons.add,
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.inversePrimary,
         size: 35,
       ),
     );

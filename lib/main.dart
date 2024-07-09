@@ -22,7 +22,7 @@ Future<void> main() async {
     child: GetMaterialApp(
       title: '开笔记',
       debugShowCheckedModeBanner: false,
-      theme: lightMode,
+      theme: GetStorage().read('isDarkMode') ? darkMode : lightMode,
       darkTheme: darkMode,
       // 第一次运行程序，显示欢迎界面
       // home: isFirstRun() ? const WelcomePage() : const DashboardPage(),
@@ -60,7 +60,7 @@ bool isFirstRun() {
   // 判断App是否为第一次运行
   GetStorage box = GetStorage();
   return !box.hasData('isFirstRun') || // 运行welcome后失效
-      (box.read('buildNumber') ?? 0) < 12 || // TODO 每次发布改为最新build-number
+      (box.read('buildNumber') ?? 0) < 13 || // TODO 每次发布改为最新build-number
       // 判断是否为新版本重现安装，数字为build-number
       box.read('isFirstRun') == true; // 通过设置页面设置
 }

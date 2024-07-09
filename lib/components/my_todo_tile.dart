@@ -33,14 +33,14 @@ class MyTodoTile extends StatelessWidget {
           SlidableAction(
             onPressed: deleteFunction,
             icon: Icons.delete,
-            backgroundColor: Colors.red.shade300,
+            backgroundColor: Theme.of(context).colorScheme.error,
             borderRadius: BorderRadius.circular(16),
           )
         ]),
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: Colors.lightGreen[100],
+              color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(16)),
           child: Row(
             children: [

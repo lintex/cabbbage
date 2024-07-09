@@ -34,6 +34,8 @@ class AboutPage extends StatelessWidget {
     // 点击次数
     int clickTimes = 1;
 
+    // bool isButtonEnabled = true; // 设置一个标志变量来控制按钮的可用状态
+
     return Scaffold(
         appBar: const MyAppBar(title: "关于"),
         body: Center(
@@ -96,6 +98,7 @@ class AboutPage extends StatelessWidget {
                           text: "检查更新",
                           color: Colors.lightGreen,
                           onPressed: () {
+                            // isButtonEnabled = false;
                             UserProvider().getVersion().then((value) {
                               Map<String, dynamic> js = json.decode(value.body);
                               Version v = Version.fromJson(js);
@@ -114,6 +117,7 @@ class AboutPage extends StatelessWidget {
                                       text: '确定',
                                       color: Colors.lightGreen.shade300,
                                       onPressed: () {
+                                        // isButtonEnabled = true;
                                         Get.back();
                                       }));
                             });

@@ -19,7 +19,7 @@ class MyReadMoreText extends StatelessWidget {
       style: const TextStyle(
           fontSize: 16,
           fontFamily: '霞鹜文楷',
-          color: Colors.black,
+          // color: Colors.black,
           overflow: TextOverflow.ellipsis),
       annotations: [
         Annotation(
@@ -58,7 +58,8 @@ class MyReadMoreText extends StatelessWidget {
           spanBuilder: ({required String text, TextStyle? textStyle}) =>
               TextSpan(
             text: text.replaceAll("`", ""),
-            style: textStyle?.copyWith(backgroundColor: Colors.yellow.shade300),
+            style: textStyle?.copyWith(
+                backgroundColor: Theme.of(context).colorScheme.surfaceTint),
           ),
         ),
       ],

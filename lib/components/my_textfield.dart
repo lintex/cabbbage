@@ -44,9 +44,9 @@ class MyTextField extends StatelessWidget {
         enabledBorder: roundBorder,
         filled: true, // * 只有filled为true时，下面的fillColor才有效
         fillColor: Theme.of(context).colorScheme.primary,
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.lightGreen, width: 2),
-          borderRadius: BorderRadius.all(Radius.circular(15)),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).focusColor, width: 2),
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
         ),
         // hitText 和 labelText 同时存在有些问题
         hintText: hintText,

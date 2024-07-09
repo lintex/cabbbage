@@ -28,6 +28,8 @@ Color blackBg = const Color.fromARGB(255, 36, 36, 36);
 Color greyText = const Color.fromARGB(255, 50, 50, 50);
 Color whiteText = const Color.fromARGB(255, 229, 229, 229);
 
+// 原dashboard Note背景色 color: const Color.fromARGB(255, 241, 240, 231)
+
 ThemeData lightMode = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
@@ -35,42 +37,59 @@ ThemeData lightMode = ThemeData(
   dividerTheme: const DividerThemeData(color: Colors.transparent), // 去除底部分隔线颜色
   // scaffoldBackgroundColor: bg,
   colorScheme: ColorScheme.light(
-      background: const Color.fromARGB(255, 247, 247, 247),
-      primary: const Color.fromARGB(255, 233, 233, 233),
-      secondary: Colors.grey.shade400,
-      tertiary: Colors.grey.shade500,
-      primaryContainer: const Color.fromARGB(200, 190, 227, 191),
-      inversePrimary: Colors.black87,
-      outline: const Color.fromARGB(255, 235, 235, 235),
-      shadow: const Color.fromARGB(255, 222, 222, 222),
-      // floatActionButton 颜色
-      secondaryContainer: Colors.green.shade600,
-      onSecondaryContainer: Colors.green),
+    background: const Color.fromARGB(255, 247, 247, 247),
+    primary: const Color.fromARGB(255, 233, 233, 233),
+    secondary: Colors.grey.shade400,
+    tertiary: Colors.grey.shade500,
+    primaryContainer: Colors.lightGreen.shade100,
+    onPrimaryContainer: Colors.lightGreen.shade400,
+    inversePrimary: Colors.black87,
+    outline: const Color.fromARGB(255, 235, 235, 235),
+    shadow: const Color.fromARGB(255, 222, 222, 222),
+    error: Colors.red.shade300,
+
+    surfaceTint: Colors.yellow.shade300, // note 画线文字背景
+  ),
+  // * 文字选择手柄颜色
   textSelectionTheme: TextSelectionThemeData(
       cursorColor: Colors.lightGreen.shade700,
       selectionColor: Colors.lightGreen.shade200,
-      selectionHandleColor: Colors.lightGreen.shade700), // * 文字选择手柄颜色
+      selectionHandleColor: Colors.lightGreen.shade700),
+  // floatActionButton 颜色
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Colors.green.shade600,
+  ),
+  // TextField 聚焦颜色
+  focusColor: Colors.lightGreen,
 );
 
 ThemeData darkMode = ThemeData(
   brightness: Brightness.dark,
   appBarTheme: AppBarTheme(backgroundColor: blackBg),
+  dividerTheme: const DividerThemeData(color: Colors.transparent), // 去除底部分隔线颜色
   // scaffoldBackgroundColor: blackBg,
   colorScheme: ColorScheme.dark(
-      background: blackBg,
-      primary: const Color.fromARGB(255, 50, 50, 50),
-      secondary: Colors.grey.shade800,
-      tertiary: Colors.grey.shade500,
-      // list tile 背景色
-      primaryContainer: const Color.fromARGB(255, 14, 32, 32),
-      inversePrimary: const Color.fromARGB(255, 229, 229, 229),
-      outline: const Color.fromARGB(255, 70, 70, 70),
-      shadow: const Color.fromARGB(255, 12, 12, 12),
-      // floatActionButton 颜色
-      secondaryContainer: const Color.fromARGB(255, 16, 55, 19),
-      onSecondaryContainer: Colors.green.shade600),
+    background: blackBg,
+    primary: const Color.fromARGB(255, 50, 50, 50),
+    secondary: Colors.grey.shade800,
+    tertiary: Colors.grey.shade500,
+    // list tile 背景色
+    primaryContainer: const Color.fromARGB(255, 33, 48, 18),
+    onPrimaryContainer: Colors.lightGreen.shade900,
+    inversePrimary: const Color.fromARGB(255, 229, 229, 229),
+    outline: const Color.fromARGB(255, 70, 70, 70),
+    shadow: const Color.fromARGB(255, 12, 12, 12),
+    error: const Color.fromARGB(255, 75, 16, 16),
+    surfaceTint: const Color.fromARGB(255, 69, 64, 16), // note 画线文字背景
+  ),
   textSelectionTheme: TextSelectionThemeData(
       cursorColor: Colors.lightGreen.shade700,
       selectionColor: Colors.lightGreen.shade200,
       selectionHandleColor: Colors.lightGreen.shade700),
+  // floatActionButton 颜色
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: Color.fromARGB(255, 80, 113, 43),
+  ),
+  // TextField 聚焦颜色
+  focusColor: Colors.lightGreen.shade900,
 );

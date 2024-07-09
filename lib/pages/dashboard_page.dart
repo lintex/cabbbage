@@ -129,18 +129,52 @@ class DashboardPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                // 显示最后三条未完成待办
                 MyDashboardTile(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
-                    child: GestureDetector(
-                      onTap: () => Get.toNamed('/todo'),
-                      child: Column(
-                          children:
-                              // Text('hello'.tr),
-                              db.lastTodos
-                                  .map((todo) => MyCardContent(note: todo))
-                                  .toList()),
-                    ),
+                    child: Stack(children: [
+                      GestureDetector(
+                        onTap: () => Get.toNamed('/todo'),
+                        child: Column(
+                            children:
+                                // Text('hello'.tr),
+                                db.lastTodos
+                                    .map((todo) => MyCardContent(note: todo))
+                                    .toList()),
+                      ),
+                      // 右上角新建待办按钮
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: MyCircleToolButton(
+                          icon: CupertinoIcons.add,
+                          onPressed: () {
+                            Get.bottomSheet(MyBottomSheet(
+                              title: '添加待办',
+                              text: '',
+                              controller: controller,
+                              onPressed: () {
+                                Get.find<Database>()
+                                    .addNote(controller.text, cabId: 0);
+                                controller.clear();
+                                Get.back();
+                                Get.snackbar('success', '待办添加成功！',
+                                    duration: const Duration(seconds: 2));
+                              },
+                            ));
+                          },
+                        ),
+                      ),
+                      // 右下角显示“待办事项”文字
+                      const Positioned(
+                        right: 10,
+                        bottom: 0,
+                        child: Text(
+                          "待办事项",
+                          style: TextStyle(fontFamily: '方正大标宋'),
+                        ),
+                      ),
+                    ]),
                   ),
                 ),
                 Container(
@@ -156,7 +190,7 @@ class DashboardPage extends StatelessWidget {
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: const Color.fromARGB(255, 241, 240, 231)),
+                            color: Theme.of(context).colorScheme.primary),
                         child: Center(
                             child: GestureDetector(
                           onTap: () => Get.toNamed('/note'),
