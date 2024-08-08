@@ -1,3 +1,4 @@
+import 'package:cabbbage/components/my_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -8,10 +9,12 @@ class MyTodoTile extends StatelessWidget {
     required this.taskCompleted,
     this.onChanged,
     this.deleteFunction,
+    required this.noteId,
   });
 
   final String taskName;
   final bool taskCompleted;
+  final int noteId;
   final void Function(bool?)? onChanged;
   final void Function(BuildContext)? deleteFunction;
 
@@ -42,27 +45,8 @@ class MyTodoTile extends StatelessWidget {
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(16)),
-          child: Row(
-            children: [
-              Checkbox(
-                value: taskCompleted,
-                onChanged: onChanged,
-                activeColor: Colors.lightGreen[700],
-              ),
-              Expanded(
-                child: Text(
-                  taskName,
-                  style: TextStyle(
-                    decoration: taskCompleted
-                        ? TextDecoration.lineThrough //显示删除线
-                        : TextDecoration.none,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
+          child: MyCheckbox(
+              taskCompleted: taskCompleted, noteId: noteId, text: taskName),
         ),
       ),
     );

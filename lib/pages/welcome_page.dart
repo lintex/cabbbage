@@ -1,4 +1,5 @@
 import 'package:cabbbage/components/my_button.dart';
+import 'package:cabbbage/models/database.dart';
 import 'package:cabbbage/tools/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,8 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Database db = Get.find();
+
     return Scaffold(
         appBar: AppBar(title: const Text("Welcome")),
         body: Center(
@@ -47,7 +50,22 @@ class WelcomePage extends StatelessWidget {
                     if (!box.hasData('isDarkMode')) {
                       box.write('isDarkMode', false);
                     }
-
+                    // 写入马拉松默认数据
+                    if (db.allMarathons.isEmpty) {
+                      db.addMarathon('2024北京马拉松', DateTime(2024, 10, 27, 7, 30),
+                          '天安门广场', '鸟巢', '', '');
+                      db.addMarathon('2024上海马拉松', DateTime(2024, 12, 1, 7, 30),
+                          '', '', '', '');
+                      db.addMarathon('2024广州马拉松', DateTime(2024, 12, 8, 7, 30),
+                          '', '', '', '');
+                    }
+                    // 写入笔记note默认数据
+                    if (db.allMarathons.isEmpty) {
+                      db.addNote(
+                          '人生就是场体验，请尽兴点！把烦心事都丢掉，腾出地方来装鲜花，夜光，银河，星光和你爱的人。');
+                      db.addNote('教育之道无他，唯爱和榜样而已。真正觉醒的家庭，只改变自己，不改变孩子。');
+                      db.addNote('谁终将声震人间，必长久深自缄默。谁终将点燃闪电，必长久如云漂泊。');
+                    }
                     Get.offNamed('/dashboard');
                   }),
             ],

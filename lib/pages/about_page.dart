@@ -10,6 +10,7 @@ String currentVersion = '';
 
 // 读取系统版本号
 Future<String> getAppVersion() async {
+  await Future.delayed(const Duration(seconds: 2));
   final info = await PackageInfo.fromPlatform();
   currentVersion = info.version;
   return '${info.version}.${info.buildNumber}';
@@ -70,6 +71,10 @@ class AboutPage extends StatelessWidget {
                         future: getAppVersion(), // 启动异步方法
                         builder: (BuildContext context,
                             AsyncSnapshot<dynamic> snapshot) {
+                          // if (snapshot.connectionState ==
+                          //     ConnectionState.waiting) {
+                          //   return const CircularProgressIndicator.adaptive();
+                          // }
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
                             // 如果数据已经获取完成，显示数据
@@ -88,7 +93,7 @@ class AboutPage extends StatelessWidget {
                             }
                           }
                           // 数据获取过程中显示的加载提示
-                          return const CircularProgressIndicator();
+                          return const CircularProgressIndicator.adaptive();
                         },
                       ),
                       const SizedBox(
@@ -125,52 +130,56 @@ class AboutPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Column(
-                  children: [
-                    Text(
-                      "小西软件 版权所有",
-                      style: greyText,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "Copyright ©️ 2024 SmallWest Software. All rights reserved.",
-                      style: greyText,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "ICP备案号：鄂B2-20240059-1745A",
-                      style: greyText,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "用户协议",
-                          style: underlineText,
-                        ),
-                        Text(
-                          " · ",
-                          style: greyText,
-                        ),
-                        Text(
-                          "隐私政策",
-                          style: underlineText,
-                        ),
-                      ],
-                    ),
-                  ],
-                )
+                _bottomCopyright(greyText, underlineText)
               ],
             ),
           ),
         ));
+  }
+
+  Column _bottomCopyright(TextStyle greyText, TextStyle underlineText) {
+    return Column(
+      children: [
+        Text(
+          "小西软件 版权所有",
+          style: greyText,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Text(
+          "Copyright ©️ 2024 SmallWest Software. All rights reserved.",
+          style: greyText,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Text(
+          "ICP备案号：鄂B2-20240059-1745A",
+          style: greyText,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "用户协议",
+              style: underlineText,
+            ),
+            Text(
+              " · ",
+              style: greyText,
+            ),
+            Text(
+              "隐私政策",
+              style: underlineText,
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 

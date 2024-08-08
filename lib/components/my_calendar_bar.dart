@@ -6,7 +6,7 @@ class MyCalendarBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 66,
+      height: 76,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: const [
@@ -58,7 +58,7 @@ class MyCalendarBarTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-      margin: const EdgeInsets.symmetric(horizontal: 4),
+      margin: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(16)),

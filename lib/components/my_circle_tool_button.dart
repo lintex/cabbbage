@@ -27,17 +27,24 @@ class MyCircleToolButton extends StatelessWidget {
     //       ),
     //     ));
 
-    return MaterialButton(
-      onPressed: onPressed,
-      color: const Color.fromARGB(255, 230, 237, 215),
-      splashColor: Colors.lightGreen[200],
-      textColor: Colors.black87,
-      padding: const EdgeInsets.all(15),
-      shape: const CircleBorder(),
-      elevation: 0,
-      child: Icon(
-        icon,
-        size: iconSize,
+    return Container(
+      // todo 按钮默认margin需要修改
+      margin: const EdgeInsets.only(left: 0),
+      child: MaterialButton(
+        onPressed: onPressed,
+        color: Theme.of(context).floatingActionButtonTheme.backgroundColor,
+        splashColor:
+            Theme.of(context).floatingActionButtonTheme.backgroundColor,
+        textColor: Theme.of(context).colorScheme.inversePrimary,
+        padding: const EdgeInsets.all(10),
+        shape: const CircleBorder(),
+        // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        // visualDensity: VisualDensity.compact,
+        elevation: 0,
+        child: Icon(
+          icon,
+          size: iconSize,
+        ),
       ),
     );
   }

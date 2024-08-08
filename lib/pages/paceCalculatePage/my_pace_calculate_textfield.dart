@@ -21,11 +21,11 @@ class MyPaceCalculateTextField extends StatelessWidget {
         }
       },
       onChanged: (value) {
-        if (value.isNotEmpty && RegExp(r'^\d+$').hasMatch(value)) {
+        if (RegExp(r'^\d+$').hasMatch(value)) {
           if (int.parse(value) > 59) {
             controller.text = "59";
           }
-        } else {
+        } else if (value.isNotEmpty) {
           controller.text = '';
           Get.snackbar("error", "只能输入数字！");
         }
@@ -38,9 +38,7 @@ class MyPaceCalculateTextField extends StatelessWidget {
 
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
-              width: 2),
+          borderSide: BorderSide(color: Theme.of(context).focusColor, width: 2),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         contentPadding: const EdgeInsets.fromLTRB(20, 5, 10, 5),
@@ -48,13 +46,11 @@ class MyPaceCalculateTextField extends StatelessWidget {
         border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12))),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-                width: 1),
+            borderSide:
+                BorderSide(color: Theme.of(context).focusColor, width: 1),
             borderRadius: const BorderRadius.all(Radius.circular(12))),
         labelText: text,
-        labelStyle: TextStyle(
-            color: Theme.of(context).colorScheme.onSecondaryContainer),
+        labelStyle: TextStyle(color: Theme.of(context).focusColor),
         // hintStyle: const TextStyle(color: Colors.green),
       ),
     );

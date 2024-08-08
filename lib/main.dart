@@ -1,4 +1,5 @@
 import 'package:feedback/feedback.dart';
+import 'package:flutter/widgets.dart';
 import 'messages.dart';
 import 'pages/unknown_route_page.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,28 @@ import 'routes.dart';
 
 // flutter build apk --release --build-number=10 --build-name="0.1.0"
 // flutter build apk --help
+// flutter install --release
 Future<void> main() async {
+  // 定义错误界面
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return Material(
+      child: Container(
+        color: Colors.lightGreen,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              details.exception.toString(),
+              style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white70),
+            )
+          ],
+        ),
+      ),
+    );
+  };
   // 初始化Isar数据库
   WidgetsFlutterBinding.ensureInitialized();
   await Database.initialize();
@@ -21,8 +43,9 @@ Future<void> main() async {
   runApp(BetterFeedback(
     child: GetMaterialApp(
       title: '开笔记',
+      // showPerformanceOverlay: true,
       debugShowCheckedModeBanner: false,
-      theme: GetStorage().read('isDarkMode') ? darkMode : lightMode,
+      theme: GetStorage().read('isDarkMode') == true ? darkMode : lightMode,
       darkTheme: darkMode,
       // 第一次运行程序，显示欢迎界面
       // home: isFirstRun() ? const WelcomePage() : const DashboardPage(),

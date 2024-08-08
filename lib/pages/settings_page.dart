@@ -103,7 +103,7 @@ class SettingPage extends StatelessWidget {
               subtitle: '会重置部分系统设置',
               trailing: ValueBuilder<bool?>(
                 initialValue: isFirstRun,
-                builder: (value, update) => Switch(
+                builder: (value, update) => Switch.adaptive(
                   value: value!,
                   onChanged: (flag) => update(flag),
                   activeColor: Colors.green,
@@ -150,6 +150,7 @@ class SettingPage extends StatelessWidget {
                       onUpdate: (value) {
                         isDarkMode = !isDarkMode;
                         box.write('isDarkMode', isDarkMode);
+                        debugPrint('isDarkMode:$isDarkMode');
                         isDarkMode
                             ? Get.changeTheme(darkMode)
                             : Get.changeTheme(lightMode);

@@ -114,6 +114,7 @@ class MyMarathonListTile extends StatelessWidget {
                   ),
                 ],
               ),
+              // 进度指示条
               Container(
                 margin: const EdgeInsets.only(top: 8),
                 width: double.infinity,
@@ -126,7 +127,7 @@ class MyMarathonListTile extends StatelessWidget {
                   //isRTL: true, // 从右向左调转方向
                   animationDuration: 1200,
                   padding: const EdgeInsets.all(0),
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   progressColor:
                       Theme.of(context).colorScheme.onPrimaryContainer,
                   barRadius: const Radius.circular(5),

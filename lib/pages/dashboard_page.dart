@@ -3,10 +3,12 @@ import 'package:cabbbage/components/my_bottom_sheet.dart';
 import 'package:cabbbage/components/my_card_content.dart';
 import 'package:cabbbage/components/my_circle_tool_button.dart';
 import 'package:cabbbage/components/my_circularPercentIndicator.dart';
+import 'package:cabbbage/components/my_footer.dart';
 import 'package:cabbbage/pages/dashboardPage/my_dashboard_marathon_tile.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_dashboard_tile.dart';
 import 'package:cabbbage/components/my_drawer.dart';
@@ -43,7 +45,11 @@ class DashboardPage extends StatelessWidget {
       Colors.lightGreen.shade500,
       Colors.lightGreen.shade400
     ];
-
+    List<Color> backgroundColor = [
+      Colors.lightGreen.shade300,
+      Colors.lightGreen.shade200,
+      Colors.lightGreen.shade100
+    ];
     return Theme(
       // 这段代码是为了去除persistentFooterButtons顶部一条分割线
       data: Theme.of(context).copyWith(
@@ -63,8 +69,8 @@ class DashboardPage extends StatelessWidget {
               ),
             )),
         drawer: const MyDrawer(),
-        persistentFooterAlignment: AlignmentDirectional.center,
-        persistentFooterButtons: myFooterButtons(controller), // 底部图标工具
+        // persistentFooterAlignment: AlignmentDirectional.center,
+        // persistentFooterButtons: myFooterButtons(controller), // 底部图标工具
         body: SingleChildScrollView(
           child: Obx(
             () => Column(
@@ -114,8 +120,11 @@ class DashboardPage extends StatelessWidget {
                                           alignment: Alignment.center,
                                           child: MyCircularPercentIndicator(
                                             value: marathonStillDays[index],
+                                            lineWidth: 8,
                                             radius: 28 + 8.5 * index,
                                             progressColor: progressColor[index],
+                                            backgroundColor:
+                                                backgroundColor[index],
                                             center: Text(
                                                 "${marathonStillDays.first}天"),
                                           )),
@@ -134,20 +143,29 @@ class DashboardPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Stack(children: [
-                      GestureDetector(
-                        onTap: () => Get.toNamed('/todo'),
-                        child: Column(
-                            children:
-                                // Text('hello'.tr),
-                                db.lastTodos
-                                    .map((todo) => MyCardContent(note: todo))
-                                    .toList()),
-                      ),
+                      db.lastTodos.isEmpty
+                          ? const SizedBox(
+                              height: 50,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text("没有需要完成的待办事项！"),
+                              ),
+                            )
+                          : GestureDetector(
+                              onTap: () => Get.toNamed('/todo'),
+                              child: Column(
+                                  children:
+                                      // Text('hello'.tr),
+                                      db.lastTodos
+                                          .map((todo) =>
+                                              MyCardContent(note: todo))
+                                          .toList()),
+                            ),
                       // 右上角新建待办按钮
                       Align(
-                        alignment: Alignment.centerRight,
+                        alignment: Alignment.topRight,
                         child: MyCircleToolButton(
-                          icon: CupertinoIcons.add,
+                          icon: CupertinoIcons.plus_app,
                           onPressed: () {
                             Get.bottomSheet(MyBottomSheet(
                               title: '添加待办',
@@ -166,28 +184,31 @@ class DashboardPage extends StatelessWidget {
                         ),
                       ),
                       // 右下角显示“待办事项”文字
-                      const Positioned(
-                        right: 10,
-                        bottom: 0,
-                        child: Text(
-                          "待办事项",
-                          style: TextStyle(fontFamily: '方正大标宋'),
-                        ),
-                      ),
+                      db.lastTodos.length > 1
+                          ? const Positioned(
+                              right: 10,
+                              bottom: 0,
+                              child: Text(
+                                "待办事项",
+                                style: TextStyle(fontFamily: '方正大标宋'),
+                              ),
+                            )
+                          : Container(),
                     ]),
                   ),
                 ),
+                // note 显示模块
                 Container(
                   padding: const EdgeInsets.all(8),
-                  height: 200,
+                  height: 178,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: db.lastNotes.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         width: 200,
-                        margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             color: Theme.of(context).colorScheme.primary),
@@ -200,6 +221,21 @@ class DashboardPage extends StatelessWidget {
                     },
                   ),
                 ),
+                // 快捷输入模块
+                MyDashboardTile(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: myFooterButtons(controller),
+                )),
+                // 小西三项模块
+                const MyDashboardTile(
+                    child: Row(
+                  children: [
+                    Spacer(),
+                  ],
+                )),
+                // 页面底部标语
+                const MyFooter(),
               ],
             ),
           ),

@@ -223,26 +223,19 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                                   BorderRadius.all(Radius.circular(12))),
                           enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer,
+                                  color: Theme.of(context).focusColor,
                                   width: 1),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(12))),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondaryContainer,
-                                width: 2),
+                                color: Theme.of(context).focusColor, width: 2),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
                           ),
                           labelText: "跑步距离",
-                          labelStyle: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer),
+                          labelStyle:
+                              TextStyle(color: Theme.of(context).focusColor),
                         ),
                       ),
                     ),
@@ -262,13 +255,12 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                           style: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
                                 textStr.value == "42.195"
-                                    ? Colors.lightGreen.shade200
+                                    ? Theme.of(context).focusColor
                                     : Colors.transparent),
                             side: MaterialStateProperty.all(
                               BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer, // 设置边框颜色为蓝色
+                                  color:
+                                      Theme.of(context).focusColor, // 设置边框颜色为蓝色
                                   width: 1),
                             ),
                             padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -292,13 +284,12 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                           style: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
                                 textStr.value == "21.0975"
-                                    ? Colors.lightGreen.shade200
+                                    ? Theme.of(context).focusColor
                                     : Colors.transparent),
                             side: MaterialStateProperty.all(
                               BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer, // 设置边框颜色为蓝色
+                                  color:
+                                      Theme.of(context).focusColor, // 设置边框颜色为蓝色
                                   width: 1),
                             ),
                             padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -322,13 +313,11 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                           style: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
                                 textStr.value == "10.00"
-                                    ? Colors.lightGreen.shade200
+                                    ? Theme.of(context).focusColor
                                     : Colors.transparent),
                             side: MaterialStateProperty.all(
                               BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer,
+                                  color: Theme.of(context).focusColor,
                                   width: 1),
                             ),
                             padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -352,13 +341,12 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                           style: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
                                 textStr.value == "5.00"
-                                    ? Colors.lightGreen.shade200
+                                    ? Theme.of(context).focusColor
                                     : Colors.transparent),
                             side: MaterialStateProperty.all(
                               BorderSide(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer, // 设置边框颜色为蓝色
+                                  color:
+                                      Theme.of(context).focusColor, // 设置边框颜色为蓝色
                                   width: 1),
                             ),
                             padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -415,8 +403,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       shape: const CircleBorder(),
                       child: Icon(
                         Icons.arrow_downward_rounded,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         size: 50,
                       ),
                     ),
@@ -428,8 +415,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                       shape: const CircleBorder(),
                       child: Icon(
                         Icons.arrow_upward_rounded,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         size: 50,
                       ),
                     ),
@@ -488,7 +474,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
                         2: FixedColumnWidth(60),
                       },
                       border: TableBorder.all(
-                          color: Colors.lightGreen.shade200,
+                          color: Theme.of(context).focusColor,
                           width: 1,
                           borderRadius: BorderRadius.circular(8)),
                       children: costTimeList
@@ -536,7 +522,7 @@ class _PaceCalculatePageState extends State<PaceCalculatePage> {
 //       },
 //       style: ButtonStyle(
 //         backgroundColor: MaterialStatePropertyAll(textStr.value == distance
-//             ? Colors.lightGreen.shade200
+//             ? Theme.of(context).focusColor
 //             : Colors.transparent),
 //         side: MaterialStateProperty.all(
 //           BorderSide(

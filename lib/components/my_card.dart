@@ -23,7 +23,7 @@ class MyCard extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       padding: const EdgeInsets.fromLTRB(12, 10, 10, 10),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.7),
+        color: Theme.of(context).colorScheme.primary,
         //border: Border.all(width: 1),
         borderRadius: const BorderRadius.all(Radius.circular(11)),
         // boxShadow: const [
