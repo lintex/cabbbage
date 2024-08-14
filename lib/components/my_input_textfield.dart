@@ -8,11 +8,13 @@ class MyInputTextField extends StatelessWidget {
     required this.controller,
     this.hintText = '',
     this.text = '',
+    this.focusNode,
     // this.labelText = ''
   });
   final TextEditingController controller;
   final String hintText;
   final String text;
+  final FocusNode? focusNode;
   // final String labelText;
 
   @override
@@ -38,7 +40,8 @@ class MyInputTextField extends StatelessWidget {
 
     return TextField(
       controller: controller,
-      autofocus: true,
+      focusNode: focusNode,
+      // autofocus: true,
       minLines: 1,
       maxLines: 5,
       cursorColor: Colors.lightGreen.shade700,

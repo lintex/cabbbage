@@ -1,18 +1,54 @@
 import 'package:cabbbage/components/my_calendar_bar.dart';
 import 'package:cabbbage/components/my_card_content.dart';
 import 'package:cabbbage/components/my_circle_tool_button.dart';
-import 'package:cabbbage/components/my_footer.dart';
 import 'package:cabbbage/components/my_input_textfield.dart';
 import 'package:cabbbage/components/my_timeline_tile.dart';
 import 'package:cabbbage/models/database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cabbbage/components/my_app_bar.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class TimelinePage extends StatelessWidget {
+class TimelinePage extends StatefulWidget {
   const TimelinePage({super.key});
+
+  @override
+  State<TimelinePage> createState() => _TimelinePageState();
+}
+
+class _TimelinePageState extends State<TimelinePage> {
+  FocusNode myFocusNode = FocusNode();
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode.addListener(() {
+      if (myFocusNode.hasFocus) {
+        // 延时500毫秒等待键盘加载
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () => scrollDown(),
+        );
+      }
+    });
+
+    // 等待500毫秒listview build，然后滚动到底部
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () => scrollDown(),
+    );
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
+  }
+
+  final ScrollController _scrollController = ScrollController();
+
+  void scrollDown() {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: const Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +56,7 @@ class TimelinePage extends StatelessWidget {
     TextEditingController controller = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: const MyAppBar(title: 'Timeline'),
+      appBar: const MyAppBar(title: '日记'),
       body: Column(
         children: [
           const MyCalendarBar(),
@@ -123,6 +159,7 @@ class TimelinePage extends StatelessWidget {
         init: Database(),
         builder: (db) => ListView.builder(
               shrinkWrap: true, //这一行不要列表无法显示
+              controller: _scrollController,
               // physics:
               //     const NeverScrollableScrollPhysics(), //不要无法滚动
               itemCount: db.allNotes.length,
@@ -149,7 +186,10 @@ class TimelinePage extends StatelessWidget {
           Expanded(
               // height: 60,
               // width: 300,
-              child: MyInputTextField(controller: controller)),
+              child: MyInputTextField(
+            controller: controller,
+            focusNode: myFocusNode,
+          )),
           MyCircleToolButton(
             icon: Icons.send_rounded,
             onPressed: () {
@@ -157,6 +197,7 @@ class TimelinePage extends StatelessWidget {
               if (content.isNotEmpty) {
                 db.addNote(controller.text.trim(), cabId: 10);
                 controller.clear();
+                scrollDown();
                 // Get.back();
                 Get.snackbar('success', '草稿添加成功！',
                     duration: const Duration(seconds: 1));

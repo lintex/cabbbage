@@ -11,4 +11,6 @@ class Marathon {
   String? finish;
   String? hotel;
   String? packet;
+  String? bibNumber;
+  byte isChosen = 0;
 }

@@ -63,7 +63,7 @@ class MyDrawer extends StatelessWidget {
                       Icons.insights_outlined,
                       color: Colors.blue,
                     ),
-                    title: const Text("时间线"),
+                    title: const Text("日记"),
                     onTap: () => Get.toNamed('/timeline'),
                   ),
                   ListTile(

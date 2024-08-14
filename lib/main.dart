@@ -1,5 +1,4 @@
 import 'package:feedback/feedback.dart';
-import 'package:flutter/widgets.dart';
 import 'messages.dart';
 import 'pages/unknown_route_page.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ Future<void> main() async {
             Text(
               details.exception.toString(),
               style: const TextStyle(
-                  fontSize: 30,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.white70),
             )

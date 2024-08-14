@@ -2,7 +2,6 @@ import 'package:cabbbage/models/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/models/marathon.dart';
-import 'package:cabbbage/pages/marathonPage/edit_marathon_page.dart';
 import 'package:cabbbage/tools/Tools.dart';
 import 'dart:async';
 
@@ -208,11 +207,14 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
               Container(
                 //height: 60,
                 width: double.infinity,
-                //alignment: Alignment.center,
+                // alignment: Alignment.center,
                 // margin: const EdgeInsets.fromLTRB(20, 12, 20, 10),
                 padding: const EdgeInsets.fromLTRB(20, 25, 20, 25),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
+                  // 未中签背景显示为红色
+                  color: currentMarathon.isChosen == 2
+                      ? Theme.of(context).colorScheme.error
+                      : Theme.of(context).colorScheme.primaryContainer,
                   //border: Border.all(width: 1),
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   boxShadow: [
@@ -270,19 +272,24 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
+                        const Column(
                           children: [Icon(Icons.money), Text('参赛号')],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 8,
                         ),
                         Text(
-                          "A19999",
+                          currentMarathon.isChosen == 2
+                              ? '未中签'
+                              : currentMarathon.bibNumber == ''
+                                  ? 'A00000'
+                                  : currentMarathon.bibNumber.toString(),
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 50, fontFamily: '方正大标宋'),
+                          style: const TextStyle(
+                              fontSize: 35, fontFamily: '方正大标宋'),
                         ),
                       ],
                     ),

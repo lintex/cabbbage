@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +18,7 @@ class EditMarathonPage extends StatelessWidget {
   final marathonFinishController = TextEditingController();
   final marathonHotelController = TextEditingController();
   final marathonPacketController = TextEditingController();
+  final marathonBibNumberController = TextEditingController();
   // 使用Get找到主页面使用的Controller
   final Database db = Get.find();
 
@@ -31,6 +34,26 @@ class EditMarathonPage extends StatelessWidget {
     marathonFinishController.text = marathon.finish!;
     marathonHotelController.text = marathon.hotel!;
     marathonPacketController.text = marathon.packet ?? "";
+    marathonBibNumberController.text = marathon.bibNumber ?? "";
+
+    // 是否中签文字标签
+    var isChosen = 0.obs;
+    var isChosenText = ''.obs;
+    isChosen.value = marathon.isChosen;
+    switch (isChosen.value) {
+      case 0:
+        isChosenText.value = '等待中签';
+        break;
+      case 1:
+        isChosenText.value = '已中签';
+        break;
+      case 2:
+        isChosenText.value = '未中签';
+        break;
+      default:
+        isChosenText.value = '等待中签';
+        break;
+    }
 
     pickTime() {
       // 弹出时间选择窗口
@@ -99,13 +122,16 @@ class EditMarathonPage extends StatelessWidget {
                   onPressed: () {
                     // 将比赛信息存入数据库
                     db.updateMarathon(
-                        marathon.id,
-                        marathonNameController.text,
-                        marathonDate.value!,
-                        marathonStartController.text,
-                        marathonFinishController.text,
-                        marathonHotelController.text,
-                        marathonPacketController.text);
+                      marathon.id,
+                      marathonNameController.text,
+                      marathonDate.value!,
+                      marathonStartController.text,
+                      marathonFinishController.text,
+                      marathonHotelController.text,
+                      marathonPacketController.text,
+                      marathonBibNumberController.text,
+                      isChosen.value,
+                    );
                     // 清空文本框并返回
                     marathonNameController.clear();
                     Navigator.pop(context);
@@ -144,9 +170,8 @@ class EditMarathonPage extends StatelessWidget {
                           Obx(() => Text(
                                 Tools.getDate(marathonDate.value!),
                                 style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary),
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary),
                               )),
                           Icon(
                             Icons.keyboard_arrow_right,
@@ -185,12 +210,83 @@ class EditMarathonPage extends StatelessWidget {
               const SizedBox(
                 height: 18,
               ),
+              // 是否中签选项框
+              _isChosenTile(isChosenText, isChosen, context),
+              const SizedBox(
+                height: 18,
+              ),
               MyTextField(
                 controller: marathonPacketController,
                 hintText: "请输入领物点",
               ),
+              const SizedBox(
+                height: 18,
+              ),
+              MyTextField(
+                controller: marathonBibNumberController,
+                hintText: "参赛号码",
+              ),
             ],
           ),
         )));
+  }
+
+  // 是否中签选项框
+  Padding _isChosenTile(
+      RxString isChosenText, RxInt isChosen, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        const Text(
+          '是否中签',
+          style: TextStyle(fontSize: 16),
+        ),
+        PopupMenuButton<String>(
+          itemBuilder: (BuildContext context) {
+            return [
+              const PopupMenuItem<String>(
+                value: 'wait',
+                child: Text('等待抽签'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'yes',
+                child: Text('已中签'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'no',
+                child: Text('未中签'),
+              ),
+            ];
+          },
+          onSelected: (String value) {
+            switch (value) {
+              case 'wait':
+                isChosen.value = 0;
+                isChosenText.value = '等待抽签';
+                break;
+              case 'yes':
+                isChosen.value = 1;
+                isChosenText.value = '已中签';
+                break;
+              case 'no':
+                isChosen.value = 2;
+                isChosenText.value = '未中签';
+                break;
+            }
+          }, // 可以设置一个图标来触发弹出菜单
+          color: Theme.of(context).colorScheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide.none,
+          ),
+          child: Row(
+            children: [
+              Obx(() => Text(isChosenText.value)),
+              const Icon(Icons.unfold_more_rounded),
+            ],
+          ),
+        ),
+      ]),
+    );
   }
 }

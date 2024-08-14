@@ -51,7 +51,8 @@ ThemeData lightMode = ThemeData(
       inversePrimary: Colors.black87,
       outline: const Color.fromARGB(255, 235, 235, 235),
       shadow: const Color.fromARGB(255, 222, 222, 222),
-      error: Colors.red.shade300,
+      error: Colors.deepOrange.shade100,
+      onError: Colors.deepOrange.shade400,
       surfaceTint: Colors.yellow.shade200.withOpacity(0.6), // note 画线文字背景
     ),
     // * 文字选择手柄颜色
@@ -94,6 +95,7 @@ ThemeData darkMode = ThemeData(
       outline: const Color.fromARGB(255, 70, 70, 70),
       shadow: const Color.fromARGB(255, 12, 12, 12),
       error: const Color.fromARGB(255, 75, 16, 16),
+      onError: const Color.fromARGB(255, 114, 25, 25),
       surfaceTint: const Color.fromARGB(255, 69, 64, 16), // note 画线文字背景
     ),
     textSelectionTheme: TextSelectionThemeData(

@@ -16,9 +16,14 @@ class MyToolsBar extends StatelessWidget {
       children: [
         IconButton(
             onPressed: () {
-              controller.text = '🔲 ${controller.text}';
+              String inputText = controller.text;
+              String selectText = controller.selection.textInside(inputText);
+              int start = controller.selection.start;
+              int end = controller.selection.end;
+              controller.text =
+                  '${inputText.substring(0, start)}**$selectText**${inputText.substring(end)}';
             },
-            icon: const Icon(Icons.check_box_outlined)),
+            icon: const Icon(Icons.format_bold)),
         IconButton(
             onPressed: () {
               String inputText = controller.text;

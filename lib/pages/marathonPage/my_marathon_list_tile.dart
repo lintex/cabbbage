@@ -49,7 +49,9 @@ class MyMarathonListTile extends StatelessWidget {
               //根据天数改变背景色
               color: stillMinutes < 0
                   ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.primaryContainer),
+                  : marathon.isChosen != 2
+                      ? Theme.of(context).colorScheme.primaryContainer
+                      : Theme.of(context).colorScheme.error),
           child: Column(
             children: [
               Row(
@@ -60,7 +62,7 @@ class MyMarathonListTile extends StatelessWidget {
                     children: [
                       // 显示马拉松名称
                       Text(
-                        marathon.name,
+                        marathon.name + (marathon.isChosen == 2 ? '【未中签】' : ''),
                         style: const TextStyle(
                             fontSize: 16,
                             fontFamily: "霞鹜文楷",
@@ -128,8 +130,9 @@ class MyMarathonListTile extends StatelessWidget {
                   animationDuration: 1200,
                   padding: const EdgeInsets.all(0),
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  progressColor:
-                      Theme.of(context).colorScheme.onPrimaryContainer,
+                  progressColor: marathon.isChosen == 2
+                      ? Theme.of(context).colorScheme.onError
+                      : Theme.of(context).colorScheme.onPrimaryContainer,
                   barRadius: const Radius.circular(5),
                 ),
               ),

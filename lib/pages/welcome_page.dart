@@ -53,11 +53,11 @@ class WelcomePage extends StatelessWidget {
                     // 写入马拉松默认数据
                     if (db.allMarathons.isEmpty) {
                       db.addMarathon('2024北京马拉松', DateTime(2024, 10, 27, 7, 30),
-                          '天安门广场', '鸟巢', '', '');
+                          '天安门广场', '鸟巢', '', '', '', 0);
                       db.addMarathon('2024上海马拉松', DateTime(2024, 12, 1, 7, 30),
-                          '', '', '', '');
+                          '', '', '', '', '', 0);
                       db.addMarathon('2024广州马拉松', DateTime(2024, 12, 8, 7, 30),
-                          '', '', '', '');
+                          '', '', '', '', '', 0);
                     }
                     // 写入笔记note默认数据
                     if (db.allMarathons.isEmpty) {

@@ -27,15 +27,24 @@ class Database extends GetxController {
   final List currentMarathon = [].obs;
 
   // 添加比赛
-  Future<void> addMarathon(String name, DateTime time, String start,
-      String finish, String hotel, String packet) async {
+  Future<void> addMarathon(
+      String name,
+      DateTime time,
+      String start,
+      String finish,
+      String hotel,
+      String packet,
+      String bibNumber,
+      byte isChosen) async {
     final newMarathon = Marathon()
       ..name = name
       ..time = time
       ..start = start
       ..finish = finish
       ..hotel = hotel
-      ..packet = packet;
+      ..packet = packet
+      ..bibNumber = bibNumber
+      ..isChosen = isChosen;
 
     await isar.writeTxn(() => isar.marathons.put(newMarathon));
     debugPrint("[成功][Marathon]添加比赛数据成功！");
@@ -80,6 +89,8 @@ class Database extends GetxController {
     String finish,
     String hotel,
     String packet,
+    String bibNumber,
+    byte isChosen,
   ) async {
     final existingMarathon = await isar.marathons.get(id);
     if (existingMarathon != null) {
@@ -89,7 +100,9 @@ class Database extends GetxController {
         ..start = start
         ..finish = finish
         ..hotel = hotel
-        ..packet = packet;
+        ..packet = packet
+        ..bibNumber = bibNumber
+        ..isChosen = isChosen;
       await isar.writeTxn(() => isar.marathons.put(existingMarathon));
       debugPrint("[成功][Marathon]马拉松比赛数据修改成功！");
       update();
@@ -117,7 +130,7 @@ class Database extends GetxController {
   // 读取Note所有数据，包括笔记待办图片
   Future<void> fetchAllNotes() async {
     List<Note> fetchNotes =
-        await isar.notes.where().sortByCreatedTimeDesc().limit(50).findAll();
+        await isar.notes.where().sortByCreatedTime().limit(50).findAll();
     allNotes.clear();
     allNotes.addAll(fetchNotes);
     debugPrint("[成功][Note]所有类型Note数据读取成功！");
