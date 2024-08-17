@@ -231,104 +231,21 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
                 //transform: Matrix4.rotationZ(0.02)
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Column(
-                          children: [
-                            const Text(
-                              "起点",
-                            ),
-                            Text(
-                              currentMarathon.start == ''
-                                  ? '待公布'
-                                  : currentMarathon.start!,
-                              style: const TextStyle(
-                                  fontSize: 25, fontFamily: '方正大标宋'),
-                            ),
-                          ],
-                        ),
-                        Image.asset(
-                          'assets/images/rightArrow.png',
-                          width: 40,
-                        ),
-                        Column(
-                          children: [
-                            const Text(
-                              "终点",
-                            ),
-                            Text(
-                              currentMarathon.finish == ''
-                                  ? '待公布'
-                                  : currentMarathon.finish!,
-                              style: const TextStyle(
-                                  fontSize: 25, fontFamily: '方正大标宋'),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                    // 显示起点终点
+                    currentMarathon.start != '' &&
+                            currentMarathon.start == currentMarathon.finish
+                        ? _startIsFinish()
+                        : _startIsNotFinish(),
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Column(
-                          children: [Icon(Icons.money), Text('参赛号')],
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          currentMarathon.isChosen == 2
-                              ? '未中签'
-                              : currentMarathon.bibNumber == ''
-                                  ? 'A00000'
-                                  : currentMarathon.bibNumber.toString(),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 35, fontFamily: '方正大标宋'),
-                        ),
-                      ],
-                    ),
+                    // 显示参赛号
+                    _bibNumberRow(),
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.shopping_bag_outlined),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              currentMarathon.packet == ''
-                                  ? "待公布"
-                                  : currentMarathon.packet!,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.bed_outlined),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              currentMarathon.hotel == ''
-                                  ? "待预订"
-                                  : currentMarathon.hotel!,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                    // 显示领物地点和住宿酒店
+                    _pocketAndHotelRow(),
                   ],
                 ),
               ),
@@ -338,5 +255,127 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
             ],
           ),
         )));
+  }
+
+  Column _startIsFinish() {
+    return Column(
+      children: [
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "起点",
+            ),
+            SizedBox(
+              width: 25,
+            ),
+            Icon(Icons.cached_rounded),
+            SizedBox(
+              width: 25,
+            ),
+            Text(
+              "终点",
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          currentMarathon.start.toString(),
+          style: const TextStyle(fontSize: 25, fontFamily: '方正大标宋'),
+        ),
+      ],
+    );
+  }
+
+  Row _pocketAndHotelRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.shopping_bag_outlined),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              currentMarathon.packet == '' ? "待公布" : currentMarathon.packet!,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            const Icon(Icons.bed_outlined),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              currentMarathon.hotel == '' ? "待预订" : currentMarathon.hotel!,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Row _bibNumberRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Column(
+          children: [Icon(Icons.money), Text('参赛号')],
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Text(
+          currentMarathon.isChosen == 2
+              ? '未中签'
+              : currentMarathon.bibNumber == ''
+                  ? 'A00000'
+                  : currentMarathon.bibNumber.toString(),
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 35, fontFamily: '方正大标宋'),
+        ),
+      ],
+    );
+  }
+
+  Row _startIsNotFinish() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Column(
+          children: [
+            const Text(
+              "起点",
+            ),
+            Text(
+              currentMarathon.start == '' ? '待公布' : currentMarathon.start!,
+              style: const TextStyle(fontSize: 25, fontFamily: '方正大标宋'),
+            ),
+          ],
+        ),
+        Image.asset(
+          'assets/images/rightArrow.png',
+          width: 40,
+        ),
+        Column(
+          children: [
+            const Text(
+              "终点",
+            ),
+            Text(
+              currentMarathon.finish == '' ? '待公布' : currentMarathon.finish!,
+              style: const TextStyle(fontSize: 25, fontFamily: '方正大标宋'),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

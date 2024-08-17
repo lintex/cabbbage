@@ -11,9 +11,6 @@ class NewMarathonPage extends StatelessWidget {
   final marathonNameController = TextEditingController();
   final marathonStartController = TextEditingController();
   final marathonFinishController = TextEditingController();
-  final marathonHotelController = TextEditingController();
-  final marathonPacketController = TextEditingController();
-  final marathonBibNumberController = TextEditingController();
 
   // 使用Get找到主页面使用的Controller
   final Database db = Get.find();
@@ -96,9 +93,9 @@ class NewMarathonPage extends StatelessWidget {
                         marathonDate.value,
                         marathonStartController.text,
                         marathonFinishController.text,
-                        marathonHotelController.text,
-                        marathonPacketController.text,
-                        marathonBibNumberController.text,
+                        '',
+                        '',
+                        '',
                         0);
                     // 清空文本框并返回
                     marathonNameController.clear();
@@ -166,27 +163,6 @@ class NewMarathonPage extends StatelessWidget {
               MyTextField(
                 controller: marathonFinishController,
                 hintText: "比赛终点",
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              MyTextField(
-                controller: marathonHotelController,
-                hintText: "住宿酒店",
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              MyTextField(
-                controller: marathonPacketController,
-                hintText: "领物地点",
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              MyTextField(
-                controller: marathonBibNumberController,
-                hintText: "参赛号码",
               ),
             ],
           ),

@@ -41,7 +41,7 @@ ThemeData lightMode = ThemeData(
         const DividerThemeData(color: Colors.transparent), // 去除底部分隔线颜色
     scaffoldBackgroundColor: bg,
     colorScheme: ColorScheme.light(
-      background: bg,
+      surface: bg,
       primary: const Color.fromARGB(255, 233, 233, 233),
       onPrimary: Colors.black54,
       secondary: Colors.grey.shade300,
@@ -83,7 +83,7 @@ ThemeData darkMode = ThemeData(
         const DividerThemeData(color: Colors.transparent), // 去除底部分隔线颜色
     scaffoldBackgroundColor: blackBg,
     colorScheme: ColorScheme.dark(
-      background: blackBg,
+      surface: blackBg,
       primary: const Color.fromARGB(255, 50, 50, 50),
       onPrimary: Colors.white38,
       secondary: Colors.grey.shade800,

@@ -21,6 +21,9 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     Database db = Get.put(Database());
     // 获取马拉松数据，显示还未过期三条记录
     db.fetchMarathons();
@@ -60,7 +63,7 @@ class DashboardPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
             centerTitle: true,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: colorScheme.surface,
             title: GestureDetector(
               onTap: () => Get.toNamed('/timeline'),
               child: Text(
@@ -211,7 +214,7 @@ class DashboardPage extends StatelessWidget {
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: Theme.of(context).colorScheme.primary),
+                            color: colorScheme.primary),
                         child: Center(
                             child: GestureDetector(
                           onTap: () => Get.toNamed('/note'),
@@ -219,6 +222,21 @@ class DashboardPage extends StatelessWidget {
                         )),
                       );
                     },
+                  ),
+                ),
+                // * 测试新的CarouselView
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxHeight: 200),
+                    child: CarouselView(
+                      itemExtent: 230,
+                      shrinkExtent: 200,
+                      backgroundColor: colorScheme.primary,
+                      children: List<Widget>.generate(20, (int index) {
+                        return Center(child: Text('Item $index'));
+                      }),
+                    ),
                   ),
                 ),
                 // 快捷输入模块
