@@ -1,4 +1,5 @@
 import 'package:cabbbage/models/database.dart';
+import 'package:cabbbage/pages/marathonPage/marathon_func.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/models/marathon.dart';
@@ -332,11 +333,9 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
           width: 8,
         ),
         Text(
-          currentMarathon.isChosen == 2
-              ? '未中签'
-              : currentMarathon.bibNumber == ''
-                  ? 'A00000'
-                  : currentMarathon.bibNumber.toString(),
+          currentMarathon.bibNumber == ''
+              ? chosenState(currentMarathon.isChosen)
+              : currentMarathon.bibNumber.toString(),
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 35, fontFamily: '方正大标宋'),
         ),

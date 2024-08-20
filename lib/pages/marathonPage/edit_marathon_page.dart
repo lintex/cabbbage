@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:cabbbage/pages/marathonPage/marathon_func.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,20 +39,7 @@ class EditMarathonPage extends StatelessWidget {
     var isChosen = 0.obs;
     var isChosenText = ''.obs;
     isChosen.value = marathon.isChosen;
-    switch (isChosen.value) {
-      case 0:
-        isChosenText.value = '等待中签';
-        break;
-      case 1:
-        isChosenText.value = '已中签';
-        break;
-      case 2:
-        isChosenText.value = '未中签';
-        break;
-      default:
-        isChosenText.value = '等待中签';
-        break;
-    }
+    isChosenText.value = chosenState(isChosen.value);
 
     pickTime() {
       // 弹出时间选择窗口
@@ -203,15 +189,15 @@ class EditMarathonPage extends StatelessWidget {
               const SizedBox(
                 height: 18,
               ),
+              // 是否中签选项框
+              _isChosenTile(isChosenText, isChosen, context),
+              const SizedBox(
+                height: 18,
+              ),
               MyTextField(
                 controller: marathonHotelController,
                 hintText: "请输入住宿酒店名称",
               ),
-              const SizedBox(
-                height: 18,
-              ),
-              // 是否中签选项框
-              _isChosenTile(isChosenText, isChosen, context),
               const SizedBox(
                 height: 18,
               ),
@@ -245,32 +231,40 @@ class EditMarathonPage extends StatelessWidget {
           itemBuilder: (BuildContext context) {
             return [
               const PopupMenuItem<String>(
-                value: 'wait',
-                child: Text('等待抽签'),
+                value: "0",
+                child: Text('未报名'),
               ),
               const PopupMenuItem<String>(
-                value: 'yes',
+                value: '3',
+                child: Text('已报名'),
+              ),
+              const PopupMenuItem<String>(
+                value: '1',
                 child: Text('已中签'),
               ),
               const PopupMenuItem<String>(
-                value: 'no',
+                value: '2',
                 child: Text('未中签'),
               ),
             ];
           },
           onSelected: (String value) {
             switch (value) {
-              case 'wait':
+              case '0':
                 isChosen.value = 0;
-                isChosenText.value = '等待抽签';
+                isChosenText.value = '未报名';
                 break;
-              case 'yes':
+              case '1':
                 isChosen.value = 1;
                 isChosenText.value = '已中签';
                 break;
-              case 'no':
+              case '2':
                 isChosen.value = 2;
                 isChosenText.value = '未中签';
+                break;
+              case '3':
+                isChosen.value = 3;
+                isChosenText.value = '已报名';
                 break;
             }
           }, // 可以设置一个图标来触发弹出菜单

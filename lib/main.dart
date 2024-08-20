@@ -9,9 +9,11 @@ import 'theme/theme.dart';
 import 'package:get_storage/get_storage.dart';
 import 'routes.dart';
 
-// flutter build apk --release --build-number=10 --build-name="0.1.0"
-// flutter build apk --help
-// flutter install --release
+// flutter build apk --release --build-number=14 --build-name="0.1.4"
+// flutter pub cache clean 主要用于清理 Flutter 包缓存
+// flutter clean 主要用于清理项目的构建文件
+// flutter pub upgrade --major-versions
+
 Future<void> main() async {
   // 定义错误界面
   ErrorWidget.builder = (FlutterErrorDetails details) {

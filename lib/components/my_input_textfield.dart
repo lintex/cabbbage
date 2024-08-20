@@ -19,11 +19,11 @@ class MyInputTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var roundBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: Theme.of(context).focusColor, width: 1),
-      borderRadius: BorderRadius.circular(16),
-      // borderSide: const BorderSide(style: BorderStyle.none)
-    );
+    // var roundBorder = OutlineInputBorder(
+    //   borderSide: BorderSide(color: Theme.of(context).focusColor, width: 1),
+    //   borderRadius: BorderRadius.circular(16),
+    //   // borderSide: const BorderSide(style: BorderStyle.none)
+    // );
     var noneBorder = OutlineInputBorder(
       borderSide: BorderSide.none,
       borderRadius: BorderRadius.circular(16),

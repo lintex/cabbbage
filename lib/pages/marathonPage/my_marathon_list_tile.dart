@@ -1,3 +1,5 @@
+import 'package:cabbbage/components/my_badge.dart';
+import 'package:cabbbage/pages/marathonPage/marathon_func.dart';
 import 'package:cabbbage/tools/tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -49,7 +51,7 @@ class MyMarathonListTile extends StatelessWidget {
               //根据天数改变背景色
               color: stillMinutes < 0
                   ? Theme.of(context).colorScheme.primary
-                  : marathon.isChosen != 2
+                  : marathon.isChosen != 2 // 根据是否中签改变背景色
                       ? Theme.of(context).colorScheme.primaryContainer
                       : Theme.of(context).colorScheme.error),
           child: Column(
@@ -60,14 +62,13 @@ class MyMarathonListTile extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // 显示马拉松名称
-                      Text(
-                        marathon.name + (marathon.isChosen == 2 ? '【未中签】' : ''),
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: "霞鹜文楷",
-                            fontWeight: FontWeight.bold),
-                      ),
+                      // 显示马拉松名称及中签状态，“未报名”状态不显示文字
+                      chosenState(marathon.isChosen) == '未报名'
+                          ? _marathonName()
+                          : MyBadge(
+                              isChosen: marathon.isChosen,
+                              child: _marathonName()),
+
                       const SizedBox(
                         height: 5,
                       ),
@@ -82,60 +83,12 @@ class MyMarathonListTile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: [
-                      Text(
-                        stillMinutes < 0 ? "过了" : "还有",
-                        style:
-                            const TextStyle(fontSize: 11, color: Colors.grey),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        stillDays == 0
-                            ? marathon.time!
-                                .difference(DateTime.now())
-                                .inHours
-                                .abs()
-                                .toString()
-                            : Tools.diffDays(marathon.time!),
-                        style: const TextStyle(fontSize: 30),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        stillDays == 0 ? "小时" : "天",
-                        style:
-                            const TextStyle(fontSize: 11, color: Colors.grey),
-                      ),
-                    ],
-                  ),
+                  // 右侧还有多少天
+                  _stillDays(stillMinutes, stillDays),
                 ],
               ),
               // 进度指示条
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                width: double.infinity,
-                child: LinearPercentIndicator(
-                  lineHeight: 6.0,
-                  percent: stillMinutes < 0
-                      ? 0
-                      : (stillDays < 100 ? 1 - (stillDays / 100) : 0),
-                  animation: true,
-                  //isRTL: true, // 从右向左调转方向
-                  animationDuration: 1200,
-                  padding: const EdgeInsets.all(0),
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  progressColor: marathon.isChosen == 2
-                      ? Theme.of(context).colorScheme.onError
-                      : Theme.of(context).colorScheme.onPrimaryContainer,
-                  barRadius: const Radius.circular(5),
-                ),
-              ),
+              _marathonPercentIndicator(stillMinutes, stillDays, context),
             ],
           ),
         ),
@@ -143,11 +96,70 @@ class MyMarathonListTile extends StatelessWidget {
     );
   }
 
-  String getDateAndLocation(DateTime time, String start) {
-    String date = '${time.month}月';
-    date += '${time.day}日 ';
-    date += '${time.hour}:';
-    date += time.minute.toString().padLeft(2, '0');
-    return date + start;
+  Text _marathonName() {
+    return Text(
+      marathon.name,
+      style: const TextStyle(
+          fontSize: 16, fontFamily: "霞鹜文楷", fontWeight: FontWeight.bold),
+    );
+  }
+
+  // 右侧还有多少天
+  Row _stillDays(int stillMinutes, int stillDays) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        Text(
+          stillMinutes < 0 ? "过了" : "还有",
+          style: const TextStyle(fontSize: 11, color: Colors.grey),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Text(
+          stillDays == 0
+              ? marathon.time!
+                  .difference(DateTime.now())
+                  .inHours
+                  .abs()
+                  .toString()
+              : Tools.diffDays(marathon.time!),
+          style: const TextStyle(fontSize: 30),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Text(
+          stillDays == 0 ? "小时" : "天",
+          style: const TextStyle(fontSize: 11, color: Colors.grey),
+        ),
+      ],
+    );
+  }
+
+  // 进度指示条
+  Container _marathonPercentIndicator(
+      int stillMinutes, int stillDays, BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 8),
+      width: double.infinity,
+      child: LinearPercentIndicator(
+        lineHeight: 6.0,
+        percent: stillMinutes < 0
+            ? 0
+            : (stillDays < 100 ? 1 - (stillDays / 100) : 0),
+        animation: true,
+        //isRTL: true, // 从右向左调转方向
+        animationDuration: 1200,
+        padding: const EdgeInsets.all(0),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        // 根据是否中签改变进度条颜色
+        progressColor: marathon.isChosen == 2
+            ? Theme.of(context).colorScheme.onError
+            : Theme.of(context).colorScheme.onPrimaryContainer,
+        barRadius: const Radius.circular(5),
+      ),
+    );
   }
 }

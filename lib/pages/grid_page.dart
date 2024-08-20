@@ -1,4 +1,3 @@
-import 'package:cabbbage/components/gradient_background.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_app_bar.dart';
