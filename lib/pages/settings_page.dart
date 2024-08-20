@@ -136,6 +136,10 @@ class SettingPage extends StatelessWidget {
               subtitle: '系统参数设置',
               onPressed: () => Get.toNamed('/manage'),
             ),
+            Expanded(
+                child: Container(
+              color: Colors.green,
+            )),
           ]),
         ),
       ]),

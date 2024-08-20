@@ -12,7 +12,7 @@ class MediumSliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar.medium(
       title: Padding(
-        padding: const EdgeInsets.only(left: 20),
+        padding: const EdgeInsets.only(left: 0),
         child: Text(
           title,
         ),

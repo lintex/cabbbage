@@ -17,18 +17,18 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(const Size(100, 48)),
-        backgroundColor: MaterialStateProperty.all(color),
+        minimumSize: WidgetStateProperty.all(const Size(100, 48)),
+        backgroundColor: WidgetStateProperty.all(color),
         //文字颜色
-        foregroundColor: MaterialStateProperty.all(textColor),
+        foregroundColor: WidgetStateProperty.all(textColor),
         //设置圆角
-        shape: MaterialStateProperty.all(
+        shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
         ),
         //边框的宽度 和 颜色
-        side: MaterialStateProperty.all(
+        side: WidgetStateProperty.all(
           BorderSide.none,
         ),
       ),

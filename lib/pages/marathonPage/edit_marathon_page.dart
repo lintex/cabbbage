@@ -1,4 +1,6 @@
+import 'package:cabbbage/components/my_bottom_sheet.dart';
 import 'package:cabbbage/pages/marathonPage/marathon_func.dart';
+import 'package:cabbbage/pages/marathonPage/marathon_input_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,9 +29,14 @@ class EditMarathonPage extends StatelessWidget {
     //添加马拉松举行时间
     DateTime? initDate = marathon.time;
     var marathonDate = initDate.obs;
+    var marathonStart = ''.obs;
+    var marathonFinish = ''.obs;
+
     // 初始化textfield内容
     marathonNameController.text = marathon.name;
     marathonStartController.text = marathon.start!;
+    marathonStart.value = marathon.start!;
+    marathonFinish.value = marathon.finish!;
     marathonFinishController.text = marathon.finish!;
     marathonHotelController.text = marathon.hotel!;
     marathonPacketController.text = marathon.packet ?? "";
@@ -101,29 +108,8 @@ class EditMarathonPage extends StatelessWidget {
                 size: 25,
               )),
           actions: [
-            // 右边确认按钮右边要空一点
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: IconButton(
-                  onPressed: () {
-                    // 将比赛信息存入数据库
-                    db.updateMarathon(
-                      marathon.id,
-                      marathonNameController.text,
-                      marathonDate.value!,
-                      marathonStartController.text,
-                      marathonFinishController.text,
-                      marathonHotelController.text,
-                      marathonPacketController.text,
-                      marathonBibNumberController.text,
-                      isChosen.value,
-                    );
-                    // 清空文本框并返回
-                    marathonNameController.clear();
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.done, size: 30)),
-            )
+            // 右边确认按钮
+            _submitButton(marathon, marathonDate, isChosen)
           ],
         ),
         body: SingleChildScrollView(
@@ -135,60 +121,49 @@ class EditMarathonPage extends StatelessWidget {
                 controller: marathonNameController,
                 hintText: "请输入比赛名称",
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  // 点击后弹出时间选择
-                  onTap: () => pickTime(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "时间",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Row(
-                        children: [
-                          // 显示选择的时间
-                          Obx(() => Text(
-                                Tools.getDate(marathonDate.value!),
-                                style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary),
-                              )),
-                          Icon(
-                            Icons.keyboard_arrow_right,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              const _10HeightBox(),
+              // 比赛时间输入
+              MarathonInputTile(
+                  title: "时间",
+                  trailing: Obx(() => Text(
+                        Tools.getDate(marathonDate.value!),
+                      )),
+                  onPressed: pickTime),
               Divider(
                 color: Theme.of(context).colorScheme.primary,
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              MyTextField(
-                controller: marathonStartController,
-                hintText: "请输入比赛起点",
-              ),
-              const SizedBox(
-                height: 18,
-              ),
-              MyTextField(
-                controller: marathonFinishController,
-                hintText: "请输入比赛终点",
-              ),
-              const SizedBox(
-                height: 18,
-              ),
+              const _10HeightBox(),
+              Obx(() => MarathonInputTile(
+                    title: '比赛起点',
+                    trailing: Text(marathonStart.value),
+                    onPressed: () {
+                      Get.bottomSheet(MyBottomSheet(
+                        title: '比赛起点',
+                        text: marathonStart.value,
+                        controller: marathonStartController,
+                        onPressed: () {
+                          marathonStart.value = marathonStartController.text;
+                          Get.back();
+                        },
+                      ));
+                    },
+                  )),
+
+              Obx(() => MarathonInputTile(
+                    title: '比赛终点',
+                    trailing: Text(marathonFinish.value),
+                    onPressed: () {
+                      Get.bottomSheet(MyBottomSheet(
+                        title: '比赛终点',
+                        text: marathonFinishController.text,
+                        controller: marathonFinishController,
+                        onPressed: () {
+                          marathonFinish.value = marathonFinishController.text;
+                          Get.back();
+                        },
+                      ));
+                    },
+                  )),
               // 是否中签选项框
               _isChosenTile(isChosenText, isChosen, context),
               const SizedBox(
@@ -215,6 +190,34 @@ class EditMarathonPage extends StatelessWidget {
             ],
           ),
         )));
+  }
+
+  Padding _submitButton(
+      Marathon marathon, Rx<DateTime?> marathonDate, RxInt isChosen) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 20),
+      child: IconButton(
+          onPressed: () {
+            // 将比赛信息存入数据库
+            db.updateMarathon(
+              marathon.id,
+              marathonNameController.text,
+              marathonDate.value!,
+              marathonStartController.text,
+              marathonFinishController.text,
+              marathonHotelController.text,
+              marathonPacketController.text,
+              marathonBibNumberController.text,
+              isChosen.value,
+            );
+            // 清空文本框并返回
+            marathonNameController.clear();
+            // 直接返回到马拉松列表页面，返回马拉松详情页面数据不更新
+            // Todo 这个地方返回的路由有问题
+            Get.offAndToNamed('/marathon');
+          },
+          icon: const Icon(Icons.done, size: 30)),
+    );
   }
 
   // 是否中签选项框
@@ -281,6 +284,19 @@ class EditMarathonPage extends StatelessWidget {
           ),
         ),
       ]),
+    );
+  }
+}
+
+class _10HeightBox extends StatelessWidget {
+  const _10HeightBox({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 10,
     );
   }
 }

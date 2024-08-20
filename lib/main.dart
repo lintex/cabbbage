@@ -21,7 +21,7 @@ Future<void> main() async {
       child: Container(
         color: Colors.lightGreen,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

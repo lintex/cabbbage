@@ -12,7 +12,7 @@ class MyTrailing extends StatelessWidget {
           text,
           style: TextStyle(
               fontSize: 16,
-              color: Colors.grey[600],
+              color: Theme.of(context).colorScheme.tertiary,
               overflow: TextOverflow.ellipsis),
         ),
         const SizedBox(
@@ -21,7 +21,7 @@ class MyTrailing extends StatelessWidget {
         Icon(
           Icons.arrow_forward_ios_rounded,
           size: 16,
-          color: Colors.grey[600],
+          color: Theme.of(context).colorScheme.tertiary,
         )
       ],
     );

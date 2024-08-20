@@ -89,7 +89,7 @@ class _MarathonDetailPageState extends State<MarathonDetailPage> {
           actions: [
             // 【按钮】修改比赛信息
             Padding(
-              padding: const EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.only(right: 20),
               child: PopupMenuButton(
                 icon: const Icon(
                   Icons.more_vert,
