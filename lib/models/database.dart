@@ -24,6 +24,7 @@ class Database extends GetxController {
   // 通过GetX存储比赛列表
   final List allMarathons = [].obs;
   final List stillMarathons = [].obs;
+  final List expiredMarathons = [].obs;
   final List currentMarathon = [].obs;
 
   // 添加比赛
@@ -54,12 +55,17 @@ class Database extends GetxController {
 
   // 读取马拉松比赛数据
   Future<void> fetchMarathons() async {
-    // 获取50条记录
-    List<Marathon> fetchMarathons =
-        await isar.marathons.where().sortByTime().limit(50).findAll();
+    // 获取未过期且还未出签的全部马拉松赛事
+    List<Marathon> fetchMarathons = await isar.marathons
+        .filter()
+        .timeGreaterThan(DateTime.now())
+        .not()
+        .isChosenEqualTo(2)
+        .sortByTime()
+        .findAll();
     allMarathons.clear();
     allMarathons.addAll(fetchMarathons);
-    // 获取还未到达日期的最近三条记录
+    // 获取还未到达日期的最近三条记录，首页显示用
     fetchMarathons = await isar.marathons
         .filter()
         .timeGreaterThan(DateTime.now())
@@ -68,6 +74,14 @@ class Database extends GetxController {
         .findAll();
     stillMarathons.clear();
     stillMarathons.addAll(fetchMarathons);
+    // 获取过期的比赛，比赛助手页面使用
+    fetchMarathons = await isar.marathons
+        .filter()
+        .timeLessThan(DateTime.now())
+        .sortByTimeDesc()
+        .findAll();
+    expiredMarathons.clear();
+    expiredMarathons.addAll(fetchMarathons);
     debugPrint("[成功][Marathon]马拉松比赛数据读取成功！");
   }
 

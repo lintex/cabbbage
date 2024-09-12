@@ -15,7 +15,7 @@ class MySettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onPressed,
@@ -33,7 +33,9 @@ class MySettingsTile extends StatelessWidget {
                   offstage: subtitle == '',
                   child: Text(
                     subtitle,
-                    style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: Theme.of(context).colorScheme.tertiary),
                   ),
                 ),
               ],

@@ -53,7 +53,7 @@ class MyMarathonListTile extends StatelessWidget {
                   ? Theme.of(context).colorScheme.primary
                   : marathon.isChosen != 2 // 根据是否中签改变背景色
                       ? Theme.of(context).colorScheme.primaryContainer
-                      : Theme.of(context).colorScheme.error),
+                      : Theme.of(context).colorScheme.primary), //未中签背景显示为灰色
           child: Column(
             children: [
               Row(
@@ -84,11 +84,16 @@ class MyMarathonListTile extends StatelessWidget {
                     ],
                   ),
                   // 右侧还有多少天
-                  _stillDays(stillMinutes, stillDays),
+                  _stillDays(stillMinutes, stillDays, context),
                 ],
               ),
-              // 进度指示条
-              _marathonPercentIndicator(stillMinutes, stillDays, context),
+              // 进度指示条，已经过期不显示进度条
+              stillMinutes > 0
+                  ? _marathonPercentIndicator(stillMinutes, stillDays, context)
+                  : const SizedBox(
+                      width: 0,
+                      height: 0,
+                    ),
             ],
           ),
         ),
@@ -105,14 +110,15 @@ class MyMarathonListTile extends StatelessWidget {
   }
 
   // 右侧还有多少天
-  Row _stillDays(int stillMinutes, int stillDays) {
+  Row _stillDays(int stillMinutes, int stillDays, BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
       children: [
         Text(
           stillMinutes < 0 ? "过了" : "还有",
-          style: const TextStyle(fontSize: 11, color: Colors.grey),
+          style: TextStyle(
+              fontSize: 11, color: Theme.of(context).colorScheme.tertiary),
         ),
         const SizedBox(
           width: 5,
@@ -132,7 +138,10 @@ class MyMarathonListTile extends StatelessWidget {
         ),
         Text(
           stillDays == 0 ? "小时" : "天",
-          style: const TextStyle(fontSize: 11, color: Colors.grey),
+          style: TextStyle(
+            fontSize: 11,
+            color: Theme.of(context).colorScheme.tertiary,
+          ),
         ),
       ],
     );
@@ -156,7 +165,7 @@ class MyMarathonListTile extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
         // 根据是否中签改变进度条颜色
         progressColor: marathon.isChosen == 2
-            ? Theme.of(context).colorScheme.onError
+            ? Theme.of(context).colorScheme.secondary
             : Theme.of(context).colorScheme.onPrimaryContainer,
         barRadius: const Radius.circular(5),
       ),

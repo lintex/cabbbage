@@ -19,8 +19,7 @@ class MyTrailing extends StatelessWidget {
           width: 5,
         ),
         Icon(
-          Icons.arrow_forward_ios_rounded,
-          size: 16,
+          Icons.keyboard_arrow_right,
           color: Theme.of(context).colorScheme.tertiary,
         )
       ],

@@ -13,7 +13,10 @@ class MyTimelineTile extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+                bottomLeft: Radius.circular(12)),
             color: Theme.of(context).colorScheme.primary),
         child: child);
   }

@@ -58,7 +58,7 @@ class MyCard extends StatelessWidget {
             onDoubleTap: () => Get.toNamed('/editNote', arguments: note),
             // 长按弹出 bottomSheet
             onLongPress: () {
-              Vibration.vibrate(duration: 300); // 震动一下
+              Vibration.vibrate(duration: 100); // 震动一下
               Get.bottomSheet(Container(
                 padding: const EdgeInsets.all(25),
                 height: 300,

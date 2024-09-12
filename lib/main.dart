@@ -11,7 +11,7 @@ import 'routes.dart';
 
 // flutter build apk --release --build-number=14 --build-name="0.1.4"
 // flutter pub cache clean 主要用于清理 Flutter 包缓存
-// flutter clean 主要用于清理项目的构建文件
+// flutter clean 主要用于清理项目的构建文件 运行后再运行 flutter run
 // flutter pub upgrade --major-versions
 
 Future<void> main() async {

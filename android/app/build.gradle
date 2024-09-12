@@ -26,7 +26,7 @@ android {
     namespace "com.example.xiao_note"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
-
+    // ndkVersion 定义文件地址 /Users/mac/development/flutter/packages/flutter_tools/gradle/src/main/groovy/flutter.groovy
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

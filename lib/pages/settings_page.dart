@@ -29,6 +29,9 @@ class SettingPage extends StatelessWidget {
     var autoDarkMode = true.obs;
     autoDarkMode.value = box.read('autoDarkMode');
     bool isDarkMode = box.read('isDarkMode');
+    // 控制子空间显示隐藏
+    var isShow = true.obs;
+    isShow.value = autoDarkMode.value;
     // SwitchController sxc = Get.put(SwitchController());
 
     TextEditingController controller = TextEditingController();
@@ -98,7 +101,17 @@ class SettingPage extends StatelessWidget {
                   activeColor: Colors.green,
                 ),
                 onUpdate: (value) {
-                  autoDarkMode.value = !autoDarkMode.value;
+                  isShow.value = !autoDarkMode.value;
+                  if (autoDarkMode.value == false) {
+                    Future.delayed(const Duration(milliseconds: 300))
+                        .then((val) {
+                      debugPrint('延时300毫秒');
+                      autoDarkMode.value = !autoDarkMode.value;
+                    });
+                  } else {
+                    autoDarkMode.value = !autoDarkMode.value;
+                  }
+
                   box.write('autoDarkMode', autoDarkMode.value);
                   debugPrint('autoDarkMode:${autoDarkMode.value}');
                 },
@@ -108,27 +121,31 @@ class SettingPage extends StatelessWidget {
             ),
             Obx(() => Offstage(
                   offstage: autoDarkMode.value,
-                  child: MySettingsTile(
-                    title: '黑夜模式',
-                    subtitle: '手动切换黑夜和白天模式',
-                    trailing: ValueBuilder<bool?>(
-                      initialValue: isDarkMode,
-                      builder: (value, update) => Switch(
-                        value: value!,
-                        onChanged: (flag) => update(flag),
-                        activeColor: Colors.lightGreen,
+                  child: AnimatedOpacity(
+                    opacity: isShow.value ? 0.0 : 1.0,
+                    duration: const Duration(milliseconds: 300),
+                    child: MySettingsTile(
+                      title: '黑夜模式',
+                      subtitle: '手动切换黑夜和白天模式',
+                      trailing: ValueBuilder<bool?>(
+                        initialValue: isDarkMode,
+                        builder: (value, update) => Switch(
+                          value: value!,
+                          onChanged: (flag) => update(flag),
+                          activeColor: Colors.lightGreen,
+                        ),
+                        onUpdate: (value) {
+                          isDarkMode = !isDarkMode;
+                          box.write('isDarkMode', isDarkMode);
+                          debugPrint('isDarkMode:$isDarkMode');
+                          isDarkMode
+                              ? Get.changeTheme(darkMode)
+                              : Get.changeTheme(lightMode);
+                        },
+                        // onDispose: () => print("Widget unmounted"),
                       ),
-                      onUpdate: (value) {
-                        isDarkMode = !isDarkMode;
-                        box.write('isDarkMode', isDarkMode);
-                        debugPrint('isDarkMode:$isDarkMode');
-                        isDarkMode
-                            ? Get.changeTheme(darkMode)
-                            : Get.changeTheme(lightMode);
-                      },
-                      // onDispose: () => print("Widget unmounted"),
+                      onPressed: () {},
                     ),
-                    onPressed: () {},
                   ),
                 )),
             MySettingsTile(
@@ -136,10 +153,9 @@ class SettingPage extends StatelessWidget {
               subtitle: '系统参数设置',
               onPressed: () => Get.toNamed('/manage'),
             ),
-            Expanded(
-                child: Container(
-              color: Colors.green,
-            )),
+            Container(
+              height: 500,
+            ),
           ]),
         ),
       ]),
