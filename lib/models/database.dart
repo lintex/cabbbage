@@ -25,6 +25,7 @@ class Database extends GetxController {
   final List allMarathons = [].obs;
   final List stillMarathons = [].obs;
   final List expiredMarathons = [].obs;
+  final List noChosenMarathons = [].obs;
   final List currentMarathon = [].obs;
 
   // 添加比赛
@@ -74,6 +75,15 @@ class Database extends GetxController {
         .findAll();
     stillMarathons.clear();
     stillMarathons.addAll(fetchMarathons);
+    // 获取未中签且还未过期的比赛，比赛助手页面使用
+    fetchMarathons = await isar.marathons
+        .filter()
+        .isChosenEqualTo(2)
+        .timeGreaterThan(DateTime.now())
+        .sortByTime()
+        .findAll();
+    noChosenMarathons.clear();
+    noChosenMarathons.addAll(fetchMarathons);
     // 获取过期的比赛，比赛助手页面使用
     fetchMarathons = await isar.marathons
         .filter()

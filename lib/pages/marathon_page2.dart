@@ -15,12 +15,16 @@ class MarathonPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 显示和折叠过期马拉松比赛
-    var showExpiredMarathon = false.obs;
+    var showExpiredMarathon = true.obs;
+    var noChosenMarathon = true.obs;
     // 控制子空间显示隐藏
     var isShow = true.obs;
     isShow.value = showExpiredMarathon.value;
+    var isShow2 = true.obs;
+    isShow2.value = noChosenMarathon.value;
     // 动画控制过期比赛前的箭头旋转，这个地方不用0.5的话会乱转
     var turns = 0.5.obs;
+    var turns2 = 0.5.obs;
 
     Database db = Get.find();
     return Scaffold(
@@ -79,12 +83,30 @@ class MarathonPage2 extends StatelessWidget {
               height: 20,
             ),
             ExpiredMarathonTitle(
+                title: '未中签比赛',
+                turns: turns2,
+                isShow: isShow2,
+                showMarathon: noChosenMarathon,
+                count: db.noChosenMarathons.length.toString()),
+            ExpiredMarathonList(
+              offstage: noChosenMarathon,
+              isShow: isShow2,
+              marathons: db.noChosenMarathons,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ExpiredMarathonTitle(
+                title: '已过期比赛',
                 turns: turns,
                 isShow: isShow,
-                showExpiredMarathon: showExpiredMarathon,
-                db: db),
+                showMarathon: showExpiredMarathon,
+                count: db.expiredMarathons.length.toString()),
             ExpiredMarathonList(
-                showExpiredMarathon: showExpiredMarathon, isShow: isShow),
+              offstage: showExpiredMarathon,
+              isShow: isShow,
+              marathons: db.expiredMarathons,
+            ),
             const SizedBox(
               height: 30,
             ),
@@ -102,17 +124,19 @@ class MarathonPage2 extends StatelessWidget {
 class ExpiredMarathonList extends StatelessWidget {
   const ExpiredMarathonList({
     super.key,
-    required this.showExpiredMarathon,
+    required this.offstage,
     required this.isShow,
+    required this.marathons,
   });
 
-  final RxBool showExpiredMarathon;
+  final RxBool offstage;
   final RxBool isShow;
+  final List<dynamic> marathons;
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Offstage(
-          offstage: showExpiredMarathon.value,
+          offstage: offstage.value,
           child: AnimatedOpacity(
             opacity: isShow.value ? 0.0 : 1.0,
             duration: const Duration(milliseconds: 300),
@@ -123,12 +147,12 @@ class ExpiredMarathonList extends StatelessWidget {
                   builder: (db) => ListView.builder(
                     shrinkWrap: true, //这一行不要列表无法显示
                     physics: const NeverScrollableScrollPhysics(), //不要无法滚动
-                    itemCount: db.expiredMarathons.length,
+                    itemCount: marathons.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final marathon = db.expiredMarathons[index];
+                      final marathon = marathons[index];
                       return GestureDetector(
                         onTap: () => Get.toNamed('/marathonDetail',
-                            arguments: db.expiredMarathons[index]),
+                            arguments: marathons[index]),
                         child: MyMarathonListTile(marathon: marathon),
                       );
                     },
@@ -146,14 +170,15 @@ class ExpiredMarathonTitle extends StatelessWidget {
     super.key,
     required this.turns,
     required this.isShow,
-    required this.showExpiredMarathon,
-    required this.db,
+    required this.showMarathon,
+    required this.count,
+    required this.title,
   });
-
+  final String title;
   final RxDouble turns;
   final RxBool isShow;
-  final RxBool showExpiredMarathon;
-  final Database db;
+  final RxBool showMarathon;
+  final String count;
 
   @override
   Widget build(BuildContext context) {
@@ -167,14 +192,14 @@ class ExpiredMarathonTitle extends StatelessWidget {
           } else {
             turns.value -= 1 / 2;
           }
-          isShow.value = !showExpiredMarathon.value;
-          if (showExpiredMarathon.value == false) {
+          isShow.value = !showMarathon.value;
+          if (showMarathon.value == false) {
             Future.delayed(const Duration(milliseconds: 300)).then((val) {
               debugPrint('延时300毫秒');
-              showExpiredMarathon.value = !showExpiredMarathon.value;
+              showMarathon.value = !showMarathon.value;
             });
           } else {
-            showExpiredMarathon.value = !showExpiredMarathon.value;
+            showMarathon.value = !showMarathon.value;
           }
         },
         child: Row(
@@ -184,7 +209,7 @@ class ExpiredMarathonTitle extends StatelessWidget {
                   turns: turns.value,
                   duration: const Duration(milliseconds: 300),
                   child: Icon(
-                    Icons.keyboard_arrow_down_rounded,
+                    Icons.keyboard_arrow_up_rounded,
                     size: 22,
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
@@ -193,14 +218,14 @@ class ExpiredMarathonTitle extends StatelessWidget {
               width: 3,
             ),
             Text(
-              "已过期比赛",
+              title,
               style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
             ),
             const SizedBox(
-              width: 3,
+              width: 4,
             ),
             Text(
-              db.expiredMarathons.length.toString(),
+              count,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.tertiary,
