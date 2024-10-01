@@ -8,7 +8,6 @@ import 'package:cabbbage/pages/dashboardPage/my_dashboard_marathon_tile.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:cabbbage/components/my_dashboard_tile.dart';
 import 'package:cabbbage/components/my_drawer.dart';
@@ -68,7 +67,11 @@ class DashboardPage extends StatelessWidget {
               onTap: () => Get.toNamed('/timeline'),
               child: Text(
                 Tools.getTitle(),
-                style: const TextStyle(fontSize: 18),
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+                // ? 避免字体加粗的问题
+                strutStyle: const StrutStyle(fontWeight: FontWeight.normal),
               ),
             )),
         drawer: const MyDrawer(),

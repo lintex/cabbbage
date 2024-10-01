@@ -15,15 +15,20 @@ class MyBadge extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           padding: const EdgeInsets.all(3),
           badgeGradient: badges.BadgeGradient.linear(
-            colors: isChosen == 2
+            colors: isChosen == 2 //未中签显示为红色
                 ? [
                     Colors.orange,
                     Colors.deepOrange,
                   ]
-                : [
-                    Colors.lightGreen,
-                    Colors.green,
-                  ],
+                : (isChosen == 1 // 中签显示为绿色，已报名待抽签显示为黄色
+                    ? [
+                        Colors.lightBlue,
+                        Colors.blue,
+                      ]
+                    : [
+                        Colors.lightGreen,
+                        Colors.green,
+                      ]),
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           )),

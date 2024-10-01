@@ -37,9 +37,10 @@ class MyMarathonListTile extends StatelessWidget {
             onPressed: (e) {
               delete(marathon.id);
             },
-            icon: Icons.highlight_remove_rounded,
+            icon: Icons.delete_outline_rounded,
             backgroundColor: Theme.of(context).colorScheme.error,
             borderRadius: BorderRadius.circular(12),
+            label: '删除',
           ),
         ]),
         child: Container(
@@ -66,6 +67,7 @@ class MyMarathonListTile extends StatelessWidget {
                       chosenState(marathon.isChosen) == '未报名'
                           ? _marathonName()
                           : MyBadge(
+                              // 显示徽章
                               isChosen: marathon.isChosen,
                               child: _marathonName()),
 

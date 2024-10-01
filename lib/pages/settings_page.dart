@@ -5,6 +5,7 @@ import 'package:cabbbage/components/my_trailing.dart';
 import 'package:cabbbage/controllers/settings_controller.dart';
 import 'package:cabbbage/theme/theme.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,9 +39,16 @@ class SettingPage extends StatelessWidget {
 
     return Scaffold(
       body: CustomScrollView(slivers: [
-        const MediumSliverAppBar(
-          title: "设置",
-        ),
+        // 显示自定义的SliverAppBar
+        // const SliverAppBar.medium(
+        //   title: Padding(
+        //     padding: EdgeInsets.only(left: 10),
+        //     child: Text("设置"),
+        //   ),
+        // ),
+        _buildSliverBar(),
+        _buildTitleText(),
+        _buildSliverSearch(context),
         SliverList(
           delegate: SliverChildListDelegate([
             Obx(() => MySettingsTile(
@@ -161,4 +169,64 @@ class SettingPage extends StatelessWidget {
       ]),
     );
   }
+}
+
+Widget _buildSliverBar() {
+  const Icon icon = Icon(CupertinoIcons.settings, color: Colors.blue);
+  const TextStyle style = TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+  const Text text = Text('Settings', style: style);
+  Widget action = IconButton(onPressed: () {}, icon: icon);
+  return SliverLayoutBuilder(builder: (_, scs) {
+    double factor = (scs.scrollOffset / kToolbarHeight).clamp(0, 1);
+    factor = factor < 0.2 ? 0 : factor;
+    AppBar header = AppBar(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
+      actions: [action],
+      centerTitle: true,
+      title: Opacity(opacity: factor, child: text),
+    );
+    return PinnedHeaderSliver(child: header);
+  });
+}
+
+Widget _buildTitleText() {
+  const TextStyle style = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+  const Text text = Text('Settings', style: style);
+  return const SliverToBoxAdapter(
+    child: Padding(
+      padding: EdgeInsets.only(left: 12.0, bottom: 8),
+      child: text,
+    ),
+  );
+}
+
+Widget _buildSliverSearch(BuildContext context) {
+  BoxDecoration decoration = BoxDecoration(
+      color: const Color(0xffefeff1), borderRadius: BorderRadius.circular(6));
+  Widget prefix = const Padding(
+      padding: EdgeInsets.only(left: 8.0),
+      child: Icon(CupertinoIcons.search, size: 20, color: Color(0xff808082)));
+  return PinnedHeaderSliver(
+      child: ColoredBox(
+    color: Theme.of(context).colorScheme.primary,
+    child: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0, right: 12, left: 12),
+          child: CupertinoTextField(
+            readOnly: true,
+            placeholder: '搜索',
+            onTap: () {},
+            decoration: decoration,
+            prefix: prefix,
+            style: const TextStyle(fontSize: 14),
+            placeholderStyle: const TextStyle(color: Color(0xff808082)),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          ),
+        ),
+        const Divider(),
+      ],
+    ),
+  ));
 }

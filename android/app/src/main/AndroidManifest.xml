@@ -38,4 +38,6 @@
         </intent>
     </queries>
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 关闭字体加粗 -->
+    <!-- <uses-font-family fontFamily="serif" /> -->
 </manifest>
