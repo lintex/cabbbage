@@ -173,7 +173,9 @@ class SettingPage extends StatelessWidget {
 
 Widget _buildSliverBar() {
   const Icon icon = Icon(CupertinoIcons.settings, color: Colors.blue);
-  const TextStyle style = TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+  const TextStyle style = TextStyle(
+    fontSize: 16,
+  );
   const Text text = Text('Settings', style: style);
   Widget action = IconButton(onPressed: () {}, icon: icon);
   return SliverLayoutBuilder(builder: (_, scs) {
@@ -191,11 +193,12 @@ Widget _buildSliverBar() {
 }
 
 Widget _buildTitleText() {
-  const TextStyle style = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+  const TextStyle style =
+      TextStyle(fontSize: 23, fontWeight: FontWeight.normal);
   const Text text = Text('Settings', style: style);
   return const SliverToBoxAdapter(
     child: Padding(
-      padding: EdgeInsets.only(left: 12.0, bottom: 8),
+      padding: EdgeInsets.fromLTRB(20, 10, 15, 5),
       child: text,
     ),
   );
@@ -203,17 +206,19 @@ Widget _buildTitleText() {
 
 Widget _buildSliverSearch(BuildContext context) {
   BoxDecoration decoration = BoxDecoration(
-      color: const Color(0xffefeff1), borderRadius: BorderRadius.circular(6));
+      color: Colors.white, borderRadius: BorderRadius.circular(8));
   Widget prefix = const Padding(
       padding: EdgeInsets.only(left: 8.0),
       child: Icon(CupertinoIcons.search, size: 20, color: Color(0xff808082)));
   return PinnedHeaderSliver(
       child: ColoredBox(
-    color: Theme.of(context).colorScheme.primary,
+    color:
+        const Color.fromARGB(255, 244, 245, 247), //搜索外框背景色，不能设置成透明，不然会看到底部文字滚动
     child: Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 8.0, right: 12, left: 12),
+          padding:
+              const EdgeInsets.only(top: 8, bottom: 8, right: 15, left: 15),
           child: CupertinoTextField(
             readOnly: true,
             placeholder: '搜索',
@@ -225,7 +230,7 @@ Widget _buildSliverSearch(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           ),
         ),
-        const Divider(),
+        //const Divider(),
       ],
     ),
   ));
